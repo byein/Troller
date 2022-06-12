@@ -1,27 +1,33 @@
-import { Link } from 'react-router-dom';
-import { GlobalHeader } from '../../styles/global/global';
+import { Link, useMatch } from 'react-router-dom';
+import { GlobalHeader, Tab } from '../../styles/global/global';
 
-function Header() {
+function Header({ pathname }: { pathname: string }) {
+	const duoMatch = useMatch('find_duo');
+	const multiMatch = useMatch('multi_search');
+	const rankMatch = useMatch('normal_rank');
 	return (
-		<GlobalHeader>
+		<GlobalHeader pathname={pathname}>
 			<span className="logo">
-				<Link to="/">Logo </Link>
+				<Link to="/">Logo</Link>
 			</span>
 			<div>
 				<ul>
-					<li>
-						<Link to="/duo">듀오찾기</Link>
-					</li>
-					<li>
-						<Link to="/multi">멀티서치</Link>
-					</li>
-					<li>
-						<Link to="/login">트롤랭킹</Link>
-					</li>
+					<Tab isActive={duoMatch !== null}>
+						{/* isActive props가 true인지 false인지 체크 => 컬러체인지 */}
+						<Link to="find_duo">듀오찾기</Link>
+					</Tab>
+					<Tab isActive={multiMatch !== null}>
+						{/* isActive props가 true인지 false인지 체크 => 컬러체인지 */}
+						<Link to="multi_search">멀티서치</Link>
+					</Tab>
+					<Tab isActive={rankMatch !== null}>
+						{/* isActive props가 true인지 false인지 체크 => 컬러체인지 */}
+						<Link to="normal_rank">노멀랭킹</Link>
+					</Tab>
 				</ul>
 			</div>
 			<span className="signin">
-				<Link to="/signin">sign in</Link>
+				<Link to="signin">sign in</Link>
 			</span>
 		</GlobalHeader>
 	);
