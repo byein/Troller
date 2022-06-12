@@ -1,5 +1,10 @@
-import ContainerMain from '../../styles/home/home';
+import Header from '../../components/header/header';
+import { GlobalContainer } from '../../styles/global/global';
 
 export default function Home() {
-	return <ContainerMain />;
+	return (
+		<GlobalContainer>
+			<Header />
+		</GlobalContainer>
+	);
 }
