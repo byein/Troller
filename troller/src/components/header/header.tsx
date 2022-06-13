@@ -1,10 +1,7 @@
-import { Link, useMatch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { GlobalHeader, Tab } from '../../styles/global/global';
 
 function Header({ pathname }: { pathname: string }) {
-	const duoMatch = useMatch('find_duo');
-	const multiMatch = useMatch('multi_search');
-	const rankMatch = useMatch('normal_rank');
 	return (
 		<GlobalHeader pathname={pathname}>
 			<span className="logo">
@@ -12,15 +9,15 @@ function Header({ pathname }: { pathname: string }) {
 			</span>
 			<div>
 				<ul>
-					<Tab isActive={duoMatch !== null}>
+					<Tab isActive={pathname === '/find_duo'}>
 						{/* isActive props가 true인지 false인지 체크 => 컬러체인지 */}
 						<Link to="find_duo">듀오찾기</Link>
 					</Tab>
-					<Tab isActive={multiMatch !== null}>
+					<Tab isActive={pathname === '/multi_search'}>
 						{/* isActive props가 true인지 false인지 체크 => 컬러체인지 */}
 						<Link to="multi_search">멀티서치</Link>
 					</Tab>
-					<Tab isActive={rankMatch !== null}>
+					<Tab isActive={pathname === '/normal_rank'}>
 						{/* isActive props가 true인지 false인지 체크 => 컬러체인지 */}
 						<Link to="normal_rank">노멀랭킹</Link>
 					</Tab>
