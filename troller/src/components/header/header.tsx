@@ -1,27 +1,27 @@
 import { Link } from 'react-router-dom';
-import { GlobalHeader } from '../../styles/global/global';
+import { GlobalHeader, Tab } from '../../styles/global/global';
 
-function Header() {
+function Header({ pathname }: { pathname: string }) {
 	return (
-		<GlobalHeader>
+		<GlobalHeader pathname={pathname}>
 			<span className="logo">
-				<Link to="/">Logo </Link>
+				<Link to="/">Logo</Link>
 			</span>
 			<div>
 				<ul>
-					<li>
-						<Link to="/duo">듀오찾기</Link>
-					</li>
-					<li>
-						<Link to="/multi">멀티서치</Link>
-					</li>
-					<li>
-						<Link to="/login">트롤랭킹</Link>
-					</li>
+					<Tab isActive={pathname === '/find_duo'}>
+						<Link to="find_duo">듀오찾기</Link>
+					</Tab>
+					<Tab isActive={pathname === '/multi_search'}>
+						<Link to="multi_search">멀티서치</Link>
+					</Tab>
+					<Tab isActive={pathname === '/normal_rank'}>
+						<Link to="normal_rank">노멀랭킹</Link>
+					</Tab>
 				</ul>
 			</div>
 			<span className="signin">
-				<Link to="/signin">sign in</Link>
+				<Link to="signin">sign in</Link>
 			</span>
 		</GlobalHeader>
 	);

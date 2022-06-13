@@ -1,10 +1,18 @@
+import { Outlet, useMatch, useLocation } from 'react-router-dom';
+import { GlobalContainer, MainContainer } from '../styles/global/global';
 import Header from '../components/header/header';
-import { GlobalContainer } from '../styles/global/global';
+import Home from './main/home';
 
-export default function Hub() {
+function Hub() {
+	const match = useMatch('/');
+	const { pathname } = useLocation();
 	return (
 		<GlobalContainer>
-			<Header />
+			<Header pathname={pathname} />
+			<MainContainer pathname={pathname}>{match ? <Home /> : <Outlet />}</MainContainer>
+			{/* MainContainer를 큰틀으로 제작해주세요!(옵션) */}
 		</GlobalContainer>
 	);
 }
+
+export default Hub;
