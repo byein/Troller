@@ -1,4 +1,5 @@
-import '@emotion/react'; //해결해야 할 문제
+import '@emotion/react';
+
 declare module '@emotion/react' {
 	export interface Theme {
 		bgColor: string;

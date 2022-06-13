@@ -3,8 +3,6 @@ import styled from '@emotion/styled';
 const TABLET_STANDARD = 1024;
 const MOBILE_STANDARD = 768;
 
-// props로 theme 전달 받지를 못함. theme.d.ts에서 import안돼서 그런 듯 함. 임시로 string으로 색상값 전달.
-
 const GlobalHeader = styled('header')<{ pathname: string }>`
 	width: 100vw;
 	height: 80px;
@@ -12,19 +10,19 @@ const GlobalHeader = styled('header')<{ pathname: string }>`
 	justify-content: space-between;
 	align-items: center;
 	position: absolute;
-	background-color: ${(props) => (props.pathname === '/normal_rank' ? '#0A1F62' : 'none')};
+	background-color: ${(props) => (props.pathname === '/normal_rank' ? props.theme.bgColor : 'none')};
 	z-index: 1;
 	span {
 		margin: 15px;
-		color: white;
+		color: ${(props) => props.theme.txtColor.primary};
 	}
 	.logo {
 		font-size: 30px;
-		color: white;
+		color: ${(props) => props.theme.txtColor.primary};
 	}
 	.signin {
 		font-size: 15px;
-		color: white;
+		color: ${(props) => props.theme.txtColor.primary};
 		display: ${(props) => (props.pathname !== '/signin' ? 'block' : 'none')};
 	}
 	div {
@@ -37,14 +35,13 @@ const GlobalHeader = styled('header')<{ pathname: string }>`
 			width: 100%;
 			height: 100%;
 			display: flex;
-			color: white;
 			align-items: center;
 		}
 	}
 `;
 const Tab = styled('li')<{ isActive: boolean }>`
 	margin: auto;
-	color: ${(props) => (!props.isActive ? 'white' : '#59EAD0')};
+	color: ${(props) => (!props.isActive ? props.theme.txtColor.primary : props.theme.txtColor.selected)};
 `;
 
 const GlobalContainer = styled('div')`
