@@ -23,14 +23,26 @@ const GlobalHeader = styled('header')<{ pathname: string }>`
 	.signin {
 		font-size: 15px;
 		color: ${(props) => props.theme.txtColor.primary};
-		display: ${(props) => (props.pathname !== '/signin' ? 'block' : 'none')};
+		display: ${(props) =>
+			props.pathname === '/sign_in' ||
+			props.pathname === '/sign_up' ||
+			props.pathname === '/terms' ||
+			props.pathname === '/forgot_pw'
+				? 'none'
+				: 'block'};
 	}
 	div {
 		width: 315px;
 		height: 100%;
 		position: absolute;
 		left: 130px;
-		display: ${(props) => (props.pathname !== '/signin' ? 'block' : 'none')};
+		display: ${(props) =>
+			props.pathname === '/sign_in' ||
+			props.pathname === '/sign_up' ||
+			props.pathname === '/terms' ||
+			props.pathname === '/forgot_pw'
+				? 'none'
+				: 'block'};
 		ul {
 			width: 100%;
 			height: 100%;

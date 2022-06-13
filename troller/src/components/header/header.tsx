@@ -21,7 +21,7 @@ function Header({ pathname }: { pathname: string }) {
 				</ul>
 			</div>
 			<span className="signin">
-				<Link to="signin">로그인</Link>
+				<Link to="sign_in">로그인</Link>
 			</span>
 		</GlobalHeader>
 	);
