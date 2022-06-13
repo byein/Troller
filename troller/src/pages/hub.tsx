@@ -10,6 +10,7 @@ function Hub() {
 		<GlobalContainer>
 			<Header pathname={pathname} />
 			<MainContainer pathname={pathname}>{match ? <Home /> : <Outlet />}</MainContainer>
+			{/* MainContainer를 큰틀으로 제작해주세요!(옵션) */}
 		</GlobalContainer>
 	);
 }

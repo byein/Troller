@@ -1,5 +1,4 @@
-import { Global, ThemeProvider } from '@emotion/react';
-import Header from './components/header/header';
+import { Global } from '@emotion/react';
 import Router from './Router';
 import reset from './styles/global/reset';
 

@@ -1,6 +1,4 @@
-import Header from '../../components/header/header';
-import { MainContainer } from '../../styles/global/global';
-
-export default function Home() {
+function Home() {
 	return null;
 }
+export default Home;

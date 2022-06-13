@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
 
-const TABLET_STANDARD = 1024; // 반응형 픽셀기준
-const MOBILE_STANDARD = 768; // 반응형 픽셀기준
+const TABLET_STANDARD = 1024;
+const MOBILE_STANDARD = 768;
+
+// props로 theme 전달 받지를 못함. theme.d.ts에서 import안돼서 그런 듯 함. 임시로 string으로 색상값 전달.
 
 const GlobalHeader = styled('header')<{ pathname: string }>`
 	width: 100vw;
@@ -11,7 +13,6 @@ const GlobalHeader = styled('header')<{ pathname: string }>`
 	align-items: center;
 	position: absolute;
 	background-color: ${(props) => (props.pathname === '/normal_rank' ? '#0A1F62' : 'none')};
-	// props로 theme 전달 받지를 못함. theme.d.ts에서 import안돼서 그런 듯 함. 임시로 string으로 색상값 전달.
 	z-index: 1;
 	span {
 		margin: 15px;
@@ -43,17 +44,22 @@ const GlobalHeader = styled('header')<{ pathname: string }>`
 `;
 const Tab = styled('li')<{ isActive: boolean }>`
 	margin: auto;
-	color: ${(props) => (!props.isActive ? 'white' : '#59EAD0')}; //이것도 themeProvider적용 안됨...
+	color: ${(props) => (!props.isActive ? 'white' : '#59EAD0')};
 `;
+
 const GlobalContainer = styled('div')`
 	width: 100vw;
-	height: 100vh;
+	height: auto;
 	position: relative;
 `; // Header와 MainContainer를 감싸는 Container!
 
 const MainContainer = styled('div')<{ pathname: string }>`
 	width: 100vw;
-	height: 100vh;
+	min-height: 100vh;
+	padding: 80px 15px 0 15px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	position: absolute;
 	background: linear-gradient(
 		${(props) =>
