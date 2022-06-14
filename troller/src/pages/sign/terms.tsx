@@ -1,4 +1,6 @@
+import SignForm from '../../components/sign/signForm';
+
 function Terms() {
-	return null;
+	return <SignForm>{null}</SignForm>;
 }
 export default Terms;
