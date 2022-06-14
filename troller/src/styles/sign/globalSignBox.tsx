@@ -21,16 +21,12 @@ const Form = styled('form')`
 	flex-direction: column;
 	align-items: center;
 	.createbox {
-		width: 180px;
+		width: auto;
 		height: auto;
 		margin-bottom: 20px;
 		font-size: ${`${DEFAULT_FONTSIZE}px`};
 		display: flex;
 		justify-content: space-between;
-		.createbox__txt,
-		.createbox__create {
-			color: ${(props) => props.theme.txtColor.primary};
-		}
 		.createbox__create {
 			color: ${(props) => props.theme.txtColor.selected};
 		}
@@ -61,7 +57,7 @@ const InputBox = styled('div')`
 		${FLOAT_COLOR};
 		width: 100%;
 		height: 50px;
-		border: 1px solid white;
+		border: 0.5px solid white;
 		border-radius: ${`${BORDER_RADIUS - 5}px`};
 		padding: 0;
 		color: ${(props) => props.theme.txtColor.primary};
@@ -75,14 +71,14 @@ const InputBox = styled('div')`
 `;
 
 const SubmitBtn = styled('button')`
-	width: 100%;
+	width: 400px;
 	height: 50px;
 	background-color: ${(props) => props.theme.btnColor};
 	border: none;
 	border-radius: ${`${BORDER_RADIUS - 5}px`};
 	color: ${(props) => props.theme.txtColor.primary};
 	font-size: ${`${DEFAULT_FONTSIZE}px`};
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 	cursor: pointer;
 `;
 
@@ -96,7 +92,7 @@ const AnotherWay = styled('div')`
 	align-items: center;
 	.hr {
 		color: rgba(255, 255, 255, 0.7);
-		margin-bottom: 20px;
+		margin-bottom: 10px;
 	}
 	.another__google,
 	.another__kakao,

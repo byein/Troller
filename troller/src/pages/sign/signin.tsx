@@ -8,27 +8,22 @@ function Signin() {
 			<Form>
 				<InputBox>
 					<div className="label">
-						<span className="label__name">E-mail address</span>
+						<span className="label__name">이메일 주소</span>
 					</div>
 					<input type="email" />
 				</InputBox>
 				<InputBox>
 					<div className="label">
-						<span className="label__name">Password</span>
+						<span className="label__name">비밀번호</span>
 						<Link to="/forgot_pw">
-							<span className="label__forgotpw">Forgot Password?</span>
+							<span className="label__forgotpw">비밀번호 분실</span>
 						</Link>
 					</div>
 					<input type="text" />
 				</InputBox>
-				<SubmitBtn>Sign In</SubmitBtn>
-				<div className="createbox">
-					<span className="createbox__txt">new to Logo?</span>
-					<Link to="/terms">
-						<span className="createbox__create">create account</span>
-					</Link>
-				</div>
+				<SubmitBtn>로그인</SubmitBtn>
 			</Form>
+			<SubmitBtn>계정생성</SubmitBtn>
 			<AnotherWay>
 				<span className="hr">or</span>
 				<div className="another__google">
