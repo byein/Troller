@@ -30,6 +30,7 @@ function Signin() {
 				</div>
 			</Form>
 			<AnotherWay>
+				<span className="hr">or</span>
 				<div className="another__google">
 					<img
 						className="another__img"

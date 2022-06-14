@@ -82,16 +82,22 @@ const SubmitBtn = styled('button')`
 	border-radius: ${`${BORDER_RADIUS - 5}px`};
 	color: ${(props) => props.theme.txtColor.primary};
 	font-size: ${`${DEFAULT_FONTSIZE}px`};
-	margin-bottom: 10px;
+	margin-bottom: 20px;
+	cursor: pointer;
 `;
 
 const AnotherWay = styled('div')`
 	width: 260px;
-	height: 180px;
+	height: auto;
 	margin: 0 auto;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	align-items: center;
+	.hr {
+		color: rgba(255, 255, 255, 0.7);
+		margin-bottom: 20px;
+	}
 	.another__google,
 	.another__kakao,
 	.another__naver {
@@ -102,6 +108,7 @@ const AnotherWay = styled('div')`
 		border-radius: ${`${BORDER_RADIUS}px`};
 		padding: 10px;
 		font-weight: 600;
+		margin-bottom: 10px;
 	}
 	.another__img {
 		width: 45px;
