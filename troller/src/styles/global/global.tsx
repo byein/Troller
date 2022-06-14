@@ -1,7 +1,22 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+// const TABLET_STANDARD = 1024;
+// const MOBILE_STANDARD = 768;
+const BORDER_RADIUS = 10;
+const DEFAULT_FONTSIZE = 15;
+const LARGE_FONTSIZE = 30;
+const BOX_SHADOW = css`
+	box-shadow: 10px 10px 20px 5px rgba(43, 37, 37, 0.25);
+`;
+const FLOAT_COLOR = css`
+	background-color: rgba(10, 31, 98, 0.4);
+`;
 
-const TABLET_STANDARD = 1024;
-const MOBILE_STANDARD = 768;
+const GlobalContainer = styled('div')`
+	width: 100vw;
+	height: auto;
+	position: relative;
+`; // Header와 MainContainer를 감싸는 Container!
 
 const GlobalHeader = styled('header')<{ pathname: string }>`
 	width: 100vw;
@@ -21,16 +36,29 @@ const GlobalHeader = styled('header')<{ pathname: string }>`
 		color: ${(props) => props.theme.txtColor.primary};
 	}
 	.signin {
-		font-size: 15px;
+		font-size: ${`${DEFAULT_FONTSIZE}px`};
 		color: ${(props) => props.theme.txtColor.primary};
-		display: ${(props) => (props.pathname !== '/signin' ? 'block' : 'none')};
+		display: ${(props) =>
+			props.pathname === '/sign_in' ||
+			props.pathname === '/sign_up' ||
+			props.pathname === '/terms' ||
+			props.pathname === '/forgot_pw'
+				? 'none'
+				: 'block'};
 	}
 	div {
 		width: 315px;
 		height: 100%;
 		position: absolute;
 		left: 130px;
-		display: ${(props) => (props.pathname !== '/signin' ? 'block' : 'none')};
+		font-size: ${`${DEFAULT_FONTSIZE}px`};
+		display: ${(props) =>
+			props.pathname === '/sign_in' ||
+			props.pathname === '/sign_up' ||
+			props.pathname === '/terms' ||
+			props.pathname === '/forgot_pw'
+				? 'none'
+				: 'block'};
 		ul {
 			width: 100%;
 			height: 100%;
@@ -39,16 +67,11 @@ const GlobalHeader = styled('header')<{ pathname: string }>`
 		}
 	}
 `;
+
 const Tab = styled('li')<{ isActive: boolean }>`
 	margin: auto;
 	color: ${(props) => (!props.isActive ? props.theme.txtColor.primary : props.theme.txtColor.selected)};
 `;
-
-const GlobalContainer = styled('div')`
-	width: 100vw;
-	height: auto;
-	position: relative;
-`; // Header와 MainContainer를 감싸는 Container!
 
 const MainContainer = styled('div')<{ pathname: string }>`
 	width: 100vw;
@@ -66,4 +89,17 @@ const MainContainer = styled('div')<{ pathname: string }>`
 	);
 	z-index: 0;
 `;
-export { GlobalContainer, MainContainer, Tab, GlobalHeader, TABLET_STANDARD, MOBILE_STANDARD };
+
+export {
+	// TABLET_STANDARD,
+	// MOBILE_STANDARD,
+	GlobalContainer,
+	MainContainer,
+	Tab,
+	GlobalHeader,
+	BORDER_RADIUS,
+	FLOAT_COLOR,
+	DEFAULT_FONTSIZE,
+	LARGE_FONTSIZE,
+	BOX_SHADOW,
+};
