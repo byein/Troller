@@ -55,7 +55,7 @@ const SearchForm = styled("form")`
     width: 68px;
     height: 30px;
     border-radius: ${`${BORDER_RADIUS}px`};
-    background: rgba(196, 196, 196, 0.55);
+    background-color: rgba(196, 196, 196, 0.55);
     font-size: 1rem;
     font-weight: bold;
     justify-content: center;
@@ -88,7 +88,7 @@ const SearchTag = styled("div")`
     width: 68px;
     height: 30px;
     border-radius: ${`${BORDER_RADIUS}px`};
-    background: rgba(196, 196, 196, 0.55);
+    background-color: rgba(196, 196, 196, 0.55);
     font-size: 1rem;
     font-weight: bold;
     justify-content: center;
@@ -127,7 +127,6 @@ const RankTable = styled("table")`
   flex-direction: column;
   align-items: center;
   border-radius: ${`${BORDER_RADIUS}px`};
-  backgroundcolor: rgba(40, 58, 115, 100);
   color: white;
 `;
 
@@ -156,7 +155,7 @@ const RankTRBar = styled("tr")`
   td {
     width: 100%;
     height: 0px;
-    border: 1px solid #969eba;
+    border: 1px solid ${(props) => props.theme.borderColor};
   }
 `;
 const TDRank = styled("td")`
