@@ -59,6 +59,7 @@ const RankTableRender = () => {
         result.push(
           <RankItemStyle>
             <RankItem
+              key={i}
               rank={i + 1}
               nickname="닉네임"
               kda={i * 0.05}
