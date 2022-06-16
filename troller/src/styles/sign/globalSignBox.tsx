@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
 import { BORDER_RADIUS, BOX_SHADOW, DEFAULT_FONTSIZE, FLOAT_COLOR } from '../global/global';
 
+const LOGINBTN_RADIUS = '6px';
+
 const SignBox = styled('div')`
 	${FLOAT_COLOR};
 	${BOX_SHADOW};
@@ -73,17 +75,20 @@ const InputBox = styled('div')`
 const SubmitBtn = styled('button')`
 	width: 400px;
 	height: 50px;
-	background-color: ${(props) => props.theme.btnColor};
+	background-color: ${(props) => props.theme.btnColor.primary};
 	border: none;
 	border-radius: ${`${BORDER_RADIUS - 5}px`};
 	color: ${(props) => props.theme.txtColor.primary};
 	font-size: ${`${DEFAULT_FONTSIZE}px`};
 	margin-bottom: 10px;
 	cursor: pointer;
+	&:hover {
+		background-color: ${(props) => props.theme.btnColor.onHover};
+	}
 `;
 
 const AnotherWay = styled('div')`
-	width: 260px;
+	width: 185px;
 	height: auto;
 	margin: 0 auto;
 	display: flex;
@@ -94,39 +99,15 @@ const AnotherWay = styled('div')`
 		color: rgba(255, 255, 255, 0.7);
 		margin-bottom: 10px;
 	}
-	.another__google,
-	.another__kakao,
-	.another__naver {
+	.login {
 		width: 100%;
-		height: 55px;
-		display: flex;
-		align-items: center;
-		border-radius: ${`${BORDER_RADIUS}px`};
-		padding: 10px;
-		font-weight: 600;
-		margin-bottom: 10px;
-	}
-	.another__img {
-		width: 45px;
-		height: 45px;
-		margin-right: 25px;
-	}
-	.another__google {
-		color: ${(props) => props.theme.txtColor.primary};
-		background-color: #4284f3;
-	}
-	.another__kakao {
-		color: '#3E1C32';
-		background-color: #fae100;
-	}
-	.another__naver {
-		color: ${(props) => props.theme.txtColor.primary};
-		background-color: #00c83b;
-	}
-	.another__txt {
-		display: inline-block;
-		width: 130px;
-		text-align: center;
+		height: auto;
+		margin: 2px;
+		border-radius: ${LOGINBTN_RADIUS};
+		.login_btn {
+			width: 100%;
+			height: 100%;
+		}
 	}
 `;
 export { SignBox, Form, InputBox, SubmitBtn, AnotherWay };
