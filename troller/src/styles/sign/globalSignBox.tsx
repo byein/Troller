@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
 import { BORDER_RADIUS, BOX_SHADOW, DEFAULT_FONTSIZE, FLOAT_COLOR } from '../global/global';
 
+const LOGINBTN_RADIUS = '6px';
+
 const SignBox = styled('div')`
 	${FLOAT_COLOR};
 	${BOX_SHADOW};
@@ -21,16 +23,12 @@ const Form = styled('form')`
 	flex-direction: column;
 	align-items: center;
 	.createbox {
-		width: 180px;
+		width: auto;
 		height: auto;
 		margin-bottom: 20px;
 		font-size: ${`${DEFAULT_FONTSIZE}px`};
 		display: flex;
 		justify-content: space-between;
-		.createbox__txt,
-		.createbox__create {
-			color: ${(props) => props.theme.txtColor.primary};
-		}
 		.createbox__create {
 			color: ${(props) => props.theme.txtColor.selected};
 		}
@@ -61,7 +59,7 @@ const InputBox = styled('div')`
 		${FLOAT_COLOR};
 		width: 100%;
 		height: 50px;
-		border: 1px solid white;
+		border: 0.5px solid white;
 		border-radius: ${`${BORDER_RADIUS - 5}px`};
 		padding: 0;
 		color: ${(props) => props.theme.txtColor.primary};
@@ -75,55 +73,41 @@ const InputBox = styled('div')`
 `;
 
 const SubmitBtn = styled('button')`
-	width: 100%;
+	width: 400px;
 	height: 50px;
-	background-color: ${(props) => props.theme.btnColor};
+	background-color: ${(props) => props.theme.btnColor.primary};
 	border: none;
 	border-radius: ${`${BORDER_RADIUS - 5}px`};
 	color: ${(props) => props.theme.txtColor.primary};
 	font-size: ${`${DEFAULT_FONTSIZE}px`};
 	margin-bottom: 10px;
+	cursor: pointer;
+	&:hover {
+		background-color: ${(props) => props.theme.btnColor.onHover};
+	}
 `;
 
 const AnotherWay = styled('div')`
-	width: 260px;
-	height: 180px;
+	width: 185px;
+	height: auto;
 	margin: 0 auto;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	.another__google,
-	.another__kakao,
-	.another__naver {
+	align-items: center;
+	.hr {
+		color: rgba(255, 255, 255, 0.7);
+		margin-bottom: 10px;
+	}
+	.login {
 		width: 100%;
-		height: 55px;
-		display: flex;
-		align-items: center;
-		border-radius: ${`${BORDER_RADIUS}px`};
-		padding: 10px;
-		font-weight: 600;
-	}
-	.another__img {
-		width: 45px;
-		height: 45px;
-		margin-right: 25px;
-	}
-	.another__google {
-		color: ${(props) => props.theme.txtColor.primary};
-		background-color: #4284f3;
-	}
-	.another__kakao {
-		color: '#3E1C32';
-		background-color: #fae100;
-	}
-	.another__naver {
-		color: ${(props) => props.theme.txtColor.primary};
-		background-color: #00c83b;
-	}
-	.another__txt {
-		display: inline-block;
-		width: 130px;
-		text-align: center;
+		height: auto;
+		margin: 2px;
+		border-radius: ${LOGINBTN_RADIUS};
+		.login_btn {
+			width: 100%;
+			height: 100%;
+		}
 	}
 `;
 export { SignBox, Form, InputBox, SubmitBtn, AnotherWay };

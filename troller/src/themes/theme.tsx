@@ -1,13 +1,16 @@
 import { Theme } from "@emotion/react";
 
 const def: Theme = {
-  bgColor: "#0A1F62",
-  btnColor: "#2DA042",
-  borderColor: "#969eba",
-  txtColor: {
-    primary: "white",
-    selected: "#59EAD0",
-  },
+	bgColor: '#0A1F62',
+	borderColor: '#969eba',
+	btnColor: {
+		primary: '#2DA042',
+		onHover: '#25AC3D',
+	},
+	txtColor: {
+		primary: 'white',
+		selected: '#59EAD0',
+	},
 };
 
 export default def;
