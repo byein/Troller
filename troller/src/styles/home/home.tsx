@@ -148,7 +148,7 @@ const RankTRBar = styled('tr')`
 	td {
 		width: 100%;
 		height: 0px;
-		border: 1px solid ${(props) => props.theme.borderColor};
+		border: 1px solid ${props => props.theme.borderColor};
 	}
 `;
 const TDRank = styled('td')`
