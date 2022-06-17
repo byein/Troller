@@ -1,5 +1,10 @@
 import styled from '@emotion/styled';
-import { BORDER_RADIUS, BOX_SHADOW, DEFAULT_FONTSIZE, FLOAT_COLOR } from '../global/global';
+import {
+	BORDER_RADIUS,
+	BOX_SHADOW,
+	DEFAULT_FONTSIZE,
+	FLOAT_COLOR,
+} from '../global/global';
 
 const LOGINBTN_RADIUS = '6px';
 
@@ -18,7 +23,6 @@ const SignBox = styled('div')`
 const Form = styled('form')`
 	width: 400px;
 	height: auto;
-	/* margin: 20px auto; */
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -30,7 +34,7 @@ const Form = styled('form')`
 		display: flex;
 		justify-content: space-between;
 		.createbox__create {
-			color: ${(props) => props.theme.txtColor.selected};
+			color: ${props => props.theme.txtColor.selected};
 		}
 	}
 `;
@@ -48,11 +52,11 @@ const InputBox = styled('div')`
 			justify-content: space-between;
 		}
 		.label__name {
-			color: ${(props) => props.theme.txtColor.primary};
+			color: ${props => props.theme.txtColor.primary};
 		}
 		.label__forgotpw {
 			font-size: ${`${DEFAULT_FONTSIZE}px`};
-			color: ${(props) => props.theme.txtColor.selected};
+			color: ${props => props.theme.txtColor.selected};
 		}
 	}
 	input {
@@ -62,12 +66,12 @@ const InputBox = styled('div')`
 		border: 0.5px solid white;
 		border-radius: ${`${BORDER_RADIUS - 5}px`};
 		padding: 0;
-		color: ${(props) => props.theme.txtColor.primary};
+		color: ${props => props.theme.txtColor.primary};
 		font-size: ${`${DEFAULT_FONTSIZE}px`};
 		text-indent: 10px;
 		&:focus {
 			outline: none;
-			border-color: ${(props) => props.theme.txtColor.selected};
+			border-color: ${props => props.theme.txtColor.selected};
 		}
 	}
 `;
@@ -75,15 +79,15 @@ const InputBox = styled('div')`
 const SubmitBtn = styled('button')`
 	width: 400px;
 	height: 50px;
-	background-color: ${(props) => props.theme.btnColor.primary};
+	background-color: ${props => props.theme.btnColor.primary};
 	border: none;
 	border-radius: ${`${BORDER_RADIUS - 5}px`};
-	color: ${(props) => props.theme.txtColor.primary};
+	color: ${props => props.theme.txtColor.primary};
 	font-size: ${`${DEFAULT_FONTSIZE}px`};
 	margin-bottom: 10px;
 	cursor: pointer;
 	&:hover {
-		background-color: ${(props) => props.theme.btnColor.onHover};
+		background-color: ${props => props.theme.btnColor.onHover};
 	}
 `;
 
