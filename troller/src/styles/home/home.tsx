@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
-
-import { BORDER_RADIUS, BOX_SHADOW, DEFAULT_FONTSIZE, FLOAT_COLOR } from '../global/global';
+import { BORDER_RADIUS, BOX_SHADOW, FLOAT_COLOR } from '../global/global';
 
 const HomeWrapper = styled('div')`
 	width: 100%;
@@ -78,19 +77,17 @@ const SearchForm = styled('form')`
 `;
 
 const SearchTag = styled('div')`
-	 {
-		display: flex;
-		width: 68px;
-		height: 30px;
-		border-radius: ${`${BORDER_RADIUS}px`};
-		background-color: rgba(196, 196, 196, 0.55);
-		font-size: 1rem;
-		font-weight: bold;
-		justify-content: center;
-		align-items: center;
-		margin: 0px 2px 0px 2px;
-		z-index: 10;
-	}
+	display: flex;
+	width: 68px;
+	height: 30px;
+	border-radius: ${`${BORDER_RADIUS}px`};
+	background-color: rgba(196, 196, 196, 0.55);
+	font-size: 1rem;
+	font-weight: bold;
+	justify-content: center;
+	align-items: center;
+	margin: 0px 2px 0px 2px;
+	z-index: 10;
 `;
 
 const Section = styled('section')`
@@ -150,7 +147,7 @@ const RankTRBar = styled('tr')`
 	td {
 		width: 100%;
 		height: 0px;
-		border: 1px solid ${(props) => props.theme.borderColor};
+		border: 1px solid ${props => props.theme.borderColor};
 	}
 `;
 const TDRank = styled('td')`

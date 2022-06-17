@@ -46,13 +46,25 @@ function RankTableRender() {
 			if (i === 9) {
 				result.push(
 					<div>
-						<RankItem key={i} rank={i + 1} nickname="닉네임" kda={i * 0.05} winRate={i * 0.06} />
+						<RankItem
+							key={i}
+							rank={i + 1}
+							nickname="닉네임"
+							kda={i * 0.05}
+							winRate={i * 0.06}
+						/>
 					</div>
 				);
 			} else {
 				result.push(
 					<RankItemStyle>
-						<RankItem key={i} rank={i + 1} nickname="닉네임" kda={i * 0.05} winRate={i * 0.06} />
+						<RankItem
+							key={i}
+							rank={i + 1}
+							nickname="닉네임"
+							kda={i * 0.05}
+							winRate={i * 0.06}
+						/>
 						<RankTableTRBar />{' '}
 					</RankItemStyle>
 				);

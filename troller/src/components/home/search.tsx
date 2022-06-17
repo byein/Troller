@@ -9,7 +9,13 @@ function SearchTag() {
 	);
 }
 function SearchInput() {
-	return <input className="SearchInput" type="text" placeholder="소환사를 입력하세요" />;
+	return (
+		<input
+			className="SearchInput"
+			type="text"
+			placeholder="소환사를 입력하세요"
+		/>
+	);
 }
 function Search() {
 	return (
