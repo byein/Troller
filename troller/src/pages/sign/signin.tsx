@@ -31,7 +31,6 @@ function Signin() {
 							required: true,
 						})}
 						type="email"
-						placeholder="Logo@example.com"
 					/>
 				</InputBox>
 				<InputBox>
@@ -50,7 +49,7 @@ function Signin() {
 				<SubmitBtn type="submit">Log In</SubmitBtn>
 			</Form>
 			<Link to="/sign_up">
-				<SubmitBtn>Create Account</SubmitBtn>
+				<SubmitBtn className="createAccount">Create Account</SubmitBtn>
 			</Link>
 			<AnotherLogin />
 		</SignForm>
