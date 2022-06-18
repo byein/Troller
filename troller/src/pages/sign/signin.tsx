@@ -6,9 +6,18 @@ import { Form, InputBox, SubmitBtn } from '../../styles/sign/globalSignBox';
 
 function Signin() {
 	const { register, handleSubmit } = useForm<ISignType>();
-	const onSubmit = (data: ISignType) => {
-		console.log(data);
-		// data에 email && password값 저장 => 서버 전송코드 작성구간
+	const onSubmit = (userAuth: ISignType) => {
+		(async () => {
+			const res = await (
+				await fetch('temoporalUrl', {
+					method: 'POST',
+					headers: {
+						'Content-Type': '/application.json',
+					},
+					body: JSON.stringify(userAuth),
+				})
+			).json();
+		})();
 	};
 	return (
 		<SignForm>
@@ -22,7 +31,6 @@ function Signin() {
 							required: true,
 						})}
 						type="email"
-						placeholder="Logo@example.com"
 					/>
 				</InputBox>
 				<InputBox>
@@ -41,7 +49,7 @@ function Signin() {
 				<SubmitBtn type="submit">Log In</SubmitBtn>
 			</Form>
 			<Link to="/sign_up">
-				<SubmitBtn>Create Account</SubmitBtn>
+				<SubmitBtn className="createAccount">Create Account</SubmitBtn>
 			</Link>
 			<AnotherLogin />
 		</SignForm>

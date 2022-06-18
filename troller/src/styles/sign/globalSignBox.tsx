@@ -4,9 +4,12 @@ import {
 	BOX_SHADOW,
 	DEFAULT_FONTSIZE,
 	FLOAT_COLOR,
+	LARGE_FONTSIZE,
+	TRANSITION,
+	TRANSPARENT_TXTCOLOR,
 } from '../global/global';
 
-const LOGINBTN_RADIUS = '6px';
+const LOGINBTN_RADIUS_FORKAKAO = '6px';
 
 const SignBox = styled('div')`
 	${FLOAT_COLOR};
@@ -18,6 +21,23 @@ const SignBox = styled('div')`
 	align-items: center;
 	padding: 20px;
 	border-radius: ${`${BORDER_RADIUS}px`};
+	.createAccount {
+		width: 400px;
+		height: 50px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: ${props => props.theme.btnColor.primary};
+		border: none;
+		border-radius: ${`${BORDER_RADIUS - 5}px`};
+		color: ${props => props.theme.txtColor.primary};
+		font-size: ${`${DEFAULT_FONTSIZE}px`};
+		margin-bottom: 10px;
+		cursor: pointer;
+		&:hover {
+			background-color: ${props => props.theme.btnColor.onHover};
+		}
+	}
 `;
 
 const Form = styled('form')`
@@ -43,6 +63,9 @@ const InputBox = styled('div')`
 	width: 100%;
 	height: auto;
 	margin: 0 0 20px 0;
+	&:first-of-type {
+		position: relative;
+	}
 	.label {
 		width: 100%;
 		height: 20px;
@@ -69,16 +92,47 @@ const InputBox = styled('div')`
 		color: ${props => props.theme.txtColor.primary};
 		font-size: ${`${DEFAULT_FONTSIZE}px`};
 		text-indent: 10px;
+		${TRANSITION};
 		&:focus {
 			outline: none;
 			border-color: ${props => props.theme.txtColor.selected};
 		}
 	}
+	.isVerified {
+		color: ${props => props.theme.txtColor.selected};
+		width: auto;
+		font-size: ${`${DEFAULT_FONTSIZE}px`};
+		position: absolute;
+		top: 53%;
+		left: 84%;
+	}
 `;
-
+const VerifyInput = styled('input')<{ requestAuth: boolean; code: string }>`
+	width: 30%;
+	height: ${props => (!props.requestAuth ? 0 : '50px')};
+	text-align: center;
+	font-size: ${`${LARGE_FONTSIZE - 12}px`};
+	background-color: rgba(0, 0, 0, 0);
+	border: none;
+	border-bottom: ${props => (!props.requestAuth ? 0 : '2px')} solid
+		${props => props.theme.txtColor.primary};
+	border-radius: 0;
+	padding: 0;
+	margin-bottom: ${props => (!props.requestAuth ? 0 : '20px')};
+	color: ${props => props.theme.txtColor.primary};
+	${TRANSITION}
+	&:focus {
+		outline: none;
+		border-bottom: 2px solid
+			${props => (props.code !== '1234' ? 'red' : props.theme.btnColor.primary)};
+	}
+`;
 const SubmitBtn = styled('button')`
-	width: 400px;
+	width: 100%;
 	height: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	background-color: ${props => props.theme.btnColor.primary};
 	border: none;
 	border-radius: ${`${BORDER_RADIUS - 5}px`};
@@ -86,6 +140,7 @@ const SubmitBtn = styled('button')`
 	font-size: ${`${DEFAULT_FONTSIZE}px`};
 	margin-bottom: 10px;
 	cursor: pointer;
+	${TRANSITION};
 	&:hover {
 		background-color: ${props => props.theme.btnColor.onHover};
 	}
@@ -100,18 +155,18 @@ const AnotherWay = styled('div')`
 	justify-content: space-between;
 	align-items: center;
 	.hr {
-		color: rgba(255, 255, 255, 0.7);
+		${TRANSPARENT_TXTCOLOR}
 		margin-bottom: 10px;
 	}
 	.login {
 		width: 100%;
 		height: auto;
 		margin: 2px;
-		border-radius: ${LOGINBTN_RADIUS};
+		border-radius: ${LOGINBTN_RADIUS_FORKAKAO};
 		.login_btn {
 			width: 100%;
 			height: 100%;
 		}
 	}
 `;
-export { SignBox, Form, InputBox, SubmitBtn, AnotherWay };
+export { SignBox, Form, InputBox, SubmitBtn, AnotherWay, VerifyInput };

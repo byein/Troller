@@ -5,11 +5,17 @@ import styled from '@emotion/styled';
 const BORDER_RADIUS = 10;
 const DEFAULT_FONTSIZE = 15;
 const LARGE_FONTSIZE = 30;
+const TRANSITION = css`
+	transition: all 0.2s linear;
+`;
 const BOX_SHADOW = css`
 	box-shadow: 10px 10px 20px 5px rgba(43, 37, 37, 0.25);
 `;
 const FLOAT_COLOR = css`
 	background-color: rgba(10, 31, 98, 0.4);
+`;
+const TRANSPARENT_TXTCOLOR = css`
+	color: rgba(255, 255, 255, 0.7);
 `;
 
 const GlobalContainer = styled('div')`
@@ -106,4 +112,6 @@ export {
 	DEFAULT_FONTSIZE,
 	LARGE_FONTSIZE,
 	BOX_SHADOW,
+	TRANSPARENT_TXTCOLOR,
+	TRANSITION,
 };
