@@ -149,17 +149,18 @@ const VerifyInput = styled('input')<{
 	&:focus {
 		outline: none;
 		border-bottom: 2px solid
-			${props => (props.code !== '1234' ? 'red' : props.theme.btnColor.primary)};
+			${props => (props.code !== '1234' ? '#F70009' : '#1CF610')};
 	}
 `;
 
-const SubmitBtn = styled('button')`
+const SubmitBtn = styled('button')<{ isEmail?: boolean }>`
 	width: 100%;
 	height: 50px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: ${props => props.theme.btnColor.primary};
+	background-color: ${props =>
+		!props.isEmail ? '#F70009' : props.theme.btnColor.primary};
 	border: none;
 	border-radius: ${`${BORDER_RADIUS - 5}px`};
 	color: ${props => props.theme.txtColor.primary};
@@ -168,8 +169,10 @@ const SubmitBtn = styled('button')`
 	cursor: pointer;
 	${TRANSITION};
 	&:hover {
-		background-color: ${props => props.theme.btnColor.onHover};
+		background-color: ${props =>
+			!props.isEmail ? '#F70009' : props.theme.btnColor.onHover};
 	}
+	pointer-events: ${props => (!props.isEmail ? 'none' : 'all')};
 `;
 
 const AnotherWay = styled('div')`
