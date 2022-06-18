@@ -149,7 +149,10 @@ const VerifyInput = styled('input')<{
 	&:focus {
 		outline: none;
 		border-bottom: 2px solid
-			${props => (props.code !== '1234' ? '#F70009' : '#1CF610')};
+			${props =>
+				props.code !== '1234'
+					? props.theme.validation.error
+					: props.theme.validation.resolve};
 	}
 `;
 
@@ -160,7 +163,9 @@ const SubmitBtn = styled('button')<{ isEmail?: boolean }>`
 	justify-content: center;
 	align-items: center;
 	background-color: ${props =>
-		!props.isEmail ? '#F70009' : props.theme.btnColor.primary};
+		!props.isEmail
+			? props.theme.validation.error
+			: props.theme.btnColor.primary};
 	border: none;
 	border-radius: ${`${BORDER_RADIUS - 5}px`};
 	color: ${props => props.theme.txtColor.primary};
@@ -170,7 +175,9 @@ const SubmitBtn = styled('button')<{ isEmail?: boolean }>`
 	${TRANSITION};
 	&:hover {
 		background-color: ${props =>
-			!props.isEmail ? '#F70009' : props.theme.btnColor.onHover};
+			!props.isEmail
+				? props.theme.validation.error
+				: props.theme.btnColor.onHover};
 	}
 	pointer-events: ${props => (!props.isEmail ? 'none' : 'all')};
 `;
