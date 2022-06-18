@@ -12,9 +12,10 @@ const VerifyingCode = '1234'; // temporal(이메일 인증코드, 서버 개설�
 const CodeLength = 4; // 인증코드 길이 고정되면 변경
 
 function Signup() {
-	const [code, setCode] = useState(''); // 만약 백에서 대조한다면 fetch
-	const [isAuth, setisAuth] = useState(false);
-	const [requestAuth, setrequestAuth] = useState(false);
+	const [code, setCode] = useState(''); // 이메일 인증코드 입력란값 만약 백에서 대조한다면 fetch
+	const [isCorrect, setisCorrect] = useState(true); // 인증코드가 맞는지 판별
+	const [isAuth, setisAuth] = useState(false); // 인증코드가 인증이 되었는지 안되었는지 판별
+	const [requestAuth, setrequestAuth] = useState(false); // 인증코드 요청여부 확인
 	const {
 		register,
 		handleSubmit,
@@ -27,6 +28,8 @@ function Signup() {
 			setTimeout(() => setisAuth(prev => !prev), 500);
 		} else if (code !== VerifyingCode && code.length === CodeLength) {
 			setCode('');
+			setisCorrect(prev => !prev);
+			setTimeout(() => setisCorrect(prev => !prev), 200);
 		}
 	}, [code]);
 	const onChangeCode = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,6 +58,7 @@ function Signup() {
 					<>
 						<VerifyInput
 							value={code}
+							isCorrect={isCorrect}
 							onChange={onChangeCode}
 							code={code}
 							requestAuth={requestAuth}
@@ -65,9 +69,9 @@ function Signup() {
 							onClick={
 								!requestAuth
 									? () => {
-											setrequestAuth(prev => !prev);
+											setrequestAuth(prev => !prev); // + 인증코드 전송코드
 									  }
-									: undefined // 이자리에 이메일 인증코드 재전송코드 짜야함 ==> 함수 외부에 만들거임.
+									: undefined // + 인증코드 전송코드 ==> 함수 외부에 만들거임.
 							}
 						>
 							{!requestAuth ? 'Request Verify Code' : 'Request Code Again'}

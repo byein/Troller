@@ -18,6 +18,7 @@ function Signin() {
 				})
 			).json();
 		})();
+		// res값으로 리다이렉트 판별 기능 추가
 	};
 	return (
 		<SignForm>

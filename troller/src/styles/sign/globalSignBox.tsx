@@ -1,3 +1,4 @@
+import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import {
 	BORDER_RADIUS,
@@ -10,6 +11,23 @@ import {
 } from '../global/global';
 
 const LOGINBTN_RADIUS_FORKAKAO = '6px';
+const ERROR_CODE = keyframes`
+	0%{
+		transform: translateX(0);
+	}
+	25%{
+		transform: translateX(10px);
+	}
+	50%{
+		transform: translateX(0);
+	}
+	75%{
+		transform: translateX(10px);
+	}
+	100%{
+		transform: translateX(0);
+	}
+`;
 
 const SignBox = styled('div')`
 	${FLOAT_COLOR};
@@ -107,7 +125,12 @@ const InputBox = styled('div')`
 		left: 84%;
 	}
 `;
-const VerifyInput = styled('input')<{ requestAuth: boolean; code: string }>`
+
+const VerifyInput = styled('input')<{
+	requestAuth: boolean;
+	code: string;
+	isCorrect: boolean;
+}>`
 	width: 30%;
 	height: ${props => (!props.requestAuth ? 0 : '50px')};
 	text-align: center;
@@ -120,6 +143,8 @@ const VerifyInput = styled('input')<{ requestAuth: boolean; code: string }>`
 	padding: 0;
 	margin-bottom: ${props => (!props.requestAuth ? 0 : '20px')};
 	color: ${props => props.theme.txtColor.primary};
+	animation: ${props => (props.isCorrect ? null : ERROR_CODE)} 0.2s linear
+		forwards;
 	${TRANSITION}
 	&:focus {
 		outline: none;
@@ -127,6 +152,7 @@ const VerifyInput = styled('input')<{ requestAuth: boolean; code: string }>`
 			${props => (props.code !== '1234' ? 'red' : props.theme.btnColor.primary)};
 	}
 `;
+
 const SubmitBtn = styled('button')`
 	width: 100%;
 	height: 50px;
