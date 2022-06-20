@@ -1,23 +1,20 @@
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import Visibility from '../../components/sign/pwVisible';
 import AnotherLogin from '../../components/sign/anotherLogin';
 import SignForm, { ISignType } from '../../components/sign/signForm';
+import { pwVisibleAtom } from '../../recoil/sign/atom';
 import { Form, InputBox, SubmitBtn } from '../../styles/sign/globalSignBox';
 
 function Signin() {
+	const show = useRecoilValue(pwVisibleAtom);
 	const { register, handleSubmit } = useForm<ISignType>();
+
+	// 로그인 API 요청
 	const onSubmit = (userAuth: ISignType) => {
-		(async () => {
-			const res = await (
-				await fetch('temoporalUrl', {
-					method: 'POST',
-					headers: {
-						'Content-Type': '/application.json',
-					},
-					body: JSON.stringify(userAuth),
-				})
-			).json();
-		})();
+		console.log(userAuth);
+		// fetch or axios
 	};
 	return (
 		<SignForm>
@@ -44,9 +41,13 @@ function Signin() {
 						{...register('password', {
 							required: true,
 						})}
+						type={!show ? 'password' : 'text'}
 					/>
+					<Visibility />
 				</InputBox>
-				<SubmitBtn type="submit">Log In</SubmitBtn>
+				<SubmitBtn isEmail type="submit">
+					Log In
+				</SubmitBtn>
 			</Form>
 			<Link to="/sign_up">
 				<SubmitBtn className="createAccount">Create Account</SubmitBtn>

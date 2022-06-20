@@ -1,3 +1,4 @@
+import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import {
 	BORDER_RADIUS,
@@ -10,6 +11,23 @@ import {
 } from '../global/global';
 
 const LOGINBTN_RADIUS_FORKAKAO = '6px';
+const ERROR_CODE = keyframes`
+	0%{
+		transform: translateX(0);
+	}
+	25%{
+		transform: translateX(10px);
+	}
+	50%{
+		transform: translateX(0);
+	}
+	75%{
+		transform: translateX(10px);
+	}
+	100%{
+		transform: translateX(0);
+	}
+`;
 
 const SignBox = styled('div')`
 	${FLOAT_COLOR};
@@ -45,6 +63,7 @@ const Form = styled('form')`
 	height: auto;
 	display: flex;
 	flex-direction: column;
+	justify-content: left;
 	align-items: center;
 	.createbox {
 		width: auto;
@@ -63,9 +82,7 @@ const InputBox = styled('div')`
 	width: 100%;
 	height: auto;
 	margin: 0 0 20px 0;
-	&:first-of-type {
-		position: relative;
-	}
+	position: relative;
 	.label {
 		width: 100%;
 		height: 20px;
@@ -107,7 +124,12 @@ const InputBox = styled('div')`
 		left: 84%;
 	}
 `;
-const VerifyInput = styled('input')<{ requestAuth: boolean; code: string }>`
+
+const VerifyInput = styled('input')<{
+	requestAuth: boolean;
+	code: string;
+	isCorrect: boolean;
+}>`
 	width: 30%;
 	height: ${props => (!props.requestAuth ? 0 : '50px')};
 	text-align: center;
@@ -118,22 +140,31 @@ const VerifyInput = styled('input')<{ requestAuth: boolean; code: string }>`
 		${props => props.theme.txtColor.primary};
 	border-radius: 0;
 	padding: 0;
-	margin-bottom: ${props => (!props.requestAuth ? 0 : '20px')};
+	margin-bottom: ${props => (!props.requestAuth ? 0 : '10px')};
 	color: ${props => props.theme.txtColor.primary};
+	animation: ${props => (props.isCorrect ? null : ERROR_CODE)} 0.2s linear
+		forwards;
 	${TRANSITION}
 	&:focus {
 		outline: none;
 		border-bottom: 2px solid
-			${props => (props.code !== '1234' ? 'red' : props.theme.btnColor.primary)};
+			${props =>
+				props.code !== '1234'
+					? props.theme.validation.error
+					: props.theme.validation.resolve};
 	}
 `;
-const SubmitBtn = styled('button')`
+
+const SubmitBtn = styled('button')<{ isEmail?: boolean }>`
 	width: 100%;
 	height: 50px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: ${props => props.theme.btnColor.primary};
+	background-color: ${props =>
+		!props.isEmail
+			? props.theme.validation.error
+			: props.theme.btnColor.primary};
 	border: none;
 	border-radius: ${`${BORDER_RADIUS - 5}px`};
 	color: ${props => props.theme.txtColor.primary};
@@ -142,8 +173,12 @@ const SubmitBtn = styled('button')`
 	cursor: pointer;
 	${TRANSITION};
 	&:hover {
-		background-color: ${props => props.theme.btnColor.onHover};
+		background-color: ${props =>
+			!props.isEmail
+				? props.theme.validation.error
+				: props.theme.btnColor.onHover};
 	}
+	pointer-events: ${props => (!props.isEmail ? 'none' : 'all')};
 `;
 
 const AnotherWay = styled('div')`
