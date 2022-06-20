@@ -54,12 +54,28 @@ function Signup() {
 		}
 	}, [code, verifyContent.verifyingCode, verifyContent.length]);
 
-	// email && 인증코드 검수하는 커스텀 함수
 	const onChange = (
 		modifierFn: (src: string) => void,
 		e: React.ChangeEvent<HTMLInputElement>
 	) => {
 		modifierFn(e.currentTarget.value);
+	};
+
+	const codeSender = async () => {
+		alert(`${emailValue}로 코드가 전송되었습니다!`);
+		// const res = await (
+		// 	await fetch('blahblah', {
+		// 		method: 'POST',
+		// 		headers: {
+		// 			'Content-Type': 'application.json',
+		// 		},
+		// 		body: JSON.stringify(emailValue),
+		// 	})
+		// ).json();
+		// setverifyContent({
+		// 	verifyingCode: res.verifyingCode,
+		// 	length: res.length,
+		// });
 	};
 
 	// 회원가입 API 요청
@@ -98,7 +114,8 @@ function Signup() {
 								as="div"
 								isEmail={isEmail}
 								onClick={() => {
-									setrequestAuth(prev => !prev); // + 인증코드 전송코드 ==> 함수 외부에 만들거임.
+									setrequestAuth(prev => !prev);
+									codeSender();
 								}}
 							>
 								{!isEmail ? 'Please Enter An Email' : 'Request Verify Code'}
@@ -107,9 +124,7 @@ function Signup() {
 							<SubmitBtn
 								as="div"
 								isEmail={isEmail}
-								onClick={
-									undefined // + 인증코드 전송코드 ==> 함수 외부에 만들거임.
-								}
+								onClick={() => codeSender()}
 							>
 								Request Code Again
 							</SubmitBtn>
