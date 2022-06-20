@@ -1,8 +1,8 @@
 import { atom } from 'recoil';
 
-const isEmailAtom = atom({
-	key: 'isEmail',
-	default: false,
+const timerAtom = atom({
+	key: 'timer',
+	default: 0,
 });
 
-export default isEmailAtom;
+export default timerAtom;

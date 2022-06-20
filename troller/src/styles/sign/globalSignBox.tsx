@@ -63,6 +63,7 @@ const Form = styled('form')`
 	height: auto;
 	display: flex;
 	flex-direction: column;
+	justify-content: left;
 	align-items: center;
 	.createbox {
 		width: auto;
@@ -77,13 +78,11 @@ const Form = styled('form')`
 	}
 `;
 
-const InputBox = styled('div')`
+const InputBox = styled('div')<{ show?: boolean }>`
 	width: 100%;
 	height: auto;
 	margin: 0 0 20px 0;
-	&:first-of-type {
-		position: relative;
-	}
+	position: relative;
 	.label {
 		width: 100%;
 		height: 20px;
@@ -124,6 +123,17 @@ const InputBox = styled('div')`
 		top: 53%;
 		left: 84%;
 	}
+	.show {
+		position: absolute;
+		top: 53%;
+		left: 88%;
+		color: ${props =>
+			!props.show
+				? props.theme.validation.resolve
+				: props.theme.validation.error};
+		background-color: rgba(0, 0, 0, 0);
+		border: none;
+	}
 `;
 
 const VerifyInput = styled('input')<{
@@ -141,7 +151,7 @@ const VerifyInput = styled('input')<{
 		${props => props.theme.txtColor.primary};
 	border-radius: 0;
 	padding: 0;
-	margin-bottom: ${props => (!props.requestAuth ? 0 : '20px')};
+	margin-bottom: ${props => (!props.requestAuth ? 0 : '10px')};
 	color: ${props => props.theme.txtColor.primary};
 	animation: ${props => (props.isCorrect ? null : ERROR_CODE)} 0.2s linear
 		forwards;
