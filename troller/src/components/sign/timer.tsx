@@ -1,8 +1,7 @@
-import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
-import timerAtom from '../../recoil/sign/atom';
+import { timerAtom } from '../../recoil/sign/atom';
 
 const TimerBar = styled('div')<{
 	requestAuth: boolean;

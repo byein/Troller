@@ -1,11 +1,10 @@
-// import { useRecoilState } from 'recoil';
-// import isEmailAtom from '../../recoil/sign/atom';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import Visibility from '../../components/sign/pwVisible';
 import SignForm, { ISignType } from '../../components/sign/signForm';
 import Timer from '../../components/sign/timer';
-import timerAtom from '../../recoil/sign/atom';
+import { pwVisibleAtom, timerAtom } from '../../recoil/sign/atom';
 import {
 	Form,
 	InputBox,
@@ -20,7 +19,7 @@ interface IVerifyContentType {
 }
 
 function Signup() {
-	const [show, setShow] = useState(false);
+	const show = useRecoilValue(pwVisibleAtom);
 	const setTimer = useSetRecoilState(timerAtom);
 	const [emailValue, setemailValue] = useState(''); // 이메일 입력란값 => 이메일 형식이 맞는지 실시간 감시
 	const [isEmail, setisEmail] = useState(false); // 이메일형식이 맞으면(true) 인증코드전송버튼 접근가능, 아니면 접근불가
@@ -154,15 +153,7 @@ function Signup() {
 								{...register('password')}
 								type={!show ? 'password' : 'text'}
 							/>
-							<button
-								type="button"
-								className="show"
-								onClick={() => {
-									setShow(prev => !prev);
-								}}
-							>
-								{!show ? 'show' : 'hide'}
-							</button>
+							<Visibility />
 						</InputBox>
 						<InputBox>
 							<div className="label">

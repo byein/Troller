@@ -78,7 +78,7 @@ const Form = styled('form')`
 	}
 `;
 
-const InputBox = styled('div')<{ show?: boolean }>`
+const InputBox = styled('div')`
 	width: 100%;
 	height: auto;
 	margin: 0 0 20px 0;
@@ -122,17 +122,6 @@ const InputBox = styled('div')<{ show?: boolean }>`
 		position: absolute;
 		top: 53%;
 		left: 84%;
-	}
-	.show {
-		position: absolute;
-		top: 53%;
-		left: 88%;
-		color: ${props =>
-			!props.show
-				? props.theme.validation.resolve
-				: props.theme.validation.error};
-		background-color: rgba(0, 0, 0, 0);
-		border: none;
 	}
 `;
 

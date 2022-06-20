@@ -1,12 +1,14 @@
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import Visibility from '../../components/sign/pwVisible';
 import AnotherLogin from '../../components/sign/anotherLogin';
 import SignForm, { ISignType } from '../../components/sign/signForm';
+import { pwVisibleAtom } from '../../recoil/sign/atom';
 import { Form, InputBox, SubmitBtn } from '../../styles/sign/globalSignBox';
 
 function Signin() {
-	const [show, setShow] = useState(false);
+	const show = useRecoilValue(pwVisibleAtom);
 	const { register, handleSubmit } = useForm<ISignType>();
 
 	// 로그인 API 요청
@@ -28,7 +30,7 @@ function Signin() {
 						type="email"
 					/>
 				</InputBox>
-				<InputBox show={show}>
+				<InputBox>
 					<div className="label">
 						<span className="label__name">Password</span>
 						<Link to="/forgot_pw">
@@ -41,15 +43,7 @@ function Signin() {
 						})}
 						type={!show ? 'password' : 'text'}
 					/>
-					<button
-						type="button"
-						className="show"
-						onClick={() => {
-							setShow(prev => !prev);
-						}}
-					>
-						{!show ? 'show' : 'hide'}
-					</button>
+					<Visibility />
 				</InputBox>
 				<SubmitBtn isEmail type="submit">
 					Log In

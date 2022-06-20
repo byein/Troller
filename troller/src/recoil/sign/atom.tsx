@@ -1,8 +1,12 @@
 import { atom } from 'recoil';
 
 const timerAtom = atom({
-	key: 'timer',
+	key: 'time',
 	default: 0,
 });
+const pwVisibleAtom = atom({
+	key: 'show',
+	default: false,
+});
 
-export default timerAtom;
+export { timerAtom, pwVisibleAtom };
