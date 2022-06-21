@@ -4,7 +4,7 @@ import { useRecoilValue } from 'recoil';
 import Visibility from '../../components/sign/pwVisible';
 import AnotherLogin from '../../components/sign/anotherLogin';
 import SignForm, { ISignType } from '../../components/sign/signForm';
-import { pwVisibleAtom } from '../../recoil/sign/atom';
+import pwVisibleAtom from '../../recoil/sign/atom';
 import { Form, InputBox, SubmitBtn } from '../../styles/sign/globalSignBox';
 
 function Signin() {
@@ -14,8 +14,10 @@ function Signin() {
 	// 로그인 API 요청
 	const onSubmit = (userAuth: ISignType) => {
 		console.log(userAuth);
+
 		// fetch or axios
 	};
+
 	return (
 		<SignForm>
 			<Form onSubmit={handleSubmit(onSubmit)}>

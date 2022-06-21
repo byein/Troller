@@ -124,14 +124,25 @@ const InputBox = styled('div')`
 		left: 84%;
 	}
 `;
-
+const VerifyInputBox = styled('div')<{
+	requestAuth: boolean;
+}>`
+	${TRANSITION}
+	width: 30%;
+	height: ${props => (!props.requestAuth ? 0 : '80px')};
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: ${props => (!props.requestAuth ? 0 : '20px')};
+`;
 const VerifyInput = styled('input')<{
 	requestAuth: boolean;
 	code: string;
 	isCorrect: boolean;
 }>`
-	width: 30%;
-	height: ${props => (!props.requestAuth ? 0 : '50px')};
+	width: 100%;
+	height: 50px;
+	display: ${props => (!props.requestAuth ? 'none' : null)};
 	text-align: center;
 	font-size: ${`${LARGE_FONTSIZE - 12}px`};
 	background-color: rgba(0, 0, 0, 0);
@@ -140,7 +151,6 @@ const VerifyInput = styled('input')<{
 		${props => props.theme.txtColor.primary};
 	border-radius: 0;
 	padding: 0;
-	margin-bottom: ${props => (!props.requestAuth ? 0 : '10px')};
 	color: ${props => props.theme.txtColor.primary};
 	animation: ${props => (props.isCorrect ? null : ERROR_CODE)} 0.2s linear
 		forwards;
@@ -204,4 +214,12 @@ const AnotherWay = styled('div')`
 		}
 	}
 `;
-export { SignBox, Form, InputBox, SubmitBtn, AnotherWay, VerifyInput };
+export {
+	SignBox,
+	Form,
+	InputBox,
+	SubmitBtn,
+	AnotherWay,
+	VerifyInput,
+	VerifyInputBox,
+};

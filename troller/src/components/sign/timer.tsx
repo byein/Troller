@@ -1,35 +1,59 @@
+import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useEffect } from 'react';
-import { useRecoilState } from 'recoil';
-import { timerAtom } from '../../recoil/sign/atom';
+import { useEffect, useState } from 'react';
+
+const TIMER_COLOR = keyframes`
+	0% {
+		color: #1CF610;
+	}
+	80% {
+		color: #1CF610;
+	}
+	100% {
+		color: #F70009;
+	}
+`;
 
 const TimerBar = styled('div')<{
 	requestAuth: boolean;
 	timer: number;
-	time: number;
 }>`
-	width: ${props => `${props.time - props.timer}px`};
-	height: 2px;
-	margin-bottom: ${props => (!props.requestAuth ? 0 : '10px')};
-	display: ${props => (!props.requestAuth ? 'none' : 'block')};
-	background-color: ${props =>
-		props.timer < props.time / 2
-			? props.theme.validation.resolve
-			: props.theme.validation.error};
+	width: 120%;
+	height: 50px;
+	display: ${props => (!props.requestAuth ? 'none' : 'flex')};
+	justify-content: center;
+	align-items: center;
+	animation: ${TIMER_COLOR} ${props => `${props.timer}s`} linear forwards;
 `;
 
-function Timer({ requestAuth, time }: { requestAuth: boolean; time: number }) {
-	const [timer, setTimer] = useRecoilState(timerAtom);
+function Timer({
+	requestAuth,
+	expiredAt,
+}: {
+	requestAuth: boolean;
+	expiredAt: number;
+}) {
+	const [timer, setTimer] = useState(expiredAt);
 	useEffect(() => {
 		const interval = setInterval(() => {
-			if (timer === time) {
+			if (timer === 0) {
 				clearInterval(interval);
 			} else {
-				setTimer(prev => prev + 0.1);
+				setTimer(prev => prev - 1);
 			}
-		}, 100);
+		}, 1000);
 		return () => clearInterval(interval);
-	}, [time, timer, setTimer]);
-	return <TimerBar requestAuth={requestAuth} timer={timer} time={time} />;
+	}, [timer]);
+	const min = String(Math.floor(timer / 60)).padStart(2, '0');
+	const sec = String(timer % 60).padStart(2, '0');
+	return (
+		<TimerBar requestAuth={requestAuth} timer={timer}>
+			<span>
+				{min === '00' && sec === '00'
+					? 'The code is expired'
+					: `${min} : ${sec}`}
+			</span>
+		</TimerBar>
+	);
 }
 export default Timer;

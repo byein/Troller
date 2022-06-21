@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { useRecoilState } from 'recoil';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { pwVisibleAtom } from '../../recoil/sign/atom';
+import pwVisibleAtom from '../../recoil/sign/atom';
 import { TRANSITION } from '../../styles/global/global';
 
 const VisibleBtn = styled('button')<{ show: boolean }>`
