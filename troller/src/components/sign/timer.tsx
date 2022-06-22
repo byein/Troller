@@ -28,22 +28,23 @@ const TimerBar = styled('div')<{
 
 function Timer({
 	requestAuth,
-	expiredAt,
+	timer,
+	countDown,
 }: {
 	requestAuth: boolean;
-	expiredAt: number;
+	timer: number;
+	countDown: () => void;
 }) {
-	const [timer, setTimer] = useState(expiredAt);
 	useEffect(() => {
 		const interval = setInterval(() => {
 			if (timer === 0) {
 				clearInterval(interval);
 			} else {
-				setTimer(prev => prev - 1);
+				countDown();
 			}
 		}, 1000);
 		return () => clearInterval(interval);
-	}, [timer]);
+	}, [timer, countDown]);
 	const min = String(Math.floor(timer / 60)).padStart(2, '0');
 	const sec = String(timer % 60).padStart(2, '0');
 	return (

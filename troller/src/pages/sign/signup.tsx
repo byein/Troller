@@ -13,6 +13,7 @@ import {
 } from '../../styles/sign/globalSignBox';
 
 function Signup() {
+	const [timer, setTimer] = useState(0);
 	const [show, setShow] = useState(false);
 	const [verifyContent, setverifyContent] = useState({
 		verifyingCode: '1234',
@@ -33,6 +34,10 @@ function Signup() {
 		watch,
 		formState: { errors },
 	} = useForm<ISignType>();
+
+	const countDown = () => {
+		setTimer(prev => prev - 1);
+	};
 
 	const regexPw =
 		/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,15}$/; // 길이 6~15, 1개이상의 문자, 1개이상의 특수문자
@@ -94,6 +99,7 @@ function Signup() {
 			expiredAt: 180,
 		}; // res값이 없어 임시로 만들어준 응답값
 		setverifyContent(res); // res값이 없어 임시로 만들어준 응답값; ==> Timer props로 업데이트 안됨.(수정 필요)
+		setTimer(res.expiredAt);
 	};
 
 	const summonerCheck = async () => {
@@ -152,7 +158,8 @@ function Signup() {
 							/>
 							<Timer
 								requestAuth={requestAuth}
-								expiredAt={verifyContent.expiredAt}
+								timer={timer}
+								countDown={countDown}
 							/>
 						</VerifyInputBox>
 						{!requestAuth ? (
