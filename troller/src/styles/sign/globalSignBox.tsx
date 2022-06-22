@@ -98,6 +98,10 @@ const InputBox = styled('div')`
 			font-size: ${`${DEFAULT_FONTSIZE}px`};
 			color: ${props => props.theme.txtColor.selected};
 		}
+		.errorMessage {
+			${TRANSITION}
+			color: ${props => props.theme.validation.resolve};
+		}
 	}
 	input {
 		${FLOAT_COLOR};

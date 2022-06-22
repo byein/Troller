@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import { spawn } from 'child_process';
 import Visibility from '../../components/sign/pwVisible';
 import SignForm, { ISignType } from '../../components/sign/signForm';
 import Timer from '../../components/sign/timer';
@@ -11,12 +12,6 @@ import {
 	VerifyInput,
 	VerifyInputBox,
 } from '../../styles/sign/globalSignBox';
-
-// interface IVerifyContentType {
-// 	verifyingCode: string;
-// 	length: number;
-// 	time: number;
-// }
 
 function Signup() {
 	const [show, setShow] = useState(false);
@@ -36,15 +31,18 @@ function Signup() {
 	const {
 		register,
 		handleSubmit,
-		// watch,
-		// formState: { errors },
+		watch,
+		formState: { errors },
 	} = useForm<ISignType>();
+
+	const regexPw =
+		/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,15}$/; // 길이 6~15, 1개이상의 문자, 1개이상의 특수문자
 
 	// email입력값이 공백이거나 @를 포함하지 않으면 인증코드 전송버튼 못누르게 하는 기능
 	useEffect(() => {
-		const regExEmail =
+		const regexEmail =
 			/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i; // 이메일 정규식
-		if (regExEmail.test(emailValue)) {
+		if (regexEmail.test(emailValue)) {
 			setisEmail(true);
 		} else {
 			setisEmail(false);
@@ -101,18 +99,26 @@ function Signup() {
 	};
 
 	const summonerCheck = async () => {
-		// const res = await (
-		// 	await fetch('backend', {
-		// 		method: 'POST',
-		// 		headers: {
-		// 			'Content-Type': 'application.json',
-		// 		},
-		// 		body: JSON.stringify(summonerValue),
-		// 	})
-		// ).json();
-		setisSummoner(true); // 원래는 res = true 이면 setisSummoner(true)로 해줘야함
+		if (summonerValue === '') {
+			alert('소환사명을 입력해주세요!');
+		} else {
+			// const res = await (
+			// 	await fetch('backend', {
+			// 		method: 'POST',
+			// 		headers: {
+			// 			'Content-Type': 'application.json',
+			// 		},
+			// 		body: JSON.stringify(summonerValue),
+			// 	})
+			// ).json();
+			// if (res === true) {
+			// 	setisSummoner(true); // 원래는 res = true 이면 setisSummoner(res)로 해줘야함
+			// } else {
+			// 	alert('소환사명을 찾지 못했습니다!')
+			// }
+			setisSummoner(true);
+		}
 	};
-
 	// 회원가입 API 요청
 	const onSubmit = handleSubmit((userRegist: ISignType) => {
 		console.log(userRegist);
@@ -126,7 +132,7 @@ function Signup() {
 						<span className="label__name">Email address</span>
 					</div>
 					<input
-						{...register('email')}
+						{...register('email', { required: true })}
 						onChange={e => onChange(setemailValue, e)}
 						readOnly={!!isAuth}
 						placeholder="example@example.com"
@@ -169,7 +175,7 @@ function Signup() {
 							</div>
 							<div className="summonerName">
 								<input
-									{...register('nickname')}
+									{...register('nickname', { required: true })}
 									onChange={e => onChange(setsummonerValue, e)}
 									readOnly={!!isSummoner}
 								/>
@@ -179,6 +185,7 @@ function Signup() {
 								<button
 									type="button"
 									className="verifyBtn"
+									disabled={isSummoner}
 									onClick={summonerCheck}
 								>
 									{!isSummoner ? 'Verify' : 'Verified'}
@@ -188,9 +195,15 @@ function Signup() {
 						<InputBox>
 							<div className="label">
 								<span className="label__name">Password</span>
+								{errors.password?.type === 'pattern' && (
+									<span className="errorMessage">
+										길이 6~15, 1개이상의 문자, 1개이상의 특수문자
+									</span>
+								)}
 							</div>
 							<input
-								{...register('password')}
+								{...register('password', { required: true, pattern: regexPw })}
+								placeholder="길이 6~15, 1개이상의 문자, 1개이상의 특수문자"
 								type={!show ? 'password' : 'text'}
 							/>
 							<Visibility show={show} setShow={setShow} />
@@ -198,8 +211,19 @@ function Signup() {
 						<InputBox>
 							<div className="label">
 								<span className="label__name">Password again</span>
+								{errors.password_again?.type === 'validate' && (
+									<span className="errorMessage">
+										It is not the same as the password
+									</span>
+								)}
 							</div>
-							<input {...register('password_again')} type="password" />
+							<input
+								{...register('password_again', {
+									required: true,
+									validate: value => value === watch('password'),
+								})}
+								type="password"
+							/>
 						</InputBox>
 						<SubmitBtn isEmail type="submit">
 							Create Account
