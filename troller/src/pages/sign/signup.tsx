@@ -22,12 +22,12 @@ function Signup() {
 	}); // temporal(이메일 인증코드, 서버 개설되면 백에서 대조?) && 인증코드 길이 고정되면 setverifyContent로 변경
 	const [emailValue, setemailValue] = useState(''); // 이메일 입력란값 => 이메일 형식이 맞는지 실시간 감시
 	const [isEmail, setisEmail] = useState(false); // 이메일형식이 맞으면(true) 인증코드전송버튼 접근가능, 아니면 접근불가
-	const [summonerValue, setsummonerValue] = useState(''); // 소환사 입력란값
-	const [isSummoner, setisSummoner] = useState(false); // 백에서 검증후 존재하는 소환사일 때 true값 반환
 	const [code, setCode] = useState(''); // 이메일 인증코드 입력란값 만약 백에서 대조한다면 fetch
 	const [isCorrect, setisCorrect] = useState(true); // 인증코드가 맞는지 판별
 	const [isAuth, setisAuth] = useState(false); // 인증코드가 인증이 되었는지 안되었는지 판별
 	const [requestAuth, setrequestAuth] = useState(false); // 인증코드 요청여부 확인
+	const [summonerValue, setsummonerValue] = useState(''); // 소환사 입력란값
+	const [isSummoner, setisSummoner] = useState(false); // 백에서 검증후 존재하는 소환사일 때 true값 반환
 	const {
 		register,
 		handleSubmit,
@@ -38,7 +38,6 @@ function Signup() {
 	const countDown = () => {
 		setTimer(prev => prev - 1);
 	};
-
 	const regexPw =
 		/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,15}$/; // 길이 6~15, 1개이상의 문자, 1개이상의 특수문자
 
