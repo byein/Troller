@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useRecoilValue } from 'recoil';
 import Visibility from '../../components/sign/pwVisible';
 import SignForm, { ISignType } from '../../components/sign/signForm';
 import Timer from '../../components/sign/timer';
-import pwVisibleAtom from '../../recoil/sign/atom';
 import {
 	Form,
 	InputBox,
@@ -20,7 +18,7 @@ import {
 // }
 
 function Signup() {
-	const show = useRecoilValue(pwVisibleAtom);
+	const [show, setShow] = useState(false);
 	const [verifyContent, setverifyContent] = useState({
 		verifyingCode: '1234',
 		length: 4,
@@ -38,6 +36,7 @@ function Signup() {
 		// watch,
 		// formState: { errors },
 	} = useForm<ISignType>();
+
 	// email입력값이 공백이거나 @를 포함하지 않으면 인증코드 전송버튼 못누르게 하는 기능
 	useEffect(() => {
 		const regExEmail =
@@ -153,7 +152,7 @@ function Signup() {
 								{...register('password')}
 								type={!show ? 'password' : 'text'}
 							/>
-							<Visibility />
+							<Visibility show={show} setShow={setShow} />
 						</InputBox>
 						<InputBox>
 							<div className="label">

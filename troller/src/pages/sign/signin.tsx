@@ -1,14 +1,11 @@
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import Visibility from '../../components/sign/pwVisible';
 import AnotherLogin from '../../components/sign/anotherLogin';
 import SignForm, { ISignType } from '../../components/sign/signForm';
-import pwVisibleAtom from '../../recoil/sign/atom';
 import { Form, InputBox, SubmitBtn } from '../../styles/sign/globalSignBox';
 
 function Signin() {
-	const show = useRecoilValue(pwVisibleAtom);
 	const { register, handleSubmit } = useForm<ISignType>();
 
 	// 로그인 API 요청
@@ -43,9 +40,8 @@ function Signin() {
 						{...register('password', {
 							required: true,
 						})}
-						type={!show ? 'password' : 'text'}
+						type="password"
 					/>
-					<Visibility />
 				</InputBox>
 				<SubmitBtn isEmail type="submit">
 					Log In
