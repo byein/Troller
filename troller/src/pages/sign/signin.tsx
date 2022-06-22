@@ -1,6 +1,5 @@
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
 import AnotherLogin from '../../components/sign/anotherLogin';
 import SignForm, { ISignType } from '../../components/sign/signForm';
 import { Form, InputBox, SubmitBtn } from '../../styles/sign/globalSignBox';
@@ -27,6 +26,7 @@ function Signin() {
 							required: true,
 						})}
 						type="email"
+						placeholder="example@example.com"
 					/>
 				</InputBox>
 				<InputBox>

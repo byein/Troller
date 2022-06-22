@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import Visibility from '../../components/sign/pwVisible';
 import SignForm, { ISignType } from '../../components/sign/signForm';
 import Timer from '../../components/sign/timer';
@@ -26,6 +27,8 @@ function Signup() {
 	}); // temporal(이메일 인증코드, 서버 개설되면 백에서 대조?) && 인증코드 길이 고정되면 setverifyContent로 변경
 	const [emailValue, setemailValue] = useState(''); // 이메일 입력란값 => 이메일 형식이 맞는지 실시간 감시
 	const [isEmail, setisEmail] = useState(false); // 이메일형식이 맞으면(true) 인증코드전송버튼 접근가능, 아니면 접근불가
+	const [summonerValue, setsummonerValue] = useState(''); // 소환사 입력란값
+	const [isSummoner, setisSummoner] = useState(false); // 백에서 검증후 존재하는 소환사일 때 true값 반환
 	const [code, setCode] = useState(''); // 이메일 인증코드 입력란값 만약 백에서 대조한다면 fetch
 	const [isCorrect, setisCorrect] = useState(true); // 인증코드가 맞는지 판별
 	const [isAuth, setisAuth] = useState(false); // 인증코드가 인증이 되었는지 안되었는지 판별
@@ -48,7 +51,15 @@ function Signup() {
 		} // 이메일 형식 검사
 	}, [emailValue, setisEmail]);
 
-	// 이메일 인증코드 대조과정 => 프론트용 임시 로직이라 나중에 백으로 인증코드 보내고 true반환 받아야 인증풀리도록 만들어야 할 듯
+	const onChange = (
+		modifierFn: (src: string) => void,
+		e: React.ChangeEvent<HTMLInputElement>
+	) => {
+		modifierFn(e.currentTarget.value);
+	};
+
+	// backend 관련코드들
+	// 이메일 인증코드 대조과정 ==> 회의 후 다시 수정해야 할 듯
 	useEffect(() => {
 		if (code === verifyContent.verifyingCode) {
 			setTimeout(() => setisAuth(prev => !prev), 500);
@@ -62,18 +73,12 @@ function Signup() {
 		}
 	}, [code, verifyContent.verifyingCode, verifyContent.length]);
 
-	const onChange = (
-		modifierFn: (src: string) => void,
-		e: React.ChangeEvent<HTMLInputElement>
-	) => {
-		modifierFn(e.currentTarget.value);
-	};
-
+	// 이메일 입력 후 코드전송 || 코드재전송 버튼 ==> 회의 후 다시 수정해야 할 듯 && 타이머 작동도 안됨
 	const codeSender = async () => {
 		alert(`${emailValue}로 코드가 전송되었습니다!`);
 		setrequestAuth(true);
 		// const res = await (
-		// 	await fetch('blahblah', {
+		// 	await fetch('backend', {
 		// 		method: 'POST',
 		// 		headers: {
 		// 			'Content-Type': 'application.json',
@@ -91,8 +96,21 @@ function Signup() {
 			length: 4,
 			expiredAt: 180,
 		}; // res값이 없어 임시로 만들어준 응답값
-		setverifyContent(res); // res값이 없어 임시로 만들어준 응답값; ==> Timer props로 업데이트 안됨.
+		setverifyContent(res); // res값이 없어 임시로 만들어준 응답값; ==> Timer props로 업데이트 안됨.(수정 필요)
 		console.log(verifyContent);
+	};
+
+	const summonerCheck = async () => {
+		// const res = await (
+		// 	await fetch('backend', {
+		// 		method: 'POST',
+		// 		headers: {
+		// 			'Content-Type': 'application.json',
+		// 		},
+		// 		body: JSON.stringify(summonerValue),
+		// 	})
+		// ).json();
+		setisSummoner(true); // 원래는 res = true 이면 setisSummoner(true)로 해줘야함
 	};
 
 	// 회원가입 API 요청
@@ -111,10 +129,11 @@ function Signup() {
 						{...register('email')}
 						onChange={e => onChange(setemailValue, e)}
 						readOnly={!!isAuth}
-						type="email"
-						placeholder="Logo@example.com"
+						placeholder="example@example.com"
 					/>
-					<span className="isVerified">{!isAuth ? null : 'Verified!'}</span>
+					<span className="isVerified">
+						{!isAuth ? null : <CheckCircleOutlineIcon />}
+					</span>
 				</InputBox>
 				{!isAuth ? (
 					<>
@@ -146,6 +165,28 @@ function Signup() {
 					<>
 						<InputBox>
 							<div className="label">
+								<span className="label__name">Summoner name</span>
+							</div>
+							<div className="summonerName">
+								<input
+									{...register('nickname')}
+									onChange={e => onChange(setsummonerValue, e)}
+									readOnly={!!isSummoner}
+								/>
+								<span className="isVerifiedSummoner">
+									{!isSummoner ? null : <CheckCircleOutlineIcon />}
+								</span>
+								<button
+									type="button"
+									className="verifyBtn"
+									onClick={summonerCheck}
+								>
+									{!isSummoner ? 'Verify' : 'Verified'}
+								</button>
+							</div>
+						</InputBox>
+						<InputBox>
+							<div className="label">
 								<span className="label__name">Password</span>
 							</div>
 							<input
@@ -159,12 +200,6 @@ function Signup() {
 								<span className="label__name">Password again</span>
 							</div>
 							<input {...register('password_again')} type="password" />
-						</InputBox>
-						<InputBox>
-							<div className="label">
-								<span className="label__name">Summoner name</span>
-							</div>
-							<input {...register('nickname')} />
 						</InputBox>
 						<SubmitBtn isEmail type="submit">
 							Create Account

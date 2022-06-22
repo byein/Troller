@@ -116,12 +116,43 @@ const InputBox = styled('div')`
 		}
 	}
 	.isVerified {
-		color: ${props => props.theme.txtColor.selected};
+		color: ${props => props.theme.validation.resolve};
 		width: auto;
 		font-size: ${`${DEFAULT_FONTSIZE}px`};
 		position: absolute;
-		top: 53%;
-		left: 84%;
+		top: 47%;
+		left: 92%;
+	}
+	.summonerName {
+		width: 100%;
+		height: 50px;
+		display: flex;
+		justify-content: space-between;
+		input {
+			width: 80%;
+			height: 100%;
+		}
+		.verifyBtn {
+			width: 70px;
+			height: 100%;
+			border-radius: ${`${BORDER_RADIUS}px`};
+			background-color: ${props => props.theme.btnColor.primary};
+			color: ${props => props.theme.txtColor.primary};
+			font-size: ${`${DEFAULT_FONTSIZE}px`};
+			border: none;
+			${TRANSITION}
+			&:hover {
+				background-color: ${props => props.theme.btnColor.onHover};
+			}
+		}
+		.isVerifiedSummoner {
+			color: ${props => props.theme.validation.resolve};
+			width: auto;
+			font-size: ${`${DEFAULT_FONTSIZE}px`};
+			position: absolute;
+			top: 47%;
+			left: 72%;
+		}
 	}
 `;
 const VerifyInputBox = styled('div')<{
