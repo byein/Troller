@@ -1,7 +1,6 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-// const TABLET_STANDARD = 1024;
-// const MOBILE_STANDARD = 768;
+
 const BORDER_RADIUS = 10;
 const DEFAULT_FONTSIZE = 15;
 const LARGE_FONTSIZE = 30;

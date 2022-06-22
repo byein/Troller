@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import { spawn } from 'child_process';
 import Visibility from '../../components/sign/pwVisible';
 import SignForm, { ISignType } from '../../components/sign/signForm';
 import Timer from '../../components/sign/timer';
@@ -95,7 +94,6 @@ function Signup() {
 			expiredAt: 180,
 		}; // res값이 없어 임시로 만들어준 응답값
 		setverifyContent(res); // res값이 없어 임시로 만들어준 응답값; ==> Timer props로 업데이트 안됨.(수정 필요)
-		console.log(verifyContent);
 	};
 
 	const summonerCheck = async () => {
