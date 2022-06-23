@@ -1,6 +1,6 @@
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 const TIMER_COLOR = keyframes`
 	0% {
