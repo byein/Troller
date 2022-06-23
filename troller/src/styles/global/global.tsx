@@ -47,7 +47,6 @@ const GlobalHeader = styled('header')<{ pathname: string }>`
 		display: ${props =>
 			props.pathname === '/sign_in' ||
 			props.pathname === '/sign_up' ||
-			props.pathname === '/terms' ||
 			props.pathname === '/forgot_pw'
 				? 'none'
 				: 'block'};
@@ -61,7 +60,6 @@ const GlobalHeader = styled('header')<{ pathname: string }>`
 		display: ${props =>
 			props.pathname === '/sign_in' ||
 			props.pathname === '/sign_up' ||
-			props.pathname === '/terms' ||
 			props.pathname === '/forgot_pw'
 				? 'none'
 				: 'block'};
@@ -76,6 +74,7 @@ const GlobalHeader = styled('header')<{ pathname: string }>`
 
 const Tab = styled('li')<{ isActive: boolean }>`
 	margin: auto;
+	${TRANSITION}
 	color: ${props =>
 		!props.isActive
 			? props.theme.txtColor.primary
@@ -100,8 +99,6 @@ const MainContainer = styled('div')<{ pathname: string }>`
 `;
 
 export {
-	// TABLET_STANDARD,
-	// MOBILE_STANDARD,
 	GlobalContainer,
 	MainContainer,
 	Tab,

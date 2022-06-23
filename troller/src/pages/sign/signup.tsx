@@ -130,7 +130,7 @@ function Signup() {
 	return (
 		<SignForm>
 			<Form onSubmit={onSubmit}>
-				<InputBox>
+				<InputBox isAuth={isAuth}>
 					<div className="label">
 						<span className="label__name">Email address</span>
 					</div>
@@ -173,7 +173,7 @@ function Signup() {
 					</>
 				) : (
 					<>
-						<InputBox>
+						<InputBox isSummoner={isSummoner}>
 							<div className="label">
 								<span className="label__name">Summoner name</span>
 							</div>

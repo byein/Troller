@@ -78,7 +78,7 @@ const Form = styled('form')`
 	}
 `;
 
-const InputBox = styled('div')`
+const InputBox = styled('div')<{ isAuth?: boolean; isSummoner?: boolean }>`
 	width: 100%;
 	height: auto;
 	margin: 0 0 20px 0;
@@ -99,7 +99,6 @@ const InputBox = styled('div')`
 			color: ${props => props.theme.txtColor.selected};
 		}
 		.errorMessage {
-			${TRANSITION}
 			color: ${props => props.theme.validation.resolve};
 		}
 	}
@@ -120,7 +119,9 @@ const InputBox = styled('div')`
 		}
 	}
 	.isVerified {
-		color: ${props => props.theme.validation.resolve};
+		${TRANSITION}
+		color: ${props =>
+			!props.isAuth ? 'transparent' : props.theme.validation.resolve};
 		width: auto;
 		font-size: ${`${DEFAULT_FONTSIZE}px`};
 		position: absolute;
@@ -150,7 +151,9 @@ const InputBox = styled('div')`
 			}
 		}
 		.isVerifiedSummoner {
-			color: ${props => props.theme.validation.resolve};
+			${TRANSITION}
+			color: ${props =>
+				!props.isSummoner ? 'transparent' : props.theme.validation.resolve};
 			width: auto;
 			font-size: ${`${DEFAULT_FONTSIZE}px`};
 			position: absolute;
