@@ -1,4 +1,3 @@
-import React, { ReactNode } from 'react';
 import {
 	ProfileImageWrapper,
 	ProfileInfoWrapper,
@@ -60,6 +59,7 @@ enum TierData {
 	CHALLENGER = 'Challenger',
 }
 function TierImage({ tier }: { tier: string }) {
+	// img url 임시 세팅.
 	let tierImageUrl;
 	switch (tier) {
 		case TierData.IRON:
@@ -87,6 +87,7 @@ function TierImage({ tier }: { tier: string }) {
 	}
 	return <TierImageWrapper url={tierImageUrl || ''} />;
 }
+
 function Record({
 	winRecord,
 	loseRecord,
@@ -128,4 +129,5 @@ function UserInfo({
 		</UserInfoWrapper>
 	);
 }
+
 export default UserInfo;

@@ -1,11 +1,10 @@
-import { Outlet, useMatch, useLocation } from 'react-router-dom';
-import { GlobalContainer, MainContainer } from '../../styles/global/global';
-import Header from '../../components/header/header';
-import Home from '../main/home';
+import { Outlet, useLocation } from 'react-router-dom';
+
 import { MyPageContainer, MyPageWrapper } from '../../styles/mypage/mypage';
 import GraphTab from '../../components/mypage/graphTab';
-import UserInfo, { UserInfoProps } from '../../components/mypage/userInfo';
+import UserInfo from '../../components/mypage/userInfo';
 
+// 임시 데이터 세팅
 function MyPage() {
 	const { pathname } = useLocation();
 	return (
