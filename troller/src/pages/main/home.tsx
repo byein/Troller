@@ -4,15 +4,15 @@ import Title from '../../components/home/title';
 import { HomeWrapper, Section } from '../../styles/home/home';
 
 function Home() {
-	return (
-		<HomeWrapper>
-			<Title />
-			<Search />
-			<Section>
-				<GeneralRank />
-				<ProRank />
-			</Section>
-		</HomeWrapper>
-	);
+  return (
+    <HomeWrapper>
+      <Title />
+      <Search />
+      <Section>
+        <GeneralRank />
+        <ProRank />
+      </Section>
+    </HomeWrapper>
+  );
 }
 export default Home;
