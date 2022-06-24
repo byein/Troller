@@ -1,4 +1,4 @@
 function NormalRank() {
-	return null;
+  return null;
 }
 export default NormalRank;
