@@ -190,7 +190,7 @@ const AnotherWay = styled('div')`
   justify-content: space-between;
   align-items: center;
   .hr {
-    ${TRANSPARENT_TXTCOLOR}
+    color: ${TRANSPARENT_TXTCOLOR};
     margin-bottom: 10px;
   }
   .login {

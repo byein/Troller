@@ -1,10 +1,14 @@
 import styled from '@emotion/styled';
-import { BORDER_RADIUS, TRANSPARENT_TXTCOLOR } from '../global/global';
+import {
+  BORDER_RADIUS,
+  FLOAT_COLOR,
+  TRANSPARENT_TXTCOLOR,
+} from '../global/global';
 
 const MyPageWrapper = styled('div')`
+  ${FLOAT_COLOR};
   width: 750px;
   height: 692px;
-  background: rgba(10, 31, 98, 0.5);
   border-radius: ${`${BORDER_RADIUS}px`};
   margin: 149px 381px;
 `;
@@ -136,7 +140,7 @@ const GraphTabWrapper = styled('div')<{ pathname: string }>`
 const ProfileTab = styled('li')<{ isActive: boolean }>`
 	margin: auto;
 	color: ${props =>
-    props.isActive ? props.theme.txtColor.primary : `${TRANSPARENT_TXTCOLOR}`};
+    props.isActive ? props.theme.txtColor.primary : TRANSPARENT_TXTCOLOR};
 	border-bottom:${props => (props.isActive ? '1px solid' : '0px solid')};
 	 props.theme.txtColor.primary: ;
 	};

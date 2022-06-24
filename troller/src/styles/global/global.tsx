@@ -14,9 +14,7 @@ const BOX_SHADOW = css`
 const FLOAT_COLOR = css`
   background-color: rgba(10, 31, 98, 0.4);
 `;
-const TRANSPARENT_TXTCOLOR = css`
-  color: rgba(255, 255, 255, 0.7);
-`;
+const TRANSPARENT_TXTCOLOR = `rgba(255, 255, 255, 0.7)`;
 
 const GlobalContainer = styled('div')`
   width: 100vw;
