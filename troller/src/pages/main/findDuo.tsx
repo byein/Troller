@@ -1,4 +1,4 @@
 function FindDuo() {
-	return null;
+  return null;
 }
 export default FindDuo;

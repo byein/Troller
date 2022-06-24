@@ -1,4 +1,4 @@
 function MultiSearch() {
-	return null;
+  return null;
 }
 export default MultiSearch;

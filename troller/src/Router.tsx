@@ -8,18 +8,18 @@ import Login from './pages/sign/signin';
 import Signup from './pages/sign/signup';
 
 export default function Router() {
-	return (
-		<BrowserRouter>
-			<Routes>
-				<Route path="/" element={<Hub />}>
-					<Route path="find_duo" element={<FindDuo />} />
-					<Route path="multi_search" element={<MultiSearch />} />
-					<Route path="normal_rank" element={<NormalRank />} />
-					<Route path="sign_in" element={<Login />} />
-					<Route path="sign_up" element={<Signup />} />
-					<Route path="forgot_pw" element={<ForgotPw />} />
-				</Route>
-			</Routes>
-		</BrowserRouter>
-	);
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Hub />}>
+          <Route path="find_duo" element={<FindDuo />} />
+          <Route path="multi_search" element={<MultiSearch />} />
+          <Route path="normal_rank" element={<NormalRank />} />
+          <Route path="sign_in" element={<Login />} />
+          <Route path="sign_up" element={<Signup />} />
+          <Route path="forgot_pw" element={<ForgotPw />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }
