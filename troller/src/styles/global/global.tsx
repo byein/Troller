@@ -1,7 +1,6 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-// const TABLET_STANDARD = 1024;
-// const MOBILE_STANDARD = 768;
+
 const BORDER_RADIUS = 10;
 const DEFAULT_FONTSIZE = 15;
 const LARGE_FONTSIZE = 30;
@@ -46,7 +45,6 @@ const GlobalHeader = styled('header')<{ pathname: string }>`
     display: ${props =>
       props.pathname === '/sign_in' ||
       props.pathname === '/sign_up' ||
-      props.pathname === '/terms' ||
       props.pathname === '/forgot_pw'
         ? 'none'
         : 'block'};
@@ -60,7 +58,6 @@ const GlobalHeader = styled('header')<{ pathname: string }>`
     display: ${props =>
       props.pathname === '/sign_in' ||
       props.pathname === '/sign_up' ||
-      props.pathname === '/terms' ||
       props.pathname === '/forgot_pw'
         ? 'none'
         : 'block'};
@@ -75,6 +72,7 @@ const GlobalHeader = styled('header')<{ pathname: string }>`
 
 const Tab = styled('li')<{ isActive: boolean }>`
   margin: auto;
+  ${TRANSITION}
   color: ${props =>
     !props.isActive
       ? props.theme.txtColor.primary
@@ -99,8 +97,6 @@ const MainContainer = styled('div')<{ pathname: string }>`
 `;
 
 export {
-  // TABLET_STANDARD,
-  // MOBILE_STANDARD,
   GlobalContainer,
   MainContainer,
   Tab,

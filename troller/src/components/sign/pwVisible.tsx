@@ -1,8 +1,6 @@
 import styled from '@emotion/styled';
-import { useRecoilState } from 'recoil';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { pwVisibleAtom } from '../../recoil/sign/atom';
 import { TRANSITION } from '../../styles/global/global';
 
 const VisibleBtn = styled('button')<{ show: boolean }>`
@@ -15,17 +13,18 @@ const VisibleBtn = styled('button')<{ show: boolean }>`
   background-color: rgba(0, 0, 0, 0);
   border: none;
 `;
-function Visibility() {
-  const [show, setShow] = useRecoilState(pwVisibleAtom);
+function Visibility({
+  show,
+  setShow,
+}: {
+  show: boolean;
+  setShow: (prev: boolean) => void;
+}) {
+  const onClick = () => {
+    setShow(!show);
+  };
   return (
-    <VisibleBtn
-      show={show}
-      type="button"
-      className="show"
-      onClick={() => {
-        setShow(prev => !prev);
-      }}
-    >
+    <VisibleBtn show={show} type="button" className="show" onClick={onClick}>
       {!show ? <VisibilityIcon /> : <VisibilityOffIcon />}
     </VisibleBtn>
   );
