@@ -15,8 +15,8 @@ function Header({ pathname }: { pathname: string }) {
           <Tab isActive={pathname === '/find_duo'}>
             <Link to="find_duo">듀오찾기</Link>
           </Tab>
-          <Tab isActive={pathname === '/rank'}>
-            <Link to="rank">랭킹</Link>
+          <Tab isActive={pathname.includes('/rank')}>
+            <Link to="rank/normal">랭킹</Link>
           </Tab>
         </ul>
       </div>

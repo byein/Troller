@@ -5,6 +5,7 @@ declare module '@emotion/react' {
     bgColor: {
       blue: string;
       gray: string;
+      anotherOne: string;
     };
     borderColor: string;
     validation: {

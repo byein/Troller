@@ -3,8 +3,8 @@ import {
   MyPageContainer,
   MyPageWrapper,
 } from '../../styles/fullSearch/fullSearch';
-import GraphTab from '../../components/mypage/graphTab';
-import UserInfo from '../../components/mypage/userInfo';
+import GraphTab from '../../components/fullSearch/graphTab';
+import UserInfo from '../../components/fullSearch/userInfo';
 
 // 임시 데이터 세팅
 function FullSearch() {
