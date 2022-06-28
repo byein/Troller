@@ -1,11 +1,13 @@
 import { Outlet, useLocation } from 'react-router-dom';
-
-import { MyPageContainer, MyPageWrapper } from '../../styles/mypage/mypage';
+import {
+  MyPageContainer,
+  MyPageWrapper,
+} from '../../styles/fullSearch/fullSearch';
 import GraphTab from '../../components/mypage/graphTab';
 import UserInfo from '../../components/mypage/userInfo';
 
 // 임시 데이터 세팅
-function MyPage() {
+function FullSearch() {
   const { pathname } = useLocation();
   return (
     <MyPageWrapper>
@@ -18,7 +20,6 @@ function MyPage() {
         loseRecord={99}
         level={30}
       />
-
       <GraphTab pathname={pathname} />
       <MyPageContainer pathname={pathname}>
         <Outlet />
@@ -27,4 +28,4 @@ function MyPage() {
   );
 }
 
-export default MyPage;
+export default FullSearch;

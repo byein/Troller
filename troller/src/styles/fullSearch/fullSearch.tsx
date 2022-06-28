@@ -18,7 +18,7 @@ const UserInfoWrapper = styled('div')`
   width: 740px;
   height: 167px;
   display: flex;
-  margintop: 30px;
+  margin-top: 30px;
   padding-top: 30px;
   padding-bottom: 24px;
   padding-left: 46px;
@@ -138,12 +138,11 @@ const GraphTabWrapper = styled('div')<{ pathname: string }>`
 `;
 
 const ProfileTab = styled('li')<{ isActive: boolean }>`
-	margin: auto;
-	color: ${props =>
+  margin: auto;
+  color: ${props =>
     props.isActive ? props.theme.txtColor.primary : TRANSPARENT_TXTCOLOR};
-	border-bottom:${props => (props.isActive ? '1px solid' : '0px solid')};
-	 props.theme.txtColor.primary: ;
-	};
+  border-bottom: ${props => (props.isActive ? '1px solid' : '0px solid')};
+  /* props.theme.txtColor.primary: ; */
 `;
 
 export {

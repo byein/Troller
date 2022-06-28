@@ -10,10 +10,8 @@ function Signin() {
   // 로그인 API 요청
   const onSubmit = (userAuth: ISignType) => {
     console.log(userAuth);
-
     // fetch or axios
   };
-
   return (
     <SignForm>
       <Form onSubmit={handleSubmit(onSubmit)}>

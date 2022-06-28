@@ -29,7 +29,7 @@ const GlobalHeader = styled('header')<{ pathname: string }>`
   align-items: center;
   position: absolute;
   background-color: ${props =>
-    props.pathname === '/normal_rank' ? props.theme.bgColor : 'none'};
+    props.pathname === '/rank' ? props.theme.bgColor.blue : 'none'};
   z-index: 1;
   span {
     margin: 15px;
@@ -50,10 +50,10 @@ const GlobalHeader = styled('header')<{ pathname: string }>`
         : 'block'};
   }
   div {
-    width: 315px;
+    width: 280px;
     height: 100%;
     position: absolute;
-    left: 130px;
+    left: 120px;
     font-size: ${`${DEFAULT_FONTSIZE}px`};
     display: ${props =>
       props.pathname === '/sign_in' ||
@@ -89,9 +89,9 @@ const MainContainer = styled('div')<{ pathname: string }>`
   position: absolute;
   background: linear-gradient(
     ${props =>
-      props.pathname === '/normal_rank'
-        ? `{0, rgba(255, 255, 255, 1) 0, rgba(255, 255, 255, 1) 0}`
-        : `130.84deg, rgba(10, 31, 98, 0.81) 25.47%, rgba(143, 143, 143, 0.9) 95.87%`}
+      props.pathname === '/rank'
+        ? `0, ${props.theme.bgColor.gray} 0, ${props.theme.bgColor.gray} 0`
+        : `180deg, ${props.theme.bgColor.blue} 0.06%, ${props.theme.bgColor.gray} 100%`}
   );
   z-index: 0;
 `;

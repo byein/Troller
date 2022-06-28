@@ -2,7 +2,10 @@ import '@emotion/react';
 
 declare module '@emotion/react' {
   export interface Theme {
-    bgColor: string;
+    bgColor: {
+      blue: string;
+      gray: string;
+    };
     borderColor: string;
     validation: {
       resolve: string;
