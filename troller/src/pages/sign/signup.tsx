@@ -39,8 +39,6 @@ function Signup() {
   const countDown = () => {
     setTimer(prev => prev - 1);
   };
-  const regexPw =
-    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,15}$/; // 길이 6~15, 1개이상의 문자, 1개이상의 특수문자
 
   // email입력값이 공백이거나 @를 포함하지 않으면 인증코드 전송버튼 못누르게 하는 기능
   useEffect(() => {
@@ -69,20 +67,7 @@ function Signup() {
   }, [code, verifyContent.verifyingCode, verifyContent.length]);
 
   // 이메일 입력 후 코드전송 || 코드재전송 버튼 ==> 회의 후 다시 수정해야 할 듯 && 타이머 작동도 안됨
-  const codeSender = async () => {
-    const res = await fetch('/check_dup_email', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: emailValue,
-      }),
-    });
-    console.log(res);
-    const json = await res.json();
-    // setrequestAuth(true);
-  };
+  const codeSender = async () => {};
 
   const summonerCheck = async () => {
     // if (summonerValue === '') {
@@ -106,36 +91,7 @@ function Signup() {
   };
   // 회원가입 API 요청
   const onSubmit = handleSubmit(async (data: FormData) => {
-    const res = await (
-      await fetch('/sign_up', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'applicaion/json',
-        },
-        body: JSON.stringify({
-          eMail: emailValue,
-          password: data.password,
-          lolName: data.lolName,
-        }),
-      })
-    ).json();
-    console.log(res);
-    // if (check_dup === true) {
-    //   const mail_auth = await (
-    //     await fetch('/mail_auth', {
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'applicaion/json',
-    //       },
-    //       body: JSON.stringify({
-    //         userId: emailValue,
-    //       }),
-    //     })
-    //   ).json();
-    // }
-    // } catch (err) {
-    //   console.log(err);
-    // }
+    console.log(data);
   });
   return (
     <SignForm>
@@ -216,7 +172,11 @@ function Signup() {
                 )}
               </div>
               <input
-                {...register('password', { required: true, pattern: regexPw })}
+                {...register('password', {
+                  required: true,
+                  pattern:
+                    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,15}$/,
+                })}
                 placeholder="길이 6~15, 1개이상의 문자, 1개이상의 특수문자"
                 type={!show ? 'password' : 'text'}
               />

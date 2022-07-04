@@ -8,9 +8,8 @@ function Signin() {
   const { register, handleSubmit } = useForm<FormData>();
 
   // 로그인 API 요청
-  const onSubmit = (userAuth: FormData) => {
-    console.log(userAuth);
-    // fetch or axios
+  const onSubmit = (data: FormData) => {
+    console.log(data);
   };
   return (
     <SignForm>
