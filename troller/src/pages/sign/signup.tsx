@@ -119,7 +119,6 @@ function Signup() {
         }),
       })
     ).json();
-    console.log(data);
     // if (check_dup === true) {
     //   const mail_auth = await (
     //     await fetch('/mail_auth', {
