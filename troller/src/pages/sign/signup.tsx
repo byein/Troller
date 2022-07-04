@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import onChange from '../../hooks/hooks';
 import Visibility from '../../components/sign/pwVisible';
-import SignForm, { ISignType } from '../../components/sign/signForm';
+import SignForm, { FormData } from '../../components/sign/signForm';
 import Timer from '../../components/sign/timer';
 import {
   Form,
@@ -33,7 +34,7 @@ function Signup() {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<ISignType>();
+  } = useForm<FormData>();
 
   const countDown = () => {
     setTimer(prev => prev - 1);
@@ -52,13 +53,6 @@ function Signup() {
     } // 이메일 형식 검사
   }, [emailValue, setisEmail]);
 
-  const onChange = (
-    modifierFn: (src: string) => void,
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    modifierFn(e.currentTarget.value);
-  };
-
   // backend 관련코드들
   // 이메일 인증코드 대조과정 ==> 회의 후 다시 수정해야 할 듯
   useEffect(() => {
@@ -76,56 +70,73 @@ function Signup() {
 
   // 이메일 입력 후 코드전송 || 코드재전송 버튼 ==> 회의 후 다시 수정해야 할 듯 && 타이머 작동도 안됨
   const codeSender = async () => {
-    alert(`${emailValue}로 코드가 전송되었습니다!`);
-    setrequestAuth(true);
-    // const res = await (
-    // 	await fetch('backend', {
-    // 		method: 'POST',
-    // 		headers: {
-    // 			'Content-Type': 'application.json',
-    // 		},
-    // 		body: JSON.stringify(emailValue),
-    // 	})
-    // ).json();
-    // setverifyContent({
-    // 	verifyingCode: res.verifyingCode,
-    // 	length: res.length,
-    //  time: res.time
-    // });
-    const res = {
-      verifyingCode: '1234',
-      length: 4,
-      expiredAt: 180,
-    }; // res값이 없어 임시로 만들어준 응답값
-    setverifyContent(res); // res값이 없어 임시로 만들어준 응답값; ==> Timer props로 업데이트 안됨.(수정 필요)
-    setTimer(res.expiredAt);
+    const res = await fetch('/check_dup_email', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: emailValue,
+      }),
+    });
+    console.log(res);
+    const json = await res.json();
+    // setrequestAuth(true);
   };
 
   const summonerCheck = async () => {
-    if (summonerValue === '') {
-      alert('소환사명을 입력해주세요!');
-    } else {
-      // const res = await (
-      // 	await fetch('backend', {
-      // 		method: 'POST',
-      // 		headers: {
-      // 			'Content-Type': 'application.json',
-      // 		},
-      // 		body: JSON.stringify(summonerValue),
-      // 	})
-      // ).json();
-      // if (res === true) {
-      // 	setisSummoner(true); // 원래는 res = true 이면 setisSummoner(res)로 해줘야함
-      // } else {
-      // 	alert('소환사명을 찾지 못했습니다!')
-      // }
-      setisSummoner(true);
-    }
+    // if (summonerValue === '') {
+    //   alert('소환사명을 입력해주세요!');
+    // } else {
+    //   const res = await (
+    //     await fetch(`${BASE_URL}/check_lol_name`, {
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application.json',
+    //       },
+    //       body: JSON.stringify(summonerValue),
+    //     })
+    //   ).json();
+    //   if (res.dupLolName && res.validLolName) {
+    //     setisSummoner(true);
+    //   } else {
+    //     alert('소환사명을 찾지 못했습니다!');
+    //   }
+    // }
   };
   // 회원가입 API 요청
-  const onSubmit = handleSubmit((userRegist: ISignType) => {
-    console.log(userRegist);
-    // fetch or axios
+  const onSubmit = handleSubmit(async (data: FormData) => {
+    try {
+      const res = await (
+        await fetch('/sign_up', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'applicaion/json',
+          },
+          body: JSON.stringify({
+            eMail: emailValue,
+            password: data.password,
+            lolName: data.lolName,
+          }),
+        })
+      ).json();
+    console.log(data);
+    // if (check_dup === true) {
+    //   const mail_auth = await (
+    //     await fetch('/mail_auth', {
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'applicaion/json',
+    //       },
+    //       body: JSON.stringify({
+    //         userId: emailValue,
+    //       }),
+    //     })
+    //   ).json();
+    // }
+    // } catch (err) {
+    //   console.log(err);
+    // }
   });
   return (
     <SignForm>
@@ -135,7 +146,7 @@ function Signup() {
             <span className="label__name">Email address</span>
           </div>
           <input
-            {...register('email', { required: true })}
+            {...register('eMail', { required: true })}
             onChange={e => onChange(setemailValue, e)}
             readOnly={!!isAuth}
             placeholder="example@example.com"
@@ -179,7 +190,7 @@ function Signup() {
               </div>
               <div className="summonerName">
                 <input
-                  {...register('nickname', { required: true })}
+                  {...register('lolName', { required: true })}
                   onChange={e => onChange(setsummonerValue, e)}
                   readOnly={!!isSummoner}
                 />
