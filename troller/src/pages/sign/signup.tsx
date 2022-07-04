@@ -106,20 +106,19 @@ function Signup() {
   };
   // 회원가입 API 요청
   const onSubmit = handleSubmit(async (data: FormData) => {
-    try {
-      const res = await (
-        await fetch('/sign_up', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'applicaion/json',
-          },
-          body: JSON.stringify({
-            eMail: emailValue,
-            password: data.password,
-            lolName: data.lolName,
-          }),
-        })
-      ).json();
+    const res = await (
+      await fetch('/sign_up', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'applicaion/json',
+        },
+        body: JSON.stringify({
+          eMail: emailValue,
+          password: data.password,
+          lolName: data.lolName,
+        }),
+      })
+    ).json();
     console.log(data);
     // if (check_dup === true) {
     //   const mail_auth = await (
