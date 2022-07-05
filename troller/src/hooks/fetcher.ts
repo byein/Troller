@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 const useApiPost = async <T>(api: string, req: Record<string, unknown>) => {
   const [res, setRes] = useState({});
   const [data, setData] = useState<T>();
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<unknown>();
   const [loading, setLoading] = useState<boolean>(false);
   (async () => {
     setLoading(true);
@@ -19,10 +19,10 @@ const useApiPost = async <T>(api: string, req: Record<string, unknown>) => {
       setRes(apiResponse);
       setData(json);
     } catch (err) {
-      setError(true);
-      console.log(err);
+      setError(err);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   })();
   return { res, data, error, loading };
 };
@@ -30,7 +30,7 @@ const useApiPost = async <T>(api: string, req: Record<string, unknown>) => {
 const useApiGet = <T>(api: string) => {
   const [res, setRes] = useState({});
   const [data, setData] = useState<T>();
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<unknown>(false);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     (async () => {
@@ -41,10 +41,10 @@ const useApiGet = <T>(api: string) => {
         setRes(apiResponse);
         setData(json);
       } catch (err) {
-        setError(true);
-        console.log(err);
+        setError(err);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     })();
   });
   return { res, data, error, loading };
