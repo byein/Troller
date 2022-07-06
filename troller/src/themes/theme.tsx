@@ -1,7 +1,11 @@
 import { Theme } from '@emotion/react';
 
 const def: Theme = {
-  bgColor: '#0A1F62',
+  bgColor: {
+    blue: '#0A1F62',
+    gray: '#8F8F8F',
+    anotherOne: '#F3F3F3',
+  },
   borderColor: '#969eba',
   validation: {
     resolve: '#1CF610',

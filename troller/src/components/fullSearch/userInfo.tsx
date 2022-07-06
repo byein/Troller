@@ -8,7 +8,7 @@ import {
   UserInfoDiv,
   UserInfoWrapper,
   UserNickName,
-} from '../../styles/mypage/mypage';
+} from '../../styles/fullSearch/fullSearch';
 
 export interface UserInfoProps {
   nickname: string;

@@ -1,10 +1,10 @@
 import { SignBox } from '../../styles/sign/globalSignBox';
 
-export interface ISignType {
-  email: string;
+export interface FormData {
+  eMail: string;
   password: string;
-  password_again?: string;
-  nickname?: string;
+  password_again: string;
+  lolName: string;
 }
 
 function SignForm({ children }: { children: React.ReactNode }) {
