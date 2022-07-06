@@ -2,14 +2,15 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Hub from './pages/hub';
 import FindDuo from './pages/main/findDuo';
 import MultiSearch from './pages/main/multiSearch';
-import NormalRank from './pages/main/normalRank';
-import ItemTree from './pages/mypage/itemTree';
-import KDA from './pages/mypage/kda';
-import MyPage from './pages/mypage/mypage';
-import TierAbility from './pages/mypage/tierAbility';
+import Rank from './pages/rank/rank';
+import ItemTree from './pages/fullSearch/itemTree';
+import KDA from './pages/fullSearch/kda';
+import FullSearch from './pages/fullSearch/fullSearch';
 import ForgotPw from './pages/sign/forgot';
 import Login from './pages/sign/signin';
 import Signup from './pages/sign/signup';
+import NormalRank from './pages/rank/normalRank';
+import TrollRank from './pages/rank/trollRank';
 
 export default function Router() {
   return (
@@ -18,13 +19,15 @@ export default function Router() {
         <Route path="/" element={<Hub />}>
           <Route path="find_duo" element={<FindDuo />} />
           <Route path="multi_search" element={<MultiSearch />} />
-          <Route path="normal_rank" element={<NormalRank />} />
+          <Route path="rank" element={<Rank />}>
+            <Route path="normal" element={<NormalRank />} />
+            <Route path="troll" element={<TrollRank />} />
+          </Route>
           <Route path="sign_in" element={<Login />} />
           <Route path="sign_up" element={<Signup />} />
           <Route path="forgot_pw" element={<ForgotPw />} />
-          <Route path="my_page" element={<MyPage />}>
+          <Route path=":userId" element={<FullSearch />}>
             <Route path="kda" element={<KDA />} />
-            <Route path="tier_ability" element={<TierAbility />} />
             <Route path="item_tree" element={<ItemTree />} />
           </Route>
         </Route>

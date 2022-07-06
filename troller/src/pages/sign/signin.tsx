@@ -1,19 +1,16 @@
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import AnotherLogin from '../../components/sign/anotherLogin';
-import SignForm, { ISignType } from '../../components/sign/signForm';
+import SignForm, { FormData } from '../../components/sign/signForm';
 import { Form, InputBox, SubmitBtn } from '../../styles/sign/globalSignBox';
 
 function Signin() {
-  const { register, handleSubmit } = useForm<ISignType>();
+  const { register, handleSubmit } = useForm<FormData>();
 
   // 로그인 API 요청
-  const onSubmit = (userAuth: ISignType) => {
-    console.log(userAuth);
-
-    // fetch or axios
+  const onSubmit = (data: FormData) => {
+    console.log(data);
   };
-
   return (
     <SignForm>
       <Form onSubmit={handleSubmit(onSubmit)}>
@@ -22,7 +19,7 @@ function Signin() {
             <span className="label__name">Email address</span>
           </div>
           <input
-            {...register('email', {
+            {...register('eMail', {
               required: true,
             })}
             type="email"

@@ -1,5 +1,8 @@
 import { Link } from 'react-router-dom';
-import { GraphTabWrapper, ProfileTab } from '../../styles/mypage/mypage';
+import {
+  GraphTabWrapper,
+  ProfileTab,
+} from '../../styles/fullSearch/fullSearch';
 
 function GraphTab({ pathname }: { pathname: string }) {
   return (
