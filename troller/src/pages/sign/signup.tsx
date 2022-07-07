@@ -13,15 +13,13 @@ import {
   VerifyInputBox,
 } from '../../styles/sign/globalSignBox';
 
+const CODE_VALID_TIME = 60 * 3;
+const CODE_LENGTH = 8;
+
 function Signup() {
-  const [timer, setTimer] = useState(0);
+  const [validTime, setvalidTime] = useState(0);
   const [show, setShow] = useState(false);
-  const [verifyContent, setverifyContent] = useState({
-    verifyingCode: '1234',
-    length: 4,
-    expiredAt: 180, // 코드전송버튼 누를 때마다 res로 받아서 Timer로 넘겨줌(180초 디폴트) ==> 고쳐야 함
-  }); // temporal(이메일 인증코드, 서버 개설되면 백에서 대조?) && 인증코드 길이 고정되면 setverifyContent로 변경
-  const [emailValue, setemailValue] = useState(''); // 이메일 입력란값 => 이메일 형식이 맞는지 실시간 감시
+  const [email, setemail] = useState(''); // 이메일 입력란값 => 이메일 형식이 맞는지 실시간 감시
   const [isEmail, setisEmail] = useState(false); // 이메일형식이 맞으면(true) 인증코드전송버튼 접근가능, 아니면 접근불가
   const [code, setCode] = useState(''); // 이메일 인증코드 입력란값 만약 백에서 대조한다면 fetch
   const [isCorrect, setisCorrect] = useState(true); // 인증코드가 맞는지 판별
@@ -36,60 +34,89 @@ function Signup() {
     formState: { errors },
   } = useForm<FormData>();
 
-  const countDown = () => {
-    setTimer(prev => prev - 1);
-  };
-
   // email입력값이 공백이거나 @를 포함하지 않으면 인증코드 전송버튼 못누르게 하는 기능
   useEffect(() => {
     const regexEmail =
       /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i; // 이메일 정규식
-    if (regexEmail.test(emailValue)) {
+    if (regexEmail.test(email)) {
       setisEmail(true);
     } else {
       setisEmail(false);
     } // 이메일 형식 검사
-  }, [emailValue, setisEmail]);
+  }, [email, setemail]);
 
-  // backend 관련코드들
-  // 이메일 인증코드 대조과정 ==> 회의 후 다시 수정해야 할 듯
   useEffect(() => {
-    if (code === verifyContent.verifyingCode) {
-      setTimeout(() => setisAuth(prev => !prev), 500);
-    } else if (
-      code !== verifyContent.verifyingCode &&
-      code.length === verifyContent.length
-    ) {
-      setCode('');
-      setisCorrect(prev => !prev);
-      setTimeout(() => setisCorrect(prev => !prev), 200);
+    if (code.length === CODE_LENGTH) {
+      (async () => {
+        const res = await fetch('/mail_auth', {
+          method: 'POST',
+          body: JSON.stringify({ code }),
+        });
+        const data = await res.json();
+        if (data) {
+          setTimeout(() => setisAuth(prev => !prev), 500);
+        } else {
+          setCode('');
+          setisCorrect(prev => !prev);
+          setTimeout(() => setisCorrect(prev => !prev), 200);
+        }
+      })();
     }
-  }, [code, verifyContent.verifyingCode, verifyContent.length]);
-
-  // 이메일 입력 후 코드전송 || 코드재전송 버튼 ==> 회의 후 다시 수정해야 할 듯 && 타이머 작동도 안됨
-  const codeSender = async () => {};
-
-  const summonerCheck = async () => {
-    // if (summonerValue === '') {
-    //   alert('소환사명을 입력해주세요!');
-    // } else {
-    //   const res = await (
-    //     await fetch(`${BASE_URL}/check_lol_name`, {
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application.json',
-    //       },
-    //       body: JSON.stringify(summonerValue),
-    //     })
-    //   ).json();
-    //   if (res.dupLolName && res.validLolName) {
-    //     setisSummoner(true);
-    //   } else {
-    //     alert('소환사명을 찾지 못했습니다!');
-    //   }
+  }, [code]);
+  const CodeSender = async () => {
+    const response = await fetch('/check_dup_email', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+      }),
+    });
+    const dat = await response.json();
+    if (dat) {
+      setrequestAuth(true);
+      setvalidTime(CODE_VALID_TIME - 1);
+      // const res = await fetch('/email_auth', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify({ email }),
+      // });
+      // if (res.ok) {
+      //   setrequestAuth(true);
+      //   setvalidTime(CODE_VALID_TIME);
+      // } else {
+      //   alert('Server Error: Sending Code is Failed');
+      // }
+    }
+    // else {
+    //   alert(`'${email}' is already registered`);
     // }
   };
-  // 회원가입 API 요청
+  const summonerCheck = async () => {
+    if (summonerValue === '') {
+      alert('소환사명을 입력해주세요!');
+    } else {
+      const res = await (
+        await fetch('/check_lol_name', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application.json',
+          },
+          body: JSON.stringify(summonerValue),
+        })
+      ).json();
+      if (res.dupLolName && res.validLolName) {
+        setisSummoner(true);
+      } else {
+        console.log(res);
+        alert('소환사명을 찾지 못했습니다!');
+      }
+      // setisSummoner(true);
+    }
+  };
   const onSubmit = handleSubmit(async (data: FormData) => {
     console.log(data);
   });
@@ -101,8 +128,8 @@ function Signup() {
             <span className="label__name">Email address</span>
           </div>
           <input
-            {...register('eMail', { required: true })}
-            onChange={e => onChange(setemailValue, e)}
+            {...register('email', { required: true })}
+            onChange={e => onChange(setemail, e)}
             readOnly={!!isAuth}
             placeholder="example@example.com"
           />
@@ -118,21 +145,21 @@ function Signup() {
                 code={code}
                 requestAuth={requestAuth}
                 onChange={e => onChange(setCode, e)}
-                value={code}
-                placeholder="verify code"
+                placeholder="Verify Code"
+                maxLength={CODE_LENGTH}
               />
               <Timer
-                requestAuth={requestAuth}
-                timer={timer}
-                countDown={countDown}
+                validTime={validTime}
+                setvalidTime={setvalidTime}
+                setrequestAuth={setrequestAuth}
               />
             </VerifyInputBox>
             {!requestAuth ? (
-              <SubmitBtn as="div" isEmail={isEmail} onClick={codeSender}>
+              <SubmitBtn as="div" isEmail={isEmail} onClick={CodeSender}>
                 {!isEmail ? 'Please Enter An Email' : 'Request Verify Code'}
               </SubmitBtn>
             ) : (
-              <SubmitBtn as="div" isEmail={isEmail} onClick={codeSender}>
+              <SubmitBtn as="div" isEmail={isEmail} onClick={CodeSender}>
                 Request Code Again
               </SubmitBtn>
             )}

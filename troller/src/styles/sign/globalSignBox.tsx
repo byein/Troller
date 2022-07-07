@@ -178,7 +178,7 @@ const VerifyInput = styled('input')<{
   code: string;
   isCorrect: boolean;
 }>`
-  width: 100%;
+  width: 120%;
   height: 50px;
   display: ${props => (!props.requestAuth ? 'none' : null)};
   text-align: center;

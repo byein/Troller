@@ -19,7 +19,7 @@ function Signin() {
             <span className="label__name">Email address</span>
           </div>
           <input
-            {...register('eMail', {
+            {...register('email', {
               required: true,
             })}
             type="email"
