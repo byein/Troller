@@ -1,16 +1,35 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AnotherLogin from '../../components/sign/anotherLogin';
 import SignForm, { FormData } from '../../components/sign/signForm';
+import onChange from '../../hooks/hooks';
+import { Axios as axios } from '../../hooks/axiosMethod';
 import { Form, InputBox, SubmitBtn } from '../../styles/sign/globalSignBox';
 
 function Signin() {
+  const navigate = useNavigate();
+
+  const [email, setemail] = useState('');
+  const [password, setpassword] = useState('');
   const { register, handleSubmit } = useForm<FormData>();
 
-  // 로그인 API 요청
-  const onSubmit = (data: FormData) => {
-    console.log(data);
+  const onSubmit = async (userData: FormData) => {
+    const { res, data } = await axios.post('/sign_in', userData);
+    if (data) {
+      localStorage.setItem('access_token', data.access_token);
+      localStorage.setItem('refresh_tokem', data.refresh_token);
+      navigate('/');
+    } else {
+      alert('Error: inValid email or password');
+      setemail('');
+      setpassword('');
+    }
+    if (!res?.ok) {
+      alert('Server Error: SignIn is Failed');
+    }
   };
+
   return (
     <SignForm>
       <Form onSubmit={handleSubmit(onSubmit)}>
@@ -22,6 +41,7 @@ function Signin() {
             {...register('email', {
               required: true,
             })}
+            onChange={e => onChange(setemail, e)}
             type="email"
             placeholder="example@example.com"
           />
@@ -37,6 +57,7 @@ function Signin() {
             {...register('password', {
               required: true,
             })}
+            onChange={e => onChange(setpassword, e)}
             type="password"
           />
         </InputBox>

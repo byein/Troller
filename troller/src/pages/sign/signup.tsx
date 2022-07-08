@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import { useNavigate } from 'react-router-dom';
 import onChange from '../../hooks/hooks';
 import Visibility from '../../components/sign/pwVisible';
 import SignForm, { FormData } from '../../components/sign/signForm';
@@ -12,11 +13,14 @@ import {
   VerifyInput,
   VerifyInputBox,
 } from '../../styles/sign/globalSignBox';
+import { Axios as axios } from '../../hooks/axiosMethod';
 
 const CODE_VALID_TIME = 60 * 3;
 const CODE_LENGTH = 8;
 
 function Signup() {
+  const navigate = useNavigate();
+
   const [validTime, setvalidTime] = useState(0);
   const [show, setShow] = useState(false);
   const [email, setemail] = useState(''); // 이메일 입력란값 => 이메일 형식이 맞는지 실시간 감시
@@ -25,7 +29,7 @@ function Signup() {
   const [isCorrect, setisCorrect] = useState(true); // 인증코드가 맞는지 판별
   const [isAuth, setisAuth] = useState(false); // 인증코드가 인증이 되었는지 안되었는지 판별
   const [requestAuth, setrequestAuth] = useState(false); // 인증코드 요청여부 확인
-  const [summonerValue, setsummonerValue] = useState(''); // 소환사 입력란값
+  const [lolName, setlolName] = useState(''); // 소환사 입력란값
   const [isSummoner, setisSummoner] = useState(false); // 백에서 검증후 존재하는 소환사일 때 true값 반환
   const {
     register,
@@ -48,11 +52,7 @@ function Signup() {
   useEffect(() => {
     if (code.length === CODE_LENGTH) {
       (async () => {
-        const res = await fetch('/mail_auth', {
-          method: 'POST',
-          body: JSON.stringify({ code }),
-        });
-        const data = await res.json();
+        const { res, data } = await axios.post('/verify_code', { code });
         if (data) {
           setTimeout(() => setisAuth(prev => !prev), 500);
         } else {
@@ -60,66 +60,65 @@ function Signup() {
           setisCorrect(prev => !prev);
           setTimeout(() => setisCorrect(prev => !prev), 200);
         }
+        if (!res?.ok) {
+          alert('Server Error: Checking Code is Failed');
+        }
       })();
     }
   }, [code]);
+
   const CodeSender = async () => {
-    const response = await fetch('/check_dup_email', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email,
-      }),
+    const { res, data } = await axios.post('/check_dup_email', {
+      email,
     });
-    const dat = await response.json();
-    if (dat) {
-      setrequestAuth(true);
-      setvalidTime(CODE_VALID_TIME - 1);
-      // const res = await fetch('/email_auth', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify({ email }),
-      // });
-      // if (res.ok) {
-      //   setrequestAuth(true);
-      //   setvalidTime(CODE_VALID_TIME);
-      // } else {
-      //   alert('Server Error: Sending Code is Failed');
-      // }
-    }
-    // else {
-    //   alert(`'${email}' is already registered`);
-    // }
-  };
-  const summonerCheck = async () => {
-    if (summonerValue === '') {
-      alert('소환사명을 입력해주세요!');
-    } else {
-      const res = await (
-        await fetch('/check_lol_name', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application.json',
-          },
-          body: JSON.stringify(summonerValue),
-        })
-      ).json();
-      if (res.dupLolName && res.validLolName) {
-        setisSummoner(true);
+    if (res?.ok) {
+      console.log(res, data);
+      const { res: isCodeSend } = await axios.post('/email_auth', {
+        email,
+      }); // 404 Not Found here...
+      if (isCodeSend?.ok) {
+        setrequestAuth(true);
+        setvalidTime(CODE_VALID_TIME - 1);
       } else {
-        console.log(res);
-        alert('소환사명을 찾지 못했습니다!');
+        alert('Server Error: Sending Code is Failed');
       }
-      // setisSummoner(true);
+    } else {
+      alert(`Error: '${email}' is already registered`);
+    }
+    if (!res?.ok) {
+      alert('Server Error: Checking Email is Failed');
     }
   };
-  const onSubmit = handleSubmit(async (data: FormData) => {
-    console.log(data);
-  });
+
+  const summonerCheck = async () => {
+    const {
+      res,
+      data: { dupLolName, validLolName },
+    } = await axios.post('/check_lol_name', { lolName });
+    if (dupLolName && validLolName) {
+      setisSummoner(true);
+    } else {
+      alert(`Error: ${lolName} is invalid`);
+    }
+    if (!res?.ok) {
+      alert('Server Error: Checking summoner name is Failed');
+    }
+  };
+
+  const onSubmit = handleSubmit(async (userData: FormData) => {
+    const { res } = await axios.post('/sign_up', {
+      email: userData.email,
+      password: userData.password,
+      lolName: userData.lolName,
+    });
+    if (res?.ok) {
+      alert('Welcome to Logo');
+      navigate('/sign_in');
+    } else {
+      alert('Server Error: Checking SignUp form is Failed');
+    }
+  }); // api 명세 재대로 작성 안되어 pending...
+
   return (
     <SignForm>
       <Form onSubmit={onSubmit}>
@@ -173,7 +172,7 @@ function Signup() {
               <div className="summonerName">
                 <input
                   {...register('lolName', { required: true })}
-                  onChange={e => onChange(setsummonerValue, e)}
+                  onChange={e => onChange(setlolName, e)}
                   readOnly={!!isSummoner}
                 />
                 <span className="isVerifiedSummoner">
