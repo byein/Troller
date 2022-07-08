@@ -71,8 +71,8 @@ function Signup() {
     const { res, data } = await axios.post('/check_dup_email', {
       email,
     });
-    if (res?.ok) {
-      console.log(res, data);
+    if (data) {
+      console.log(data);
       const { res: isCodeSend } = await axios.post('/email_auth', {
         email,
       }); // 404 Not Found here...
