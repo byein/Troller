@@ -1,7 +1,7 @@
 import { SignBox } from '../../styles/sign/globalSignBox';
 
 export interface FormData {
-  eMail: string;
+  email: string;
   password: string;
   password_again: string;
   lolName: string;
