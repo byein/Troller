@@ -98,14 +98,6 @@ const UserInfoDiv = styled("div")`
 	color: #ffffff;
 `;
 
-const TierRecordWrapper = styled("div")`
-	width: 95px;
-	height: 113px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-`;
-
 const TierImageWrapper = styled("div")<{ url: string }>`
 	width: 30px;
 	height: 30px;
@@ -179,7 +171,6 @@ export {
 	UserNickName,
 	Tier,
 	UserInfoDiv,
-	TierRecordWrapper,
 	TierImageWrapper,
 	Records,
 	GraphTabWrapper,

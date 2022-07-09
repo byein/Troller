@@ -5,7 +5,6 @@ import {
 	Records,
 	Tier,
 	TierImageWrapper,
-	TierRecordWrapper,
 	UserInfoDiv,
 	UserInfoWrapper,
 	UserNickName,
