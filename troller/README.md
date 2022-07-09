@@ -17,3 +17,6 @@
 # Commit 메세지로 이슈 자동종료하기
 * git commit -m '메세지 **close #issueNumber1, #issueNumber2, #issueNumber3**' => **master(main) 브랜치 MR승인시 해당이슈 자동종료** 
 * https://webruden.tistory.com/503 참고
+
+# API 명세
+http://ec2-3-37-22-89.ap-northeast-2.compute.amazonaws.com:8080/swagger-ui/index.html
