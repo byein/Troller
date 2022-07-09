@@ -5,6 +5,7 @@ import {
 	Records,
 	Tier,
 	TierImageWrapper,
+	TierNickname,
 	UserInfoDiv,
 	UserInfoWrapper,
 	UserNickName,
@@ -41,9 +42,11 @@ function ProfileInfo({
 }) {
 	return (
 		<ProfileInfoWrapper>
-			<UserNickName>
-				{nickname} <TierImage tier={tier} />
-			</UserNickName>
+			<TierNickname>
+				<TierImage tier={tier} />
+				<UserNickName>{nickname}</UserNickName>
+			</TierNickname>
+
 			<Tier>{tier}</Tier>
 			<InfoGlobalWrapper>
 				<div>

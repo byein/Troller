@@ -61,6 +61,12 @@ const ProfileImageWrapper = styled("div")<{ url: string }>`
 	background-size: cover;
 	margin-right: 7px;
 `;
+
+const TierNickname = styled("div")`
+	display: inline-flex;
+	justify-content: flex-start;
+`;
+
 const UserNickName = styled("div")`
 	font-size: 1.8rem;
 	font-weight: "bold";
@@ -70,9 +76,12 @@ const UserNickName = styled("div")`
 	font-weight: 600;
 	font-size: 20px;
 	line-height: 24px;
-	display: flex;
+	max-width: calc(70%);
+	display: inline-block;
 	text-align: center;
+	overflow: hidden;
 	color: #ffffff;
+	text-overflow: ellipsis;
 `;
 
 const Tier = styled("div")`
@@ -159,6 +168,7 @@ const ProfileTab = styled("li")<{ isActive: boolean }>`
 `;
 
 export {
+	TierNickname,
 	FullSearchGlobalWrapper,
 	UserSection,
 	RecordSection,
