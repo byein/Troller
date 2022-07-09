@@ -1,5 +1,5 @@
 function KDA() {
-  return <div>kda</div>;
+	return <div>kda</div>;
 }
 
 export default KDA;
