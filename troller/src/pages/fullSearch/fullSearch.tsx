@@ -1,13 +1,17 @@
 import { Outlet, useLocation } from "react-router-dom";
 import {
-	FullSearchContainer,
 	FullSearchGlobalWrapper,
-	FullSearchWrapper,
 	RecordSection,
 	UserSection,
 } from "../../styles/fullSearch/fullSearch";
 import GraphTab from "../../components/fullSearch/graphTab";
 import UserInfo from "../../components/fullSearch/userInfo";
+import SumRecord from "../../components/fullSearch/sumRecords";
+import {
+	FullSearchContainer,
+	FullSearchWrapper,
+} from "../../styles/fullSearch/userInfo";
+import RecordList from "../../components/fullSearch/recordList";
 
 // 임시 데이터 세팅
 function FullSearch() {
@@ -31,7 +35,10 @@ function FullSearch() {
 					</FullSearchContainer>
 				</FullSearchWrapper>
 			</UserSection>
-			<RecordSection></RecordSection>
+			<RecordSection>
+				<SumRecord />
+				<RecordList />
+			</RecordSection>
 		</FullSearchGlobalWrapper>
 	);
 }
