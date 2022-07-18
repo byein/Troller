@@ -7,6 +7,11 @@ import onChange from '../../hooks/hooks';
 import { Axios as axios } from '../../hooks/axiosMethod';
 import { Form, InputBox, SubmitBtn } from '../../styles/sign/globalSignBox';
 
+interface ITokenType {
+  accessToken: string;
+  refreshToken: string;
+}
+
 function Signin() {
   const navigate = useNavigate();
 
@@ -15,10 +20,13 @@ function Signin() {
   const { register, handleSubmit } = useForm<FormData>();
 
   const onSubmit = async (userData: FormData) => {
-    const { res, data } = await axios.post('/sign_in', userData);
-    if (data) {
-      localStorage.setItem('access_token', data.access_token);
-      localStorage.setItem('refresh_tokem', data.refresh_token);
+    const {
+      res,
+      data: { accessToken, refreshToken },
+    } = await axios.post<ITokenType>('/sign_in', userData);
+    if (accessToken && refreshToken) {
+      localStorage.setItem('access_token', accessToken);
+      localStorage.setItem('refresh_tokem', refreshToken);
       navigate('/');
     } else {
       alert('Error: inValid email or password');
