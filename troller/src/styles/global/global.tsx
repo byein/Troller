@@ -107,12 +107,31 @@ const SKELETON_ANIMATION = keyframes`
     background-color: rgba(255,255,255,0.2);
   }
 `;
+const SKELETON_BAR_ANIMATION = keyframes`
+  0% {
+    transform: translateY(0) rotate(-45deg);
+  }
+  100% {
+    transform: translateY(1000px) rotate(-45deg);
+  }
+`;
 
 const Skeleton = styled('div')`
   width: 100%;
   height: 100%;
   border-radius: ${`${BORDER_RADIUS}px`};
-  animation: ${SKELETON_ANIMATION} 1s linear infinite;
+  animation: ${SKELETON_ANIMATION} 0.9s linear infinite;
+  position: relative;
+  overflow: hidden;
+  .bar {
+    position: absolute;
+    top: -140px;
+    left: -70px;
+    width: 150%;
+    height: 20px;
+    background-color: rgba(255, 255, 255, 0.25);
+    animation: ${SKELETON_BAR_ANIMATION} 0.9s ease-in-out infinite;
+  }
 `;
 
 export {
