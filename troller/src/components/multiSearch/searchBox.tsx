@@ -15,6 +15,7 @@ function Search() {
     const rows = value.split('\n').length;
     setText(value);
     setRow(rows);
+    console.log(rows);
   };
   const onKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     const { value } = e.currentTarget;
