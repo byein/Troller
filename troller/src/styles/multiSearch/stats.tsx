@@ -16,15 +16,6 @@ const UserStat = styled('div')`
   border-radius: ${`${BORDER_RADIUS}px`};
   ${FLOAT_COLOR};
   position: relative;
-  /* .skeleton {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
-    border-radius: ${`${BORDER_RADIUS}px`};
-    z-inde
-  } */
 `;
 
 export { StatWrapper, UserStat };
