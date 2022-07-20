@@ -15,6 +15,11 @@ import {
 } from '../../styles/sign/globalSignBox';
 import { Axios as axios } from '../../hooks/axiosMethod';
 
+interface ILolNameType {
+  dupLolName: boolean;
+  validLolName: boolean;
+}
+
 const CODE_VALID_TIME = 60 * 3;
 const CODE_LENGTH = 8;
 
@@ -52,9 +57,12 @@ function Signup() {
   useEffect(() => {
     if (code.length === CODE_LENGTH) {
       (async () => {
-        const { res, data } = await axios.post('/verify_code', { code });
+        const { res, data } = await axios.post<boolean>('/verify_code', {
+          code,
+          validTime,
+        });
         if (data) {
-          setTimeout(() => setisAuth(prev => !prev), 500);
+          setTimeout(() => setisAuth(prev => !prev), 200);
         } else {
           setCode('');
           setisCorrect(prev => !prev);
@@ -65,28 +73,27 @@ function Signup() {
         }
       })();
     }
-  }, [code]);
+  }, [code, setCode, validTime]);
 
   const CodeSender = async () => {
-    const { res, data } = await axios.post('/check_dup_email', {
+    const { res, data } = await axios.post<boolean>('/sign/up/check/email', {
       email,
     });
-    if (data) {
-      console.log(data);
-      const { res: isCodeSend } = await axios.post('/email_auth', {
-        email,
-      }); // 404 Not Found here...
-      if (isCodeSend?.ok) {
+    if (res?.status === 200) {
+      const { res: isCodeSend } = await axios.post<null>(
+        '/sign/up/email_auth',
+        {
+          email,
+        }
+      );
+      if (isCodeSend?.status === 200) {
         setrequestAuth(true);
         setvalidTime(CODE_VALID_TIME - 1);
       } else {
-        alert('Server Error: Sending Code is Failed');
+        alert('Server Error: Checking Email is Failed');
       }
     } else {
-      alert(`Error: '${email}' is already registered`);
-    }
-    if (!res?.ok) {
-      alert('Server Error: Checking Email is Failed');
+      alert(`Error: 이미 등록된 이메일입니다`);
     }
   };
 
@@ -94,11 +101,13 @@ function Signup() {
     const {
       res,
       data: { dupLolName, validLolName },
-    } = await axios.post('/check_lol_name', { lolName });
+    } = await axios.get<ILolNameType>(`/check_lol_name?lolName=${lolName}`);
     if (dupLolName && validLolName) {
       setisSummoner(true);
-    } else {
-      alert(`Error: ${lolName} is invalid`);
+    } else if (!dupLolName && validLolName) {
+      alert(`Error: 이미 등록된 소환사입니다.`);
+    } else if (dupLolName && !validLolName) {
+      alert(`Error: 존재하지 않는 소환사입니다.`);
     }
     if (!res?.ok) {
       alert('Server Error: Checking summoner name is Failed');

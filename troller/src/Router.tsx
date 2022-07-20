@@ -11,6 +11,7 @@ import Login from './pages/sign/signin';
 import Signup from './pages/sign/signup';
 import NormalRank from './pages/rank/normalRank';
 import TrollRank from './pages/rank/trollRank';
+import Stats from './components/multiSearch/stats';
 
 export default function Router() {
   return (
@@ -18,7 +19,9 @@ export default function Router() {
       <Routes>
         <Route path="/" element={<Hub />}>
           <Route path="find_duo" element={<FindDuo />} />
-          <Route path="multi_search" element={<MultiSearch />} />
+          <Route path="multi_search" element={<MultiSearch />}>
+            <Route path=":users" element={<Stats />} />
+          </Route>
           <Route path="rank" element={<Rank />}>
             <Route path="normal" element={<NormalRank />} />
             <Route path="troll" element={<TrollRank />} />
