@@ -195,11 +195,6 @@ const VerifyInput = styled('input')<{
   ${TRANSITION}
   &:focus {
     outline: none;
-    border-bottom: 2px solid
-      ${props =>
-        props.code !== '1234'
-          ? props.theme.validation.error
-          : props.theme.validation.resolve};
   }
 `;
 

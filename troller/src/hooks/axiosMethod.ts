@@ -15,7 +15,7 @@ const refreshJWT = async (): Promise<{ res: Response | undefined }> => {
     const { accessToken, refreshToken } = await res.json();
     localStorage.setItem('access_token', accessToken);
     localStorage.setItem('refresh_token', refreshToken);
-  } else if (res.status === 401) {
+  } else if (res.status === 403) {
     // when refresh token is expired
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
@@ -26,9 +26,9 @@ const refreshJWT = async (): Promise<{ res: Response | undefined }> => {
 };
 
 class Axios {
-  static async get(path: string): Promise<{
+  static async get<DataType>(path: string): Promise<{
     res: Response | undefined;
-    data: any; // reassign type later
+    data: DataType;
     isLoading: boolean | undefined;
   }> {
     let res;
@@ -49,12 +49,12 @@ class Axios {
     return { res, data, isLoading };
   }
 
-  static async post(
+  static async post<DataType>(
     path: string,
     req: any // reassign type later
   ): Promise<{
     res: Response | undefined;
-    data: any; // reassign type later
+    data: DataType;
     isLoading: boolean | undefined;
   }> {
     let res;
@@ -76,7 +76,7 @@ class Axios {
       if (data) {
         isLoading = false;
       }
-      if (response.status === 401) {
+      if (response.status === 403) {
         // when access token is expired
         const { res: refreshRes } = await refreshJWT();
         if (refreshRes?.ok) {
