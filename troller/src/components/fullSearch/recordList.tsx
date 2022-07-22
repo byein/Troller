@@ -25,7 +25,7 @@ function RecordItem(props: ResultProps) {
           <div className="time-stamp">
             <div>한 달 전</div>
           </div>
-          <div className="bar"></div>
+          <div className="bar" />
           <div className="result">패배</div>
           <div className="length">31분 40초</div>
         </RecordItemGame>
@@ -60,7 +60,6 @@ function RecordItem(props: ResultProps) {
                     />
                   </div>
                 </div>
-
                 <div className="runes">
                   <div className="rune">
                     <img
@@ -261,7 +260,7 @@ function RecordItem(props: ResultProps) {
           </ul>
         </RecordItemParticipants>
         <RecordItemAction result={props.result}>
-          <button className="detail">
+          <button type="button" className="detail">
             {props.result === 'LOSE' ? (
               <img
                 src="https://s-lol-web.op.gg/images/icon/icon-arrow-down-red.svg?v=1657538065312"
