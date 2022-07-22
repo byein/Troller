@@ -1,3 +1,5 @@
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import {
   GlobalRankWrapper,
   RankItemStyle,
@@ -6,18 +8,17 @@ import {
   RankTitle,
   RankTRBar,
   TableBody,
-  TDKDA,
+  TDLeaguePoint,
   TDNickname,
   TDRank,
-  TDWinRate,
 } from '../../styles/home/home';
 
 interface RankItemProps {
   rank: number;
   nickname: string;
-  kda: number;
-  winRate: number;
+  leaguePoints: string;
 }
+
 function RankTableTRBar() {
   return (
     <RankTRBar>
@@ -28,48 +29,93 @@ function RankTableTRBar() {
     </RankTRBar>
   );
 }
-function RankItem({ rank, nickname, kda, winRate }: RankItemProps) {
+
+function RankItem({ rank, nickname, leaguePoints }: RankItemProps) {
   return (
     <RankTableTR>
       <TDRank>{rank}</TDRank>
       <TDNickname>{nickname}</TDNickname>
-      <TDKDA>KDA:{kda.toFixed(3)}</TDKDA>
-      <TDWinRate>Win Rate:{winRate.toFixed(3)}</TDWinRate>
+      <TDLeaguePoint>League Point:{leaguePoints}</TDLeaguePoint>
     </RankTableTR>
   );
 }
 
 function RankTableRender() {
+  const [rankData, setRankData] = useState([]);
+  useEffect(() => {
+    axios
+      .get('/api/rank/main')
+      .then(async response => {
+        const data = await response.data;
+        setRankData(data.entries);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
+  // const getValues = Object.values(rankData).map((entrie, idx) => {
+  //   return console.log(entrie, idx);
+  // });
+
+  // console.log(rankData[0][name]);
   const rendering = () => {
-    const result = [];
-    for (let i = 0; i < 10; i += 1) {
-      if (i === 9) {
-        result.push(
-          <div>
-            <RankItem
-              key={i}
-              rank={i + 1}
-              nickname="닉네임"
-              kda={i * 0.05}
-              winRate={i * 0.06}
-            />
-          </div>
-        );
-      } else {
-        result.push(
-          <RankItemStyle>
-            <RankItem
-              key={i}
-              rank={i + 1}
-              nickname="닉네임"
-              kda={i * 0.05}
-              winRate={i * 0.06}
-            />
-            <RankTableTRBar />{' '}
-          </RankItemStyle>
-        );
-      }
-    }
+    const result: JSX.Element[] = [];
+    let idx = 0;
+    let i = 0;
+    Object.entries(rankData).forEach(entrie => {
+      let name = '';
+      let leaguePoints = '';
+      Object.entries(entrie[1]).forEach(item => {
+        if (idx % 2 === 0) {
+          name = item[1] as string;
+        } else {
+          leaguePoints = item[1] as string;
+          i += 1;
+        }
+        if (i === 10 && name && leaguePoints) {
+          result.push(
+            <div>
+              <RankItem
+                key={i}
+                rank={i}
+                nickname={name}
+                leaguePoints={leaguePoints}
+              />
+            </div>
+          );
+        } else if (name && leaguePoints) {
+          result.push(
+            <RankItemStyle>
+              <RankItem
+                key={i}
+                rank={i}
+                nickname={name}
+                leaguePoints={leaguePoints}
+              />
+              <RankTableTRBar />{' '}
+            </RankItemStyle>
+          );
+        }
+        leaguePoints = '';
+        idx += 1;
+      });
+    });
+    // for (let i = 0; i < 10; i += 1) {
+    //   if (i === 9) {
+    //     result.push(
+    //       <div>
+    //         <RankItem key={i} rank={i + 1} name="닉네임" leaguePoints="12345" />
+    //       </div>
+    //     );
+    //   } else {
+    //     result.push(
+    //       <RankItemStyle>
+    //         <RankItem key={i} rank={i + 1} name="닉네임" leaguePoints="1234" />
+    //         <RankTableTRBar />{' '}
+    //       </RankItemStyle>
+    //     );
+    //   }
+    // }
     return result;
   };
   return <TableBody>{rendering()}</TableBody>;
@@ -77,7 +123,7 @@ function RankTableRender() {
 function GeneralRank() {
   return (
     <GlobalRankWrapper>
-      <RankTitle>일반인 랭킹</RankTitle>
+      <RankTitle>노멀 랭킹</RankTitle>
       <RankTable>
         <RankTableRender />
       </RankTable>
@@ -87,7 +133,7 @@ function GeneralRank() {
 function ProRank() {
   return (
     <GlobalRankWrapper>
-      <RankTitle>프로 랭킹</RankTitle>
+      <RankTitle>트롤 랭킹</RankTitle>
       <RankTable>
         <RankTableRender />
       </RankTable>
