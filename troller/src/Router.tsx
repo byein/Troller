@@ -11,6 +11,7 @@ import Signup from './pages/sign/signup';
 import NormalRank from './pages/rank/normalRank';
 import TrollRank from './pages/rank/trollRank';
 import TierAbility from './pages/fullSearch/tierAbility';
+import Stats from './components/multiSearch/stats';
 
 export default function Router() {
   return (
