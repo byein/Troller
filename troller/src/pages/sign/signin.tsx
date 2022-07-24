@@ -4,7 +4,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import AnotherLogin from '../../components/sign/anotherLogin';
 import SignForm, { FormData } from '../../components/sign/signForm';
 import onChange from '../../hooks/hooks';
-import { Axios as axios } from '../../hooks/axiosMethod';
 import { Form, InputBox, SubmitBtn } from '../../styles/sign/globalSignBox';
 
 interface ITokenType {
@@ -14,29 +13,11 @@ interface ITokenType {
 
 function Signin() {
   const navigate = useNavigate();
-
   const [email, setemail] = useState('');
   const [password, setpassword] = useState('');
   const { register, handleSubmit } = useForm<FormData>();
 
-  const onSubmit = async (userData: FormData) => {
-    const {
-      res,
-      data: { accessToken, refreshToken },
-    } = await axios.post<ITokenType>('/sign_in', userData);
-    if (accessToken && refreshToken) {
-      localStorage.setItem('access_token', accessToken);
-      localStorage.setItem('refresh_tokem', refreshToken);
-      navigate('/');
-    } else {
-      alert('Error: inValid email or password');
-      setemail('');
-      setpassword('');
-    }
-    if (!res?.ok) {
-      alert('Server Error: SignIn is Failed');
-    }
-  };
+  const onSubmit = async (userData: FormData) => {};
 
   return (
     <SignForm>

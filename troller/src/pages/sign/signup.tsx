@@ -13,19 +13,13 @@ import {
   VerifyInput,
   VerifyInputBox,
 } from '../../styles/sign/globalSignBox';
-import { Axios as axios } from '../../hooks/axiosMethod';
-
-interface ILolNameType {
-  dupLolName: boolean;
-  validLolName: boolean;
-}
+import { useApi } from '../../hooks/axiosHooks';
 
 const CODE_VALID_TIME = 60 * 3;
 const CODE_LENGTH = 8;
 
 function Signup() {
   const navigate = useNavigate();
-
   const [validTime, setvalidTime] = useState(0);
   const [show, setShow] = useState(false);
   const [email, setemail] = useState(''); // 이메일 입력란값 => 이메일 형식이 맞는지 실시간 감시
@@ -57,76 +51,82 @@ function Signup() {
   useEffect(() => {
     if (code.length === CODE_LENGTH) {
       (async () => {
-        const { res, data } = await axios.post<boolean>('/verify_code', {
-          code,
-          validTime,
-        });
-        if (data) {
-          setTimeout(() => setisAuth(prev => !prev), 200);
-        } else {
+        const { status } = await useApi.post(
+          '/api/member/sign-up/email/auth/code',
+          {
+            code,
+            validTime,
+          }
+        ); // 401(ErrorCode: Bad Request) here...
+        if (status === 200) {
+          setisAuth(true);
+        } else if (status === 400) {
+          setisCorrect(false);
+          setTimeout(() => setisCorrect(true), 300);
           setCode('');
-          setisCorrect(prev => !prev);
-          setTimeout(() => setisCorrect(prev => !prev), 200);
-        }
-        if (!res?.ok) {
-          alert('Server Error: Checking Code is Failed');
+        } else {
+          alert('ServerError');
         }
       })();
     }
   }, [code, setCode, validTime]);
 
   const CodeSender = async () => {
-    const { res, data } = await axios.post<boolean>('/sign/up/check/email', {
-      email,
+    const { status } = await useApi.get('/api/member/sign-up/email/duplicate', {
+      params: {
+        email,
+      },
     });
-    if (res?.status === 200) {
-      const { res: isCodeSend } = await axios.post<null>(
-        '/sign/up/email_auth',
+    if (status === 200) {
+      const { status: statusCode } = await useApi.get(
+        'api/member/sign-up/email/send/code',
         {
-          email,
+          params: { email },
         }
       );
-      if (isCodeSend?.status === 200) {
+      if (statusCode === 200) {
         setrequestAuth(true);
-        setvalidTime(CODE_VALID_TIME - 1);
+        setvalidTime(CODE_VALID_TIME);
+      } else if (statusCode === 400) {
+        alert('SignUp: 유효하지 않은 코드입니다.');
       } else {
-        alert('Server Error: Checking Email is Failed');
+        alert('ServerError');
       }
-    } else {
-      alert(`Error: 이미 등록된 이메일입니다`);
+    }
+    if (status === 403) {
+      alert(`SignUp: ${email}은 이미 등록되어 있습니다.`);
     }
   };
-
   const summonerCheck = async () => {
     const {
-      res,
       data: { dupLolName, validLolName },
-    } = await axios.get<ILolNameType>(`/check_lol_name?lolName=${lolName}`);
-    if (dupLolName && validLolName) {
-      setisSummoner(true);
-    } else if (!dupLolName && validLolName) {
-      alert(`Error: 이미 등록된 소환사입니다.`);
+    } = await useApi.get('/api/member/sign-up/check/lol-name', {
+      params: {
+        lolName,
+      },
+    });
+    if (!dupLolName && validLolName) {
+      alert(`${lolName}은 이미 등록되어 있습니다.`);
     } else if (dupLolName && !validLolName) {
-      alert(`Error: 존재하지 않는 소환사입니다.`);
-    }
-    if (!res?.ok) {
-      alert('Server Error: Checking summoner name is Failed');
+      alert(`${lolName}는 존재하지 않는 닉네임입니다.`);
+    } else {
+      setisSummoner(true);
     }
   };
 
   const onSubmit = handleSubmit(async (userData: FormData) => {
-    const { res } = await axios.post('/sign_up', {
+    const { status } = await useApi.post('/api/member/sign-up/register', {
       email: userData.email,
       password: userData.password,
       lolName: userData.lolName,
     });
-    if (res?.ok) {
-      alert('Welcome to Logo');
+    if (status === 200) {
+      alert('Welcome to Logo!');
       navigate('/sign_in');
     } else {
-      alert('Server Error: Checking SignUp form is Failed');
+      alert('ServerError');
     }
-  }); // api 명세 재대로 작성 안되어 pending...
+  });
 
   return (
     <SignForm>
@@ -155,6 +155,7 @@ function Signup() {
                 onChange={e => onChange(setCode, e)}
                 placeholder="Verify Code"
                 maxLength={CODE_LENGTH}
+                value={!isCorrect ? '' : code}
               />
               <Timer
                 validTime={validTime}
@@ -243,4 +244,5 @@ function Signup() {
     </SignForm>
   );
 }
+
 export default Signup;
