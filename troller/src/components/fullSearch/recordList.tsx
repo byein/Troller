@@ -15,12 +15,12 @@ interface ResultProps {
   result: string;
 }
 
-function RecordItem(props: ResultProps) {
+function RecordItem({ result }: ResultProps) {
   // let result = "LOSE";
   return (
     <RecordItemLi>
-      <RecordItemWrapper result={props.result}>
-        <RecordItemGame result={props.result}>
+      <RecordItemWrapper result={result}>
+        <RecordItemGame result={result}>
           <div className="type">솔랭</div>
           <div className="time-stamp">
             <div>한 달 전</div>
@@ -30,9 +30,9 @@ function RecordItem(props: ResultProps) {
           <div className="length">31분 40초</div>
         </RecordItemGame>
         <RecordItemInfo>
-          <FlexDiv result={props.result}>
+          <FlexDiv result={result}>
             <RecordItemInfoWrapper>
-              <FlexDiv result={props.result}>
+              <FlexDiv result={result}>
                 <div className="champion">
                   <div className="icon">
                     <img
@@ -97,7 +97,7 @@ function RecordItem(props: ResultProps) {
               <div className="average-tier">gold 2</div>
             </div>
           </FlexDiv>
-          <FlexDiv result={props.result}>
+          <FlexDiv result={result}>
             <div className="items">
               <ul>
                 <li>
@@ -259,9 +259,9 @@ function RecordItem(props: ResultProps) {
             </li>
           </ul>
         </RecordItemParticipants>
-        <RecordItemAction result={props.result}>
+        <RecordItemAction result={result}>
           <button type="button" className="detail">
-            {props.result === 'LOSE' ? (
+            {result === 'LOSE' ? (
               <img
                 src="https://s-lol-web.op.gg/images/icon/icon-arrow-down-red.svg?v=1657538065312"
                 width="24"
@@ -315,9 +315,9 @@ function RecordList() {
   return (
     <RecordsWrapper>
       <RecordItemUl>
-        {arr.map(function (e) {
-          return <RecordItem result={e} />;
-        })}
+        {arr.map(item => (
+          <RecordItem result={item} />
+        ))}
       </RecordItemUl>
     </RecordsWrapper>
   );
