@@ -3,7 +3,6 @@ import Hub from './pages/hub';
 import FindDuo from './pages/main/findDuo';
 import MultiSearch from './pages/main/multiSearch';
 import Rank from './pages/rank/rank';
-import ItemTree from './pages/fullSearch/itemTree';
 import KDA from './pages/fullSearch/kda';
 import FullSearch from './pages/fullSearch/fullSearch';
 import ForgotPw from './pages/sign/forgot';
@@ -11,7 +10,7 @@ import Login from './pages/sign/signin';
 import Signup from './pages/sign/signup';
 import NormalRank from './pages/rank/normalRank';
 import TrollRank from './pages/rank/trollRank';
-import Stats from './components/multiSearch/stats';
+import TierAbility from './pages/fullSearch/tierAbility';
 
 export default function Router() {
   return (
@@ -31,7 +30,7 @@ export default function Router() {
           <Route path="forgot_pw" element={<ForgotPw />} />
           <Route path=":userId" element={<FullSearch />}>
             <Route path="kda" element={<KDA />} />
-            <Route path="item_tree" element={<ItemTree />} />
+            <Route path="tier_ability" element={<TierAbility />} />
           </Route>
         </Route>
       </Routes>

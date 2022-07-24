@@ -154,14 +154,14 @@ const TDRank = styled('td')`
   width: 10%;
 `;
 const TDNickname = styled('td')`
-  width: 40%;
+  width: 45%;
 `;
-const TDKDA = styled('td')`
-  width: 20%;
+const TDLeaguePoint = styled('td')`
+  width: 45%;
 `;
-const TDWinRate = styled('td')`
-  width: 30%;
-`;
+// const TDWinRate = styled('td')`
+//   width: 30%;
+// `;
 export {
   HomeWrapper,
   TitleWrapper,
@@ -177,8 +177,7 @@ export {
   TableBody,
   TDRank,
   TDNickname,
-  TDKDA,
-  TDWinRate,
+  TDLeaguePoint,
   GlobalRankWrapper,
   Section,
 };

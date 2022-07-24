@@ -1,14 +1,15 @@
 import {
+  InfoGlobalWrapper,
   ProfileImageWrapper,
   ProfileInfoWrapper,
   Records,
   Tier,
   TierImageWrapper,
-  TierRecordWrapper,
+  TierNickname,
   UserInfoDiv,
   UserInfoWrapper,
   UserNickName,
-} from '../../styles/fullSearch/fullSearch';
+} from '../../styles/fullSearch/userInfo';
 
 export interface UserInfoProps {
   nickname: string;
@@ -18,32 +19,6 @@ export interface UserInfoProps {
   winRecord: number;
   loseRecord: number;
   level: number;
-}
-
-function ProfileImage({ profileImg }: { profileImg: string }) {
-  return <ProfileImageWrapper url={profileImg} />;
-}
-
-function ProfileInfo({
-  nickname,
-  tier,
-  winRate,
-  level,
-}: {
-  nickname: string;
-  tier: string;
-  winRate: number;
-  level: number;
-}) {
-  return (
-    <ProfileInfoWrapper>
-      <UserNickName>{nickname}</UserNickName>
-      <Tier>{tier}</Tier>
-      <UserInfoDiv>Lv. {level}</UserInfoDiv>
-      <UserInfoDiv>Win_Rate: {winRate}%</UserInfoDiv>
-      <UserInfoDiv>Troll_possibility: {100 - winRate}%</UserInfoDiv>
-    </ProfileInfoWrapper>
-  );
 }
 
 enum TierData {
@@ -58,6 +33,7 @@ enum TierData {
   GRANDMASTER = 'Grandmaster',
   CHALLENGER = 'Challenger',
 }
+
 function TierImage({ tier }: { tier: string }) {
   // img url 임시 세팅.
   let tierImageUrl;
@@ -104,6 +80,47 @@ function Record({
   );
 }
 
+function ProfileImage({ profileImg }: { profileImg: string }) {
+  return <ProfileImageWrapper url={profileImg} />;
+}
+
+function ProfileInfo({
+  nickname,
+  tier,
+  winRate,
+  level,
+  winRecord,
+  loseRecord,
+}: {
+  nickname: string;
+  tier: string;
+  winRate: number;
+  level: number;
+  winRecord: number;
+  loseRecord: number;
+}) {
+  return (
+    <ProfileInfoWrapper>
+      <TierNickname>
+        <TierImage tier={tier} />
+        <UserNickName>{nickname}</UserNickName>
+      </TierNickname>
+
+      <Tier>{tier}</Tier>
+      <InfoGlobalWrapper>
+        <div>
+          <UserInfoDiv>Lv. {level}</UserInfoDiv>
+          <UserInfoDiv>Win_Rate: {winRate}%</UserInfoDiv>
+          <UserInfoDiv>Troll_possibility: {100 - winRate}%</UserInfoDiv>
+        </div>
+        <div>
+          <Record winRecord={winRecord} loseRecord={loseRecord} />
+        </div>
+      </InfoGlobalWrapper>
+    </ProfileInfoWrapper>
+  );
+}
+
 function UserInfo({
   nickname,
   profileImg,
@@ -121,11 +138,9 @@ function UserInfo({
         tier={tier}
         winRate={winRate}
         level={level}
+        winRecord={winRecord}
+        loseRecord={loseRecord}
       />
-      <TierRecordWrapper>
-        <TierImage tier={tier} />
-        <Record winRecord={winRecord} loseRecord={loseRecord} />
-      </TierRecordWrapper>
     </UserInfoWrapper>
   );
 }
