@@ -185,14 +185,17 @@ const VerifyInput = styled('input')<{
   font-size: ${`${LARGE_FONTSIZE - 12}px`};
   background-color: rgba(0, 0, 0, 0);
   border: none;
+  ${TRANSITION}
   border-bottom: ${props => (!props.requestAuth ? 0 : '2px')} solid
-    ${props => props.theme.txtColor.primary};
+    ${props =>
+    !props.isCorrect
+      ? props.theme.validation.error
+      : props.theme.txtColor.primary};
   border-radius: 0;
   padding: 0;
   color: ${props => props.theme.txtColor.primary};
   animation: ${props => (props.isCorrect ? null : ERROR_CODE)} 0.2s linear
     forwards;
-  ${TRANSITION}
   &:focus {
     outline: none;
   }
