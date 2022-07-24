@@ -15,6 +15,7 @@
     "@types/node": "^16.11.39",
     "@types/react": "^18.0.12",
     "@types/react-dom": "^18.0.5",
+    "axios": "^0.27.2",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-hook-form": "^7.32.1",
@@ -67,5 +68,3 @@
   },
   "proxy": "http://ec2-3-37-22-89.ap-northeast-2.compute.amazonaws.com:8080"
 }
-
-
