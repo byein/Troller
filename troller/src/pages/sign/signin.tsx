@@ -3,38 +3,32 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import AnotherLogin from '../../components/sign/anotherLogin';
 import SignForm, { FormData } from '../../components/sign/signForm';
+import { useApi } from '../../hooks/axiosHooks';
 import onChange from '../../hooks/hooks';
-import { Axios as axios } from '../../hooks/axiosMethod';
 import { Form, InputBox, SubmitBtn } from '../../styles/sign/globalSignBox';
-
-interface ITokenType {
-  accessToken: string;
-  refreshToken: string;
-}
 
 function Signin() {
   const navigate = useNavigate();
-
   const [email, setemail] = useState('');
   const [password, setpassword] = useState('');
+  const [isPassword, setisPassword] = useState(true);
   const { register, handleSubmit } = useForm<FormData>();
 
   const onSubmit = async (userData: FormData) => {
     const {
-      res,
+      status,
       data: { accessToken, refreshToken },
-    } = await axios.post<ITokenType>('/sign_in', userData);
-    if (accessToken && refreshToken) {
+    } = await useApi.post('/api/member/sign-in/', {
+      email: userData.email,
+      password: userData.password,
+    });
+    if (status === 200) {
       localStorage.setItem('access_token', accessToken);
-      localStorage.setItem('refresh_tokem', refreshToken);
+      localStorage.setItem('refresh_token', refreshToken);
       navigate('/');
     } else {
-      alert('Error: inValid email or password');
-      setemail('');
+      alert('SignIn: 회원정보가 잘못 되었습니다.');
       setpassword('');
-    }
-    if (!res?.ok) {
-      alert('Server Error: SignIn is Failed');
     }
   };
 
@@ -50,7 +44,7 @@ function Signin() {
               required: true,
             })}
             onChange={e => onChange(setemail, e)}
-            type="email"
+            // type="email"
             placeholder="example@example.com"
           />
         </InputBox>
@@ -67,6 +61,7 @@ function Signin() {
             })}
             onChange={e => onChange(setpassword, e)}
             type="password"
+            value={!isPassword ? '' : password}
           />
         </InputBox>
         <SubmitBtn isEmail type="submit">
