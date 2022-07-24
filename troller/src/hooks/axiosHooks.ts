@@ -11,6 +11,14 @@ const useApi = axios.create({
   },
 }); // A request that do not requires Authentication
 
+useApi.interceptors.response.use(
+  res => res,
+  err => {
+    const { response } = err;
+    return response;
+  }
+);
+
 const useAccessApi = axios.create({
   headers: {
     'Content-Type': 'application/json',
