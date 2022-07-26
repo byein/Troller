@@ -22,14 +22,14 @@ function Signup() {
   const navigate = useNavigate();
   const [validTime, setvalidTime] = useState(0);
   const [show, setShow] = useState(false);
-  const [email, setemail] = useState(''); // 이메일 입력란값 => 이메일 형식이 맞는지 실시간 감시
-  const [isEmail, setisEmail] = useState(false); // 이메일형식이 맞으면(true) 인증코드전송버튼 접근가능, 아니면 접근불가
-  const [code, setCode] = useState(''); // 이메일 인증코드 입력란값 만약 백에서 대조한다면 fetch
-  const [isCorrect, setisCorrect] = useState(true); // 인증코드가 맞는지 판별
-  const [isAuth, setisAuth] = useState(false); // 인증코드가 인증이 되었는지 안되었는지 판별
-  const [requestAuth, setrequestAuth] = useState(false); // 인증코드 요청여부 확인
-  const [lolName, setlolName] = useState(''); // 소환사 입력란값
-  const [isSummoner, setisSummoner] = useState(false); // 백에서 검증후 존재하는 소환사일 때 true값 반환
+  const [email, setemail] = useState('');
+  const [isEmail, setisEmail] = useState(false);
+  const [code, setCode] = useState('');
+  const [isCorrect, setisCorrect] = useState(true);
+  const [isAuth, setisAuth] = useState(false);
+  const [requestAuth, setrequestAuth] = useState(false);
+  const [lolName, setlolName] = useState('');
+  const [isSummoner, setisSummoner] = useState(false);
   const {
     register,
     handleSubmit,
@@ -37,15 +37,14 @@ function Signup() {
     formState: { errors },
   } = useForm<FormData>();
 
-  // email입력값이 공백이거나 @를 포함하지 않으면 인증코드 전송버튼 못누르게 하는 기능
   useEffect(() => {
     const regexEmail =
-      /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i; // 이메일 정규식
+      /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
     if (regexEmail.test(email)) {
       setisEmail(true);
     } else {
       setisEmail(false);
-    } // 이메일 형식 검사
+    }
   }, [email, setemail]);
 
   useEffect(() => {
@@ -57,7 +56,7 @@ function Signup() {
             code,
             validTime,
           }
-        ); // 401(ErrorCode: Bad Request) here...
+        );
         if (status === 200) {
           setisAuth(true);
         } else if (status === 400) {
@@ -66,6 +65,7 @@ function Signup() {
           setCode('');
         } else {
           alert('ServerError');
+          setCode('');
         }
       })();
     }
@@ -84,6 +84,7 @@ function Signup() {
           params: { email },
         }
       );
+      console.log(statusCode);
       if (statusCode === 200) {
         setrequestAuth(true);
         setvalidTime(CODE_VALID_TIME);
@@ -120,7 +121,7 @@ function Signup() {
       password: userData.password,
       lolName: userData.lolName,
     });
-    if (status === 200) {
+    if (status === 201) {
       alert('Welcome to Logo!');
       navigate('/sign_in');
     } else {

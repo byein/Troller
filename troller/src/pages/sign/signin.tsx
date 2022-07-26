@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import AnotherLogin from '../../components/sign/anotherLogin';
 import SignForm, { FormData } from '../../components/sign/signForm';
-import { useApi } from '../../hooks/axiosHooks';
+import { ACCESS_TOKEN, REFRESH_TOKEN, useApi } from '../../hooks/axiosHooks';
 import onChange from '../../hooks/hooks';
 import { Form, InputBox, SubmitBtn } from '../../styles/sign/globalSignBox';
 
@@ -11,27 +11,25 @@ function Signin() {
   const navigate = useNavigate();
   const [email, setemail] = useState('');
   const [password, setpassword] = useState('');
-  const [isPassword, setisPassword] = useState(true);
   const { register, handleSubmit } = useForm<FormData>();
 
-  const onSubmit = async (userData: FormData) => {
+  const onSubmit = async () => {
     const {
       status,
       data: { accessToken, refreshToken },
     } = await useApi.post('/api/member/sign-in/', {
-      email: userData.email,
-      password: userData.password,
+      email,
+      password,
     });
     if (status === 200) {
       localStorage.setItem('access_token', accessToken);
       localStorage.setItem('refresh_token', refreshToken);
-      navigate('/');
+      window.location.href = '/';
     } else {
-      alert('SignIn: 회원정보가 잘못 되었습니다.');
+      alert('SignIn: 존재하지 않는 회원정보입니다.');
       setpassword('');
     }
   };
-
   return (
     <SignForm>
       <Form onSubmit={handleSubmit(onSubmit)}>
@@ -44,7 +42,7 @@ function Signin() {
               required: true,
             })}
             onChange={e => onChange(setemail, e)}
-            // type="email"
+            type="email"
             placeholder="example@example.com"
           />
         </InputBox>
@@ -61,7 +59,7 @@ function Signin() {
             })}
             onChange={e => onChange(setpassword, e)}
             type="password"
-            value={!isPassword ? '' : password}
+            value={password}
           />
         </InputBox>
         <SubmitBtn isEmail type="submit">
