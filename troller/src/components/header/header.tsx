@@ -1,5 +1,42 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { GlobalHeader, Tab } from '../../styles/global/global';
+import MenuIcon from '@mui/icons-material/Menu';
+import { GlobalHeader, Menu, Tab } from '../../styles/global/global';
+import { ACCESS_TOKEN } from '../../hooks/axiosHooks';
+
+function MyPageHeader() {
+  const [isOpen, setisOpen] = useState(false);
+  const logOut = () => {
+    localStorage.clear();
+    window.location.href = '/';
+  };
+  return (
+    <span className="block">
+      <MenuIcon
+        className="mypage"
+        onClick={() => {
+          setisOpen(prev => !prev);
+        }}
+      />
+      {isOpen ? (
+        <Menu>
+          <span className="menues">
+            <Link to="/my_page">마이페이지</Link>
+          </span>
+          <span
+            className="menues"
+            onClick={logOut}
+            onKeyDown={logOut}
+            role="button"
+            tabIndex={0}
+          >
+            로그아웃
+          </span>
+        </Menu>
+      ) : null}
+    </span>
+  );
+}
 
 function Header({ pathname }: { pathname: string }) {
   return (
@@ -21,7 +58,11 @@ function Header({ pathname }: { pathname: string }) {
         </ul>
       </div>
       <span className="signin">
-        <Link to="sign_in">로그인</Link>
+        {ACCESS_TOKEN !== null || undefined ? (
+          <MyPageHeader />
+        ) : (
+          <Link to="sign_in">로그인</Link>
+        )}
       </span>
     </GlobalHeader>
   );
