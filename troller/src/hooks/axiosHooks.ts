@@ -9,7 +9,7 @@ const useApi = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-}); // A request that do not requires Authentication
+});
 
 useApi.interceptors.response.use(
   res => res,
@@ -24,7 +24,7 @@ const useAccessApi = axios.create({
     'Content-Type': 'application/json',
     Authorization: `Bearer ${ACCESS_TOKEN}`,
   },
-}); // A request that requires Authentication
+});
 
 useAccessApi.interceptors.response.use(
   res => res,
@@ -51,7 +51,7 @@ useAccessApi.interceptors.response.use(
         originalRequest.headers = { Authorization: `Bearer ${accessToken}` };
         return axios(originalRequest);
       }
-      if (status === 401) {
+      if (status === 403) {
         localStorage.clear();
         alert('Logo: 로그인을 해주세요.');
         window.location.href = '/sign_in';
@@ -59,6 +59,6 @@ useAccessApi.interceptors.response.use(
     }
     return Promise.reject(err);
   }
-); // To do JWTToken Authorization in useAccessApi
+);
 
-export { useApi, useAccessApi };
+export { useApi, useAccessApi, ACCESS_TOKEN, REFRESH_TOKEN };

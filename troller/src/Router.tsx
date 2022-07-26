@@ -12,6 +12,7 @@ import NormalRank from './pages/rank/normalRank';
 import TrollRank from './pages/rank/trollRank';
 import TierAbility from './pages/fullSearch/tierAbility';
 import Stats from './components/multiSearch/stats';
+import MyPage from './pages/mypage/mypage';
 
 export default function Router() {
   return (
@@ -22,6 +23,7 @@ export default function Router() {
           <Route path="multi_search" element={<MultiSearch />}>
             <Route path=":users" element={<Stats />} />
           </Route>
+          <Route path="my_page" element={<MyPage />} />
           <Route path="rank" element={<Rank />}>
             <Route path="normal" element={<NormalRank />} />
             <Route path="troll" element={<TrollRank />} />

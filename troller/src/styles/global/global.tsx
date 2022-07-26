@@ -29,7 +29,9 @@ const GlobalHeader = styled('header')<{ pathname: string }>`
   align-items: center;
   position: absolute;
   background-color: ${props =>
-    props.pathname.includes('/rank') ? props.theme.bgColor.blue : 'none'};
+    props.pathname.includes('/rank') || props.pathname === '/my_page'
+      ? props.theme.bgColor.blue
+      : 'none'};
   z-index: 1;
   span {
     margin: 15px;
@@ -40,6 +42,9 @@ const GlobalHeader = styled('header')<{ pathname: string }>`
     color: ${props => props.theme.txtColor.primary};
   }
   .signin {
+    width: 100px;
+    height: 100%;
+    margin: 0;
     font-size: ${`${DEFAULT_FONTSIZE}px`};
     color: ${props => props.theme.txtColor.primary};
     display: ${props =>
@@ -47,7 +52,19 @@ const GlobalHeader = styled('header')<{ pathname: string }>`
       props.pathname === '/sign_up' ||
       props.pathname === '/forgot_pw'
         ? 'none'
-        : 'block'};
+        : 'flex'};
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    .block {
+      display: block;
+      .mypage {
+        cursor: pointer;
+      }
+      .menu {
+      }
+    }
   }
   div {
     width: 280px;
@@ -66,6 +83,35 @@ const GlobalHeader = styled('header')<{ pathname: string }>`
       height: 100%;
       display: flex;
       align-items: center;
+    }
+  }
+`;
+
+const Menu = styled('span')`
+  width: 100px;
+  height: 80px;
+  background-color: ${props => props.theme.bgColor.anotherOne};
+  border-radius: ${`${BORDER_RADIUS}px`};
+  position: absolute;
+  right: 15px;
+  top: 50px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  .menues {
+    font-size: ${`${DEFAULT_FONTSIZE}px`};
+    width: 100%;
+    height: 40px;
+    color: black;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    &:first-of-type {
+      border-bottom: 1px solid;
+      border-bottom-color: rgba(0, 0, 0, 0.3);
     }
   }
 `;
@@ -89,7 +135,7 @@ const MainContainer = styled('div')<{ pathname: string }>`
   position: absolute;
   background: linear-gradient(
     ${props =>
-      props.pathname.includes('/rank')
+      props.pathname.includes('/rank') || props.pathname === '/my_page'
         ? `0, ${props.theme.bgColor.anotherOne} 0, ${props.theme.bgColor.anotherOne} 0`
         : `180deg, ${props.theme.bgColor.blue} 0.06%, ${props.theme.bgColor.gray} 100%`}
   );
@@ -147,4 +193,5 @@ export {
   TRANSPARENT_TXTCOLOR,
   TRANSITION,
   Skeleton,
+  Menu,
 };
