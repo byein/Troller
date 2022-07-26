@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import AnotherLogin from '../../components/sign/anotherLogin';
 import SignForm, { FormData } from '../../components/sign/signForm';
-import { ACCESS_TOKEN, REFRESH_TOKEN, useApi } from '../../hooks/axiosHooks';
+import { useApi } from '../../hooks/axiosHooks';
 import onChange from '../../hooks/hooks';
 import { Form, InputBox, SubmitBtn } from '../../styles/sign/globalSignBox';
 
 function Signin() {
-  const navigate = useNavigate();
   const [email, setemail] = useState('');
   const [password, setpassword] = useState('');
   const { register, handleSubmit } = useForm<FormData>();
