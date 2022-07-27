@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import AnotherLogin from '../../components/sign/anotherLogin';
+import { AnotherLogin } from '../../components/sign/anotherLogin';
 import SignForm, { FormData } from '../../components/sign/signForm';
 import { useApi } from '../../hooks/axiosHooks';
 import onChange from '../../hooks/hooks';

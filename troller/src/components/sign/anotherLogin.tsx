@@ -1,19 +1,13 @@
 import { AnotherWay } from '../../styles/sign/globalSignBox';
-import google from '../../statics/img/btn_google_signin_light_focus_web@2x.png';
-import kakao from '../../statics/img/kakao_login_large_narrow.png';
+import kakao from '../../statics/img/snsSign/kakao_login_medium_wide.png';
 
-function GoogleLogin() {
-  return (
-    <div className="login">
-      <img className="login_btn" src={google} alt="start with google" />
-    </div>
-  );
-}
 function KakaoLogin() {
+  const KAKAO_REDIRECT_URL = 'http://localhost:3000/auth/kakao';
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_AUTH_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URL}&response_type=code`;
   return (
-    <div className="login">
+    <a className="login" href={KAKAO_AUTH_URL}>
       <img className="login_btn" src={kakao} alt="start with kakao" />
-    </div>
+    </a>
   );
 }
 
@@ -21,9 +15,13 @@ function AnotherLogin() {
   return (
     <AnotherWay>
       <span className="hr">or signup with...</span>
-      <GoogleLogin />
       <KakaoLogin />
     </AnotherWay>
   );
 }
-export default AnotherLogin;
+
+function Auth() {
+  return null;
+}
+
+export { AnotherLogin, Auth };

@@ -106,13 +106,14 @@ function Signup() {
         lolName,
       },
     });
-    if (!dupLolName && validLolName) {
-      alert(`${lolName}은 이미 등록되어 있습니다.`);
-    } else if (dupLolName && !validLolName) {
-      alert(`${lolName}는 존재하지 않는 닉네임입니다.`);
-    } else {
-      setisSummoner(true);
-    }
+    console.log(dupLolName, validLolName);
+    // if (!dupLolName && validLolName) {
+    //   alert(`${lolName}은 이미 등록되어 있습니다.`);
+    // } else if (dupLolName && !validLolName) {
+    //   alert(`${lolName}는 존재하지 않는 닉네임입니다.`);
+    // } else if (dupLolName && validLolName) {
+    //   setisSummoner(true);
+    // }
   };
 
   const onSubmit = handleSubmit(async (userData: FormData) => {
