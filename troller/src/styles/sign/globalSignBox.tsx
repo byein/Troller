@@ -33,6 +33,7 @@ const SignBox = styled('div')`
   ${FLOAT_COLOR};
   ${BOX_SHADOW};
   width: 450px;
+  margin: 50px auto auto auto;
   min-height: auto;
   display: flex;
   flex-direction: column;
