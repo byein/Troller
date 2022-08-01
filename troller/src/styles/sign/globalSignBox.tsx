@@ -33,6 +33,7 @@ const SignBox = styled('div')`
   ${FLOAT_COLOR};
   ${BOX_SHADOW};
   width: 450px;
+  margin: 50px auto auto auto;
   min-height: auto;
   display: flex;
   flex-direction: column;
@@ -228,7 +229,7 @@ const SubmitBtn = styled('button')<{ isEmail?: boolean }>`
 `;
 
 const AnotherWay = styled('div')`
-  width: 185px;
+  width: 80%;
   height: auto;
   margin: 0 auto;
   display: flex;
@@ -241,12 +242,14 @@ const AnotherWay = styled('div')`
   }
   .login {
     width: 100%;
-    height: auto;
+    height: 49px;
     margin: 2px;
     border-radius: ${LOGINBTN_RADIUS_FORKAKAO};
+    border: none;
+    padding: 0;
     .login_btn {
       width: 100%;
-      height: 100%;
+      cursor: pointer;
     }
   }
 `;

@@ -13,6 +13,7 @@ import TrollRank from './pages/rank/trollRank';
 import TierAbility from './pages/fullSearch/tierAbility';
 import Stats from './components/multiSearch/stats';
 import MyPage from './pages/mypage/mypage';
+import { Auth } from './components/sign/anotherLogin';
 
 export default function Router() {
   return (
@@ -29,6 +30,7 @@ export default function Router() {
             <Route path="troll" element={<TrollRank />} />
           </Route>
           <Route path="sign_in" element={<Login />} />
+          <Route path="auth/kakao" element={<Auth />} />
           <Route path="sign_up" element={<Signup />} />
           <Route path="forgot_pw" element={<ForgotPw />} />
           <Route path=":userId" element={<FullSearch />}>
