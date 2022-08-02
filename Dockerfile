@@ -1,4 +1,4 @@
-// Dockerfile
+
 # 1. node 이미지 사용
 FROM    node:16-alpine
 
@@ -14,5 +14,3 @@ COPY . /usr/src/app
 EXPOSE 3000
 CMD    npm start
 
-// .dockerignore
-node_modules
