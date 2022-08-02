@@ -14,6 +14,7 @@ interface IUserDataType {
   userData: {
     lolName: string;
     favorPosition: string;
+    favorChampion: string[];
     tier: string;
     win: number;
     lose: number;
@@ -24,6 +25,8 @@ interface IUserDataType {
     mike: boolean;
     title: string;
     content: string;
+    kdaRate: number;
+    winRate: string;
   };
 }
 
