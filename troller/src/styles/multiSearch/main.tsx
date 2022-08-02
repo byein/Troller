@@ -17,7 +17,6 @@ const MultiSearchWrapper = styled('div')`
 `;
 
 const SearchBox = styled('form')`
-  ${FLOAT_COLOR}
   ${BOX_SHADOW}
   width: 450px;
   height: 200px;
@@ -25,6 +24,7 @@ const SearchBox = styled('form')`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: ${props => props.theme.bgColor.dark};
   margin-top: 100px;
   border-radius: ${`${BORDER_RADIUS}px`};
   .search__input {
@@ -63,19 +63,36 @@ const SearchBox = styled('form')`
 `;
 
 const GuideBox = styled('div')`
+  ${BOX_SHADOW}
   width: 100%;
   height: 350px;
   display: flex;
   justify-content: space-around;
   align-items: center;
   margin: 20px 0 0 0;
-  background-color: ${props => props.theme.bgColor.anotherOne};
+  background-color: ${props => props.theme.bgColor.light};
   border-radius: ${`${BORDER_RADIUS}px`};
-  .img {
-    //임시
+  .imgBox {
     width: 28%;
     height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     border: 1px solid black;
+    .img {
+      width: 100%;
+      height: 70%;
+      overflow: hidden;
+    }
+    img {
+      width: 100%;
+    }
+    .desc {
+      width: 100%;
+      height: 30%;
+      background-color: rgba(0, 0, 0, 0.3);
+    }
   }
 `;
 
