@@ -1,11 +1,11 @@
-import randomDataProducer from '../../api/dummyData';
+import { dummyRandomData, randomDataProducer } from '../../api/dummyData';
 import Category from '../../components/findDuo/category';
 import Contents from '../../components/findDuo/contents';
 import { ContentsWrapper } from '../../styles/findDuo/contents';
 import FindDuoWrapper from '../../styles/findDuo/findDuo';
 
 function FindDuo() {
-  const { dummyRandomData } = randomDataProducer();
+  // const { dummyRandomDatas } = randomDataProducer();
   return (
     <FindDuoWrapper>
       <Category />

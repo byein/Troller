@@ -1,9 +1,11 @@
 import MicIcon from '@mui/icons-material/Mic';
 import MicOffIcon from '@mui/icons-material/MicOff';
+import { useEffect, useState } from 'react';
 import {
   Article,
   ArticleWrapper,
   ChatBtn,
+  ChatBtnBox,
   Content,
   ContentFooter,
   Timer,
@@ -31,9 +33,26 @@ interface IUserDataType {
 }
 
 function Contents({ userData }: IUserDataType) {
+  const [validTime, setvalidTime] = useState(userData.validTime);
+  const minutes = Math.floor(validTime / 60)
+    .toString()
+    .padStart(2, '0');
+  const seconds = (validTime % 60).toString().padStart(2, '0');
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (validTime > 0) {
+        setvalidTime(prev => prev - 1);
+      } else {
+        clearInterval(timer);
+      }
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [validTime]);
   return (
     <Content>
-      <Timer>{userData.validTime}</Timer>
+      <Timer validTime={validTime}>
+        {validTime > 0 ? `${minutes}:${seconds}` : '만료'}
+      </Timer>
       <ArticleWrapper>
         <Article>
           <div className="titleBox">
@@ -46,11 +65,35 @@ function Contents({ userData }: IUserDataType) {
           </div>
           <p className="content">{userData.content}</p>
         </Article>
-        <UserStatus />
+        <UserStatus kdaRate={userData.kdaRate}>
+          <div className="firstLine">
+            <div className="positionBox">
+              <img className="position" src={userData.favorPosition} alt="" />
+            </div>
+            <span className="lolName">{userData.lolName}</span>
+          </div>
+          <div className="secondLine">
+            <div className="tierBox">
+              <img className="tier" src={userData.tier} alt="tier" />
+            </div>
+            <span className="kda">{`${userData.kill} / ${userData.death} / ${userData.assist}`}</span>
+            <span className="kdaRate">{`${userData.kdaRate}%`}</span>
+          </div>
+          <div className="thirdLine">아직 구현 못함!</div>
+        </UserStatus>
       </ArticleWrapper>
       <ContentFooter>
-        <div className="mostChampBox" />
-        <ChatBtn>채팅하기</ChatBtn>
+        <div className="mostChampBox">
+          {userData.favorChampion.map(champion => (
+            <div className="mostChamps">
+              <img src={champion} alt="chamion" />
+            </div>
+          ))}
+        </div>
+        <ChatBtnBox>
+          <ChatBtn>채팅하기</ChatBtn>
+          <ChatBtn>AI 듀오매칭</ChatBtn>
+        </ChatBtnBox>
       </ContentFooter>
     </Content>
   );

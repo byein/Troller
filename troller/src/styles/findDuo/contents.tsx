@@ -20,11 +20,15 @@ const Content = styled('div')`
   color: ${props => props.theme.txtColor.primary};
 `;
 
-const Timer = styled('span')`
+const Timer = styled('span')<{ validTime: number }>`
   width: 100%;
   margin: 0 0 10px 0;
   display: block;
   padding: auto 0 auto 0;
+  color: ${props =>
+    props.validTime > 0
+      ? props.theme.txtColor.primary
+      : props.theme.validation.error};
 `;
 
 const ArticleWrapper = styled('div')`
@@ -46,6 +50,7 @@ const Article = styled('div')`
     .title {
       font-size: ${`${LARGE_FONTSIZE - 10}px`};
       font-weight: bold;
+      margin: 0 5px 0 0;
     }
     .micOn {
       font-size: 20px;
@@ -65,11 +70,69 @@ const Article = styled('div')`
   }
 `;
 
-const UserStatus = styled('div')`
+const UserStatus = styled('div')<{ kdaRate: number }>`
   width: 55%;
   height: 100px;
-  padding: 10px;
+  padding: 0 0 0 5px;
   background-color: rgba(0, 0, 0, 0.2);
+  border-radius: ${`${BORDER_RADIUS - 3}px`};
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .firstLine {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 29px;
+    .positionBox {
+      height: 90%;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      object-position: center;
+      margin: 0 5px 0 0;
+      .position {
+        width: 110%;
+      }
+    }
+    .lolName {
+      font-size: ${`${LARGE_FONTSIZE - 15}px`};
+    }
+  }
+  .secondLine {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 29px;
+    .tierBox {
+      height: 90%;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      object-position: center;
+      margin: 0 5px 0 0;
+      .tier {
+        width: 110%;
+      }
+    }
+    .kda {
+      font-size: ${`${LARGE_FONTSIZE - 15}px`};
+      margin: 0 10px 0 0;
+    }
+    .kdaRate {
+      font-size: ${`${LARGE_FONTSIZE - 15}px`};
+      color: ${props =>
+        props.kdaRate >= 0.7
+          ? props.theme.validation.resolve
+          : props.theme.validation.error};
+    }
+  }
+  .thirdLine {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 29px;
+    background-color: wheat;
+    color: black;
+  }
 `;
 
 const ContentFooter = styled('div')`
@@ -77,15 +140,36 @@ const ContentFooter = styled('div')`
   height: 50px;
   display: flex;
   justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.3);
   .mostChampBox {
     width: 45%;
     height: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    .mostChamps {
+      height: 90%;
+      aspect-ratio: 1 / 1;
+      background-color: wheat;
+      border-radius: ${`${BORDER_RADIUS - 5}px`};
+      overflow: hidden;
+      object-position: center;
+      img {
+        width: 110%;
+      }
+    }
   }
 `;
 
-const ChatBtn = styled('button')`
+const ChatBtnBox = styled('div')`
   width: 55%;
+  height: 100%;
+  border-radius: ${`${BORDER_RADIUS - 5}px`};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+const ChatBtn = styled('button')`
+  width: 49%;
   height: 100%;
   border: none;
   border-radius: ${`${BORDER_RADIUS - 5}px`};
@@ -101,5 +185,6 @@ export {
   Article,
   UserStatus,
   ContentFooter,
+  ChatBtnBox,
   ChatBtn,
 };

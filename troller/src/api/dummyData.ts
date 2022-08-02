@@ -1,16 +1,18 @@
-import champ1 from './dummyImg/champions/AatroxSquare.png';
-import champ2 from './dummyImg/champions/EkkoSquare.png';
-import champ3 from './dummyImg/champions/EliseSquare.png';
-import bottom from './dummyImg/ranked-positions/bottom.png';
-import top from './dummyImg/ranked-positions/top.png';
-import jungle from './dummyImg/ranked-positions/jungle.png';
-import bronze from './dummyImg/ranked-tier/brz.png';
-import silver from './dummyImg/ranked-tier/slv.png';
-import platinum from './dummyImg/ranked-tier/plt.png';
+import amu from './dummyImg/champions/amu.jpg';
+import anivia from './dummyImg/champions/anivia.jpg';
+import ari from './dummyImg/champions/ari.jpg';
+import bard from './dummyImg/champions/bard.jpg';
+import barum from './dummyImg/champions/barum.jpg';
+import mid from './dummyImg/ranked-positions/mid.jpg';
+import river from './dummyImg/ranked-positions/river.jpg';
+import jungle from './dummyImg/ranked-positions/jungle.jpg';
+import bronze from './dummyImg/ranked-tier/bronze.jpg';
+import silver from './dummyImg/ranked-tier/silver.jpg';
+import gold from './dummyImg/ranked-tier/gold.jpg';
 
-const dummyChamps = [champ1, champ2, champ3];
-const dummyPositions = [top, bottom, jungle];
-const dummyTiers = [bronze, silver, platinum];
+const dummyChamps = [amu, anivia, ari, bard, barum];
+const dummyPositions = [mid, river, jungle];
+const dummyTiers = [bronze, silver, gold];
 const dummyNames = ['아이언포우', '에잇', '엘리스', '에브라', '에젤리스'];
 const dummyWins = [23, 12, 10, 8, 7];
 const dummyLoses = [10, 5, 3, 2, 1];
@@ -36,6 +38,297 @@ const dummyContents = [
   '승률 왤케들 낮아요',
 ];
 
+const randomChampsProducer = () => {
+  const randomChamps = [];
+  for (let i = 0; i < dummyChamps.length; i += i) {
+    randomChamps.push(
+      dummyChamps[Math.floor(Math.random() * dummyChamps.length)]
+    );
+  }
+  const randomChampions = randomChamps.slice(0, 3);
+  return randomChampions;
+};
+const randomPosition =
+  dummyPositions[Math.floor(Math.random() * dummyPositions.length)];
+const randomTier = dummyTiers[Math.floor(Math.random() * dummyTiers.length)];
+const randomName = dummyNames[Math.floor(Math.random() * dummyNames.length)];
+const randomWin = dummyWins[Math.floor(Math.random() * dummyWins.length)];
+const randomLose = dummyLoses[Math.floor(Math.random() * dummyLoses.length)];
+const randomKill = dummyKills[Math.floor(Math.random() * dummyKills.length)];
+const randomDeath = dummyDeaths[Math.floor(Math.random() * dummyDeaths.length)];
+const randomAssist =
+  dummyAssists[Math.floor(Math.random() * dummyAssists.length)];
+const randomMike = dummyMike[Math.floor(Math.random() * dummyMike.length)];
+const randomValidTime =
+  dummyValidTimes[Math.floor(Math.random() * dummyValidTimes.length)];
+const randomKdaRate =
+  dummyKdaRate[Math.floor(Math.random() * dummyKdaRate.length)];
+const randomWinRate =
+  dummyWinRates[Math.floor(Math.random() * dummyWinRates.length)];
+const randomTitle = dummyTitles[Math.floor(Math.random() * dummyTitles.length)];
+const randomContent =
+  dummyContents[Math.floor(Math.random() * dummyContents.length)];
+
+const dummyRandomData = [
+  {
+    lolName: randomName,
+    favorPosition: randomPosition,
+    favorChampion: dummyChamps.slice(0, 3),
+    tier: randomTier,
+    win: randomWin,
+    lose: randomLose,
+    kill: randomKill,
+    death: randomDeath,
+    assist: randomAssist,
+    validTime: randomValidTime,
+    mike: randomMike,
+    title: randomTitle,
+    content: randomContent,
+    kdaRate: randomKdaRate,
+    winRate: randomWinRate,
+  },
+  {
+    lolName: randomName,
+    favorPosition: randomPosition,
+    favorChampion: dummyChamps.slice(0, 3),
+    tier: randomTier,
+    win: randomWin,
+    lose: randomLose,
+    kill: randomKill,
+    death: randomDeath,
+    assist: randomAssist,
+    validTime: randomValidTime,
+    mike: randomMike,
+    title: randomTitle,
+    content: randomContent,
+    kdaRate: randomKdaRate,
+    winRate: randomWinRate,
+  },
+  {
+    lolName: randomName,
+    favorPosition: randomPosition,
+    favorChampion: dummyChamps.slice(0, 3),
+    tier: randomTier,
+    win: randomWin,
+    lose: randomLose,
+    kill: randomKill,
+    death: randomDeath,
+    assist: randomAssist,
+    validTime: randomValidTime,
+    mike: randomMike,
+    title: randomTitle,
+    content: randomContent,
+    kdaRate: randomKdaRate,
+    winRate: randomWinRate,
+  },
+  {
+    lolName: randomName,
+    favorPosition: randomPosition,
+    favorChampion: dummyChamps.slice(0, 3),
+    tier: randomTier,
+    win: randomWin,
+    lose: randomLose,
+    kill: randomKill,
+    death: randomDeath,
+    assist: randomAssist,
+    validTime: randomValidTime,
+    mike: randomMike,
+    title: randomTitle,
+    content: randomContent,
+    kdaRate: randomKdaRate,
+    winRate: randomWinRate,
+  },
+  {
+    lolName: randomName,
+    favorPosition: randomPosition,
+    favorChampion: dummyChamps.slice(0, 3),
+    tier: randomTier,
+    win: randomWin,
+    lose: randomLose,
+    kill: randomKill,
+    death: randomDeath,
+    assist: randomAssist,
+    validTime: randomValidTime,
+    mike: randomMike,
+    title: randomTitle,
+    content: randomContent,
+    kdaRate: randomKdaRate,
+    winRate: randomWinRate,
+  },
+  {
+    lolName: randomName,
+    favorPosition: randomPosition,
+    favorChampion: dummyChamps.slice(0, 3),
+    tier: randomTier,
+    win: randomWin,
+    lose: randomLose,
+    kill: randomKill,
+    death: randomDeath,
+    assist: randomAssist,
+    validTime: randomValidTime,
+    mike: randomMike,
+    title: randomTitle,
+    content: randomContent,
+    kdaRate: randomKdaRate,
+    winRate: randomWinRate,
+  },
+  {
+    lolName: randomName,
+    favorPosition: randomPosition,
+    favorChampion: dummyChamps.slice(0, 3),
+    tier: randomTier,
+    win: randomWin,
+    lose: randomLose,
+    kill: randomKill,
+    death: randomDeath,
+    assist: randomAssist,
+    validTime: randomValidTime,
+    mike: randomMike,
+    title: randomTitle,
+    content: randomContent,
+    kdaRate: randomKdaRate,
+    winRate: randomWinRate,
+  },
+  {
+    lolName: randomName,
+    favorPosition: randomPosition,
+    favorChampion: dummyChamps.slice(0, 3),
+    tier: randomTier,
+    win: randomWin,
+    lose: randomLose,
+    kill: randomKill,
+    death: randomDeath,
+    assist: randomAssist,
+    validTime: randomValidTime,
+    mike: randomMike,
+    title: randomTitle,
+    content: randomContent,
+    kdaRate: randomKdaRate,
+    winRate: randomWinRate,
+  },
+  {
+    lolName: randomName,
+    favorPosition: randomPosition,
+    favorChampion: dummyChamps.slice(0, 3),
+    tier: randomTier,
+    win: randomWin,
+    lose: randomLose,
+    kill: randomKill,
+    death: randomDeath,
+    assist: randomAssist,
+    validTime: randomValidTime,
+    mike: randomMike,
+    title: randomTitle,
+    content: randomContent,
+    kdaRate: randomKdaRate,
+    winRate: randomWinRate,
+  },
+  {
+    lolName: randomName,
+    favorPosition: randomPosition,
+    favorChampion: dummyChamps.slice(0, 3),
+    tier: randomTier,
+    win: randomWin,
+    lose: randomLose,
+    kill: randomKill,
+    death: randomDeath,
+    assist: randomAssist,
+    validTime: randomValidTime,
+    mike: randomMike,
+    title: randomTitle,
+    content: randomContent,
+    kdaRate: randomKdaRate,
+    winRate: randomWinRate,
+  },
+  {
+    lolName: randomName,
+    favorPosition: randomPosition,
+    favorChampion: dummyChamps.slice(0, 3),
+    tier: randomTier,
+    win: randomWin,
+    lose: randomLose,
+    kill: randomKill,
+    death: randomDeath,
+    assist: randomAssist,
+    validTime: randomValidTime,
+    mike: randomMike,
+    title: randomTitle,
+    content: randomContent,
+    kdaRate: randomKdaRate,
+    winRate: randomWinRate,
+  },
+  {
+    lolName: randomName,
+    favorPosition: randomPosition,
+    favorChampion: dummyChamps.slice(0, 3),
+    tier: randomTier,
+    win: randomWin,
+    lose: randomLose,
+    kill: randomKill,
+    death: randomDeath,
+    assist: randomAssist,
+    validTime: randomValidTime,
+    mike: randomMike,
+    title: randomTitle,
+    content: randomContent,
+    kdaRate: randomKdaRate,
+    winRate: randomWinRate,
+  },
+  {
+    lolName: randomName,
+    favorPosition: randomPosition,
+    favorChampion: dummyChamps.slice(0, 3),
+    tier: randomTier,
+    win: randomWin,
+    lose: randomLose,
+    kill: randomKill,
+    death: randomDeath,
+    assist: randomAssist,
+    validTime: randomValidTime,
+    mike: randomMike,
+    title: randomTitle,
+    content: randomContent,
+    kdaRate: randomKdaRate,
+    winRate: randomWinRate,
+  },
+  {
+    lolName: randomName,
+    favorPosition: randomPosition,
+    favorChampion: dummyChamps.slice(0, 3),
+    tier: randomTier,
+    win: randomWin,
+    lose: randomLose,
+    kill: randomKill,
+    death: randomDeath,
+    assist: randomAssist,
+    validTime: randomValidTime,
+    mike: randomMike,
+    title: randomTitle,
+    content: randomContent,
+    kdaRate: randomKdaRate,
+    winRate: randomWinRate,
+  },
+  {
+    lolName: randomName,
+    favorPosition: randomPosition,
+    favorChampion: dummyChamps.slice(0, 3),
+    tier: randomTier,
+    win: randomWin,
+    lose: randomLose,
+    kill: randomKill,
+    death: randomDeath,
+    assist: randomAssist,
+    validTime: randomValidTime,
+    mike: randomMike,
+    title: randomTitle,
+    content: randomContent,
+    kdaRate: randomKdaRate,
+    winRate: randomWinRate,
+  },
+];
+
+/// //////////////////////////////////////////////////////////////////////////////
+
 function favorChampionProducer() {
   const randomChamp =
     dummyChamps[Math.floor(Math.random() * dummyChamps.length)];
@@ -48,31 +341,9 @@ function favorChampionProducer() {
 
 function randomDataProducer() {
   const { randomChamps } = favorChampionProducer();
-  const randomPosition =
-    dummyPositions[Math.floor(Math.random() * dummyPositions.length)];
-  const randomTier = dummyTiers[Math.floor(Math.random() * dummyTiers.length)];
-  const randomName = dummyNames[Math.floor(Math.random() * dummyNames.length)];
-  const randomWin = dummyWins[Math.floor(Math.random() * dummyWins.length)];
-  const randomLose = dummyLoses[Math.floor(Math.random() * dummyLoses.length)];
-  const randomKill = dummyKills[Math.floor(Math.random() * dummyKills.length)];
-  const randomDeath =
-    dummyDeaths[Math.floor(Math.random() * dummyDeaths.length)];
-  const randomAssist =
-    dummyAssists[Math.floor(Math.random() * dummyAssists.length)];
-  const randomMike = dummyMike[Math.floor(Math.random() * dummyMike.length)];
-  const randomValidTime =
-    dummyValidTimes[Math.floor(Math.random() * dummyValidTimes.length)];
-  const randomKdaRate =
-    dummyKdaRate[Math.floor(Math.random() * dummyKdaRate.length)];
-  const randomWinRate =
-    dummyWinRates[Math.floor(Math.random() * dummyWinRates.length)];
-  const randomTitle =
-    dummyTitles[Math.floor(Math.random() * dummyTitles.length)];
-  const randomContent =
-    dummyContents[Math.floor(Math.random() * dummyContents.length)];
-  const dummyRandomData = [];
+  const dummyRandomDatas = [];
   for (let i = 0; i < 30; i += i) {
-    dummyRandomData.push({
+    dummyRandomDatas.push({
       lolName: randomName,
       favorPosition: randomPosition,
       favorChampion: randomChamps,
@@ -90,7 +361,7 @@ function randomDataProducer() {
       winRate: randomWinRate,
     });
   }
-  return { dummyRandomData };
+  return { dummyRandomDatas };
 }
 
-export default randomDataProducer;
+export { dummyRandomData, randomDataProducer };
