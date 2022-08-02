@@ -29,7 +29,9 @@ const GlobalHeader = styled('header')<{ pathname: string }>`
   align-items: center;
   position: absolute;
   background-color: ${props =>
-    props.pathname.includes('/rank') || props.pathname === '/my_page'
+    props.pathname.includes('/rank') ||
+    props.pathname === '/my_page' ||
+    props.pathname === '/find_duo'
       ? props.theme.bgColor.blue
       : 'none'};
   z-index: 1;
@@ -135,7 +137,9 @@ const MainContainer = styled('div')<{ pathname: string }>`
   position: absolute;
   background: linear-gradient(
     ${props =>
-      props.pathname.includes('/rank') || props.pathname === '/my_page'
+      props.pathname.includes('/rank') ||
+      props.pathname === '/my_page' ||
+      props.pathname === '/find_duo'
         ? `0, ${props.theme.bgColor.anotherOne} 0, ${props.theme.bgColor.anotherOne} 0`
         : `180deg, ${props.theme.bgColor.blue} 0.06%, ${props.theme.bgColor.gray} 100%`}
   );
