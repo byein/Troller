@@ -1,9 +1,8 @@
-
 # 1. node 이미지 사용
 FROM    node:16-alpine
 
 # 2. 패키지 우선 복사
-COPY    ./package* /usr/src/app/
+COPY    ./troller/package* /usr/src/app/
 WORKDIR /usr/src/app
 RUN     npm install
 
