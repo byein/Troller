@@ -29,8 +29,10 @@ const GlobalHeader = styled('header')<{ pathname: string }>`
   align-items: center;
   position: absolute;
   background-color: ${props =>
-    props.pathname.includes('/rank') || props.pathname === '/my_page'
-      ? props.theme.bgColor.blue
+    props.pathname === '/find_duo' ||
+    props.pathname.includes('/multi_search') ||
+    props.pathname.includes('/rank')
+      ? props.theme.bgColor.dark
       : 'none'};
   z-index: 1;
   span {
@@ -90,7 +92,7 @@ const GlobalHeader = styled('header')<{ pathname: string }>`
 const Menu = styled('span')`
   width: 100px;
   height: 80px;
-  background-color: ${props => props.theme.bgColor.anotherOne};
+  background-color: ${props => props.theme.bgColor.light};
   border-radius: ${`${BORDER_RADIUS}px`};
   position: absolute;
   right: 15px;
@@ -135,8 +137,10 @@ const MainContainer = styled('div')<{ pathname: string }>`
   position: absolute;
   background: linear-gradient(
     ${props =>
-      props.pathname.includes('/rank') || props.pathname === '/my_page'
-        ? `0, ${props.theme.bgColor.anotherOne} 0, ${props.theme.bgColor.anotherOne} 0`
+      props.pathname === '/find_duo' ||
+      props.pathname.includes('/multi_search') ||
+      props.pathname.includes('/rank')
+        ? `0, ${props.theme.bgColor.light} 0, ${props.theme.bgColor.light} 0`
         : `180deg, ${props.theme.bgColor.blue} 0.06%, ${props.theme.bgColor.gray} 100%`}
   );
   z-index: 0;
@@ -144,21 +148,26 @@ const MainContainer = styled('div')<{ pathname: string }>`
 
 const SKELETON_ANIMATION = keyframes`
   0% {
-    background-color: rgba(255,255,255,0.2);
+    background-color: #4b4b4b;
+    opacity: 0.9;
   }
   50% {
-    background-color: rgba(255,255,255,0.25);
+    background-color: #4b4b4b;
+    opacity: 1;
   }
   100% {
-    background-color: rgba(255,255,255,0.2);
+    background-color: #4b4b4b;
+    opacity: 0.9;
   }
 `;
 const SKELETON_BAR_ANIMATION = keyframes`
   0% {
     transform: translateY(0) rotate(-45deg);
+    opacity: 0.3;
   }
   100% {
     transform: translateY(1000px) rotate(-45deg);
+    opacity: 0.5;
   }
 `;
 
