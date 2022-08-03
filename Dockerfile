@@ -1,5 +1,5 @@
 # 1. node 이미지 사용
-FROM    node:16-alpine
+FROM    node:latest
 
 # 2. 패키지 우선 복사
 COPY    ./troller/package* /usr/src/app/
