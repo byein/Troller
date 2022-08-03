@@ -1,6 +1,9 @@
 import styled from '@emotion/styled';
 import { BORDER_RADIUS, LARGE_FONTSIZE } from '../global/global';
 
+const kdaRateMean = 0.7;
+const winRateMean = 70;
+
 const ContentsWrapper = styled('div')`
   width: 100%;
   columns: 3;
@@ -70,11 +73,15 @@ const Article = styled('div')`
   }
 `;
 
-const UserStatus = styled('div')<{ kdaRate: number }>`
+const UserStatus = styled('div')<{
+  kdaRate: number;
+  win: number;
+  lose: number;
+}>`
   width: 55%;
   height: 100px;
   padding: 0 0 0 5px;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.1);
   border-radius: ${`${BORDER_RADIUS - 3}px`};
   display: flex;
   flex-direction: column;
@@ -90,6 +97,8 @@ const UserStatus = styled('div')<{ kdaRate: number }>`
       overflow: hidden;
       object-position: center;
       margin: 0 5px 0 0;
+      ///////////////
+      border-radius: ${`${BORDER_RADIUS - 3}px`};
       .position {
         width: 110%;
       }
@@ -109,6 +118,8 @@ const UserStatus = styled('div')<{ kdaRate: number }>`
       overflow: hidden;
       object-position: center;
       margin: 0 5px 0 0;
+      ///////////////
+      border-radius: ${`${BORDER_RADIUS - 3}px`};
       .tier {
         width: 110%;
       }
@@ -120,7 +131,7 @@ const UserStatus = styled('div')<{ kdaRate: number }>`
     .kdaRate {
       font-size: ${`${LARGE_FONTSIZE - 15}px`};
       color: ${props =>
-        props.kdaRate >= 0.7
+        props.kdaRate >= kdaRateMean
           ? props.theme.validation.resolve
           : props.theme.validation.error};
     }
@@ -130,8 +141,37 @@ const UserStatus = styled('div')<{ kdaRate: number }>`
     align-items: center;
     width: 100%;
     height: 29px;
-    background-color: wheat;
-    color: black;
+    color: ${props => props.theme.bgColor.dark};
+    .winLoseBox {
+      width: 60%;
+      height: 25px;
+      display: flex;
+      align-items: center;
+      border-radius: ${`${BORDER_RADIUS - 3}px`};
+      overflow: hidden;
+      margin: 0 10px 0 0;
+      .win,
+      .lose {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .win {
+        width: ${props => (props.win / (props.win + props.lose)) * 100}%;
+        background-color: #04adef;
+      }
+      .lose {
+        width: ${props => (props.lose / (props.win + props.lose)) * 100}%;
+        background-color: #f172ac;
+      }
+    }
+    .winRate {
+      color: ${props =>
+        (props.win / (props.win + props.lose)) * 100 >= winRateMean
+          ? props.theme.validation.resolve
+          : props.theme.validation.error};
+    }
   }
 `;
 

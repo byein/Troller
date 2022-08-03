@@ -22,7 +22,7 @@ const dummyAssists = [10, 5, 3, 2, 1];
 const dummyMike = [true, false];
 const dummyValidTimes = [50, 60, 70, 80, 90];
 const dummyKdaRate = [0.5, 0.6, 0.7, 0.8, 0.9];
-const dummyWinRates = ['50%', '50%', '50%', '50%', '50%'];
+const dummyWinRates = [30, 40, 60, 80, 90];
 const dummyTitles = [
   '나랑 할 사람',
   '아이언포우임',

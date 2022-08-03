@@ -28,7 +28,6 @@ interface IUserDataType {
     title: string;
     content: string;
     kdaRate: number;
-    winRate: string;
   };
 }
 
@@ -65,7 +64,11 @@ function Contents({ userData }: IUserDataType) {
           </div>
           <p className="content">{userData.content}</p>
         </Article>
-        <UserStatus kdaRate={userData.kdaRate}>
+        <UserStatus
+          kdaRate={userData.kdaRate}
+          win={userData.win}
+          lose={userData.lose}
+        >
           <div className="firstLine">
             <div className="positionBox">
               <img className="position" src={userData.favorPosition} alt="" />
@@ -79,7 +82,20 @@ function Contents({ userData }: IUserDataType) {
             <span className="kda">{`${userData.kill} / ${userData.death} / ${userData.assist}`}</span>
             <span className="kdaRate">{`${userData.kdaRate}%`}</span>
           </div>
-          <div className="thirdLine">아직 구현 못함!</div>
+          <div className="thirdLine">
+            <div className="winLoseBox">
+              <div className="win">
+                <span>{userData.win}</span>
+              </div>
+              <div className="lose">
+                <span>{userData.lose}</span>
+              </div>
+            </div>
+            <span className="winRate">{`${(
+              (userData.win / (userData.win + userData.lose)) *
+              100
+            ).toFixed(2)}%`}</span>
+          </div>
         </UserStatus>
       </ArticleWrapper>
       <ContentFooter>
