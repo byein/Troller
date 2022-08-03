@@ -1,5 +1,5 @@
 import qs from 'query-string';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import {
   AnotherWay,
@@ -7,7 +7,7 @@ import {
   InputBox,
   SignBox,
 } from '../../styles/sign/globalSignBox';
-import kakao from '../../statics/img/snsSign/kakao_login_medium_wide.png';
+import kakao from '../../static/img/snsSign/kakao_login_medium_wide.png';
 import { useApi } from '../../hooks/axiosHooks';
 import onChange from '../../hooks/hooks';
 
