@@ -4,8 +4,8 @@ const def: Theme = {
   bgColor: {
     blue: '#0A1F62',
     gray: '#8F8F8F',
-    light: '#f7f1e3',
-    dark: '#4b4b4b',
+    light: '#d2dae2',
+    dark: '#1e272e',
   },
   borderColor: '#969eba',
   validation: {

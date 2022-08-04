@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { BORDER_RADIUS, LARGE_FONTSIZE } from '../global/global';
+import { BORDER_RADIUS, BOX_SHADOW, LARGE_FONTSIZE } from '../global/global';
 
 const kdaRateMean = 0.7;
 const winRateMean = 70;
@@ -81,8 +81,9 @@ const UserStatus = styled('div')<{
   width: 55%;
   height: 100px;
   padding: 0 0 0 5px;
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.2);
   border-radius: ${`${BORDER_RADIUS - 3}px`};
+  ${BOX_SHADOW}
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -189,7 +190,6 @@ const ContentFooter = styled('div')`
     .mostChamps {
       height: 90%;
       aspect-ratio: 1 / 1;
-      background-color: wheat;
       border-radius: ${`${BORDER_RADIUS - 5}px`};
       overflow: hidden;
       object-position: center;
