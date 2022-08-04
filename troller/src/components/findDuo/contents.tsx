@@ -27,7 +27,6 @@ interface IUserDataType {
     mike: boolean;
     title: string;
     content: string;
-    kdaRate: number;
   };
 }
 
@@ -65,7 +64,9 @@ function Contents({ userData }: IUserDataType) {
           <p className="content">{userData.content}</p>
         </Article>
         <UserStatus
-          kdaRate={userData.kdaRate}
+          kill={userData.kill}
+          death={userData.death}
+          assist={userData.assist}
           win={userData.win}
           lose={userData.lose}
         >
@@ -80,7 +81,10 @@ function Contents({ userData }: IUserDataType) {
               <img className="tier" src={userData.tier} alt="tier" />
             </div>
             <span className="kda">{`${userData.kill} / ${userData.death} / ${userData.assist}`}</span>
-            <span className="kdaRate">{`${userData.kdaRate}%`}</span>
+            <span className="kdaRate">{`${(
+              (userData.kill + userData.assist) /
+              userData.death
+            ).toFixed(1)}%`}</span>
           </div>
           <div className="thirdLine">
             <div className="winLoseBox">

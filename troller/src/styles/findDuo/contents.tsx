@@ -74,7 +74,9 @@ const Article = styled('div')`
 `;
 
 const UserStatus = styled('div')<{
-  kdaRate: number;
+  kill: number;
+  death: number;
+  assist: number;
   win: number;
   lose: number;
 }>`
@@ -132,7 +134,7 @@ const UserStatus = styled('div')<{
     .kdaRate {
       font-size: ${`${LARGE_FONTSIZE - 15}px`};
       color: ${props =>
-        props.kdaRate >= kdaRateMean
+        (props.kill + props.assist) / props.death >= kdaRateMean
           ? props.theme.validation.resolve
           : props.theme.validation.error};
     }
