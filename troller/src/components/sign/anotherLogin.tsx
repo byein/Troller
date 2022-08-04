@@ -11,13 +11,12 @@ import kakao from '../../static/img/snsSign/kakao_login_medium_wide.png';
 import { useApi } from '../../hooks/axiosHooks';
 import onChange from '../../hooks/hooks';
 
-const REACT_APP_KAKAO_AUTH_API_KEY = '5d497d3a5b84df801c7913fd22e153b9';
-const REACT_APP_HOST = '3.37.22.89';
-const REACT_APP_PORT = '3000';
+const host = '3.37.22.89';
+const port = 3000;
 
 function KakaoLogin() {
-  const KAKAO_REDIRECT_URL = `http://${REACT_APP_HOST}:${REACT_APP_PORT}/auth/kakao`;
-  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REACT_APP_KAKAO_AUTH_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URL}&response_type=code`;
+  const KAKAO_REDIRECT_URL = `http://${host}:${port}/auth/kakao`;
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_AUTH_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URL}&response_type=code`;
   return (
     <a className="login" href={KAKAO_AUTH_URL}>
       <img className="login_btn" src={kakao} alt="start with kakao" />
