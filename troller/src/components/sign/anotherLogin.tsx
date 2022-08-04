@@ -12,7 +12,7 @@ import { useApi } from '../../hooks/axiosHooks';
 import onChange from '../../hooks/hooks';
 
 function KakaoLogin() {
-  const KAKAO_REDIRECT_URL = 'http://localhost:3000/auth/kakao';
+  const KAKAO_REDIRECT_URL = 'http://3.37.22.89:3000/auth/kakao';
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_AUTH_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URL}&response_type=code`;
   return (
     <a className="login" href={KAKAO_AUTH_URL}>
