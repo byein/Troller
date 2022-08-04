@@ -21,8 +21,6 @@ const dummyDeaths = [10, 5, 3, 2, 1];
 const dummyAssists = [10, 5, 3, 2, 1];
 const dummyMike = [true, false];
 const dummyValidTimes = [50, 60, 70, 80, 90];
-const dummyKdaRate = [0.5, 0.6, 0.7, 0.8, 0.9];
-const dummyWinRates = [30, 40, 60, 80, 90];
 const dummyTitles = [
   '나랑 할 사람',
   '아이언포우임',
@@ -61,10 +59,6 @@ const randomAssist =
 const randomMike = dummyMike[Math.floor(Math.random() * dummyMike.length)];
 const randomValidTime =
   dummyValidTimes[Math.floor(Math.random() * dummyValidTimes.length)];
-const randomKdaRate =
-  dummyKdaRate[Math.floor(Math.random() * dummyKdaRate.length)];
-const randomWinRate =
-  dummyWinRates[Math.floor(Math.random() * dummyWinRates.length)];
 const randomTitle = dummyTitles[Math.floor(Math.random() * dummyTitles.length)];
 const randomContent =
   dummyContents[Math.floor(Math.random() * dummyContents.length)];
@@ -84,8 +78,6 @@ const dummyRandomData = [
     mike: randomMike,
     title: randomTitle,
     content: randomContent,
-    kdaRate: randomKdaRate,
-    winRate: randomWinRate,
   },
   {
     lolName: randomName,
@@ -101,8 +93,6 @@ const dummyRandomData = [
     mike: randomMike,
     title: randomTitle,
     content: randomContent,
-    kdaRate: randomKdaRate,
-    winRate: randomWinRate,
   },
   {
     lolName: randomName,
@@ -118,8 +108,6 @@ const dummyRandomData = [
     mike: randomMike,
     title: randomTitle,
     content: randomContent,
-    kdaRate: randomKdaRate,
-    winRate: randomWinRate,
   },
   {
     lolName: randomName,
@@ -135,8 +123,6 @@ const dummyRandomData = [
     mike: randomMike,
     title: randomTitle,
     content: randomContent,
-    kdaRate: randomKdaRate,
-    winRate: randomWinRate,
   },
   {
     lolName: randomName,
@@ -152,8 +138,6 @@ const dummyRandomData = [
     mike: randomMike,
     title: randomTitle,
     content: randomContent,
-    kdaRate: randomKdaRate,
-    winRate: randomWinRate,
   },
   {
     lolName: randomName,
@@ -169,8 +153,6 @@ const dummyRandomData = [
     mike: randomMike,
     title: randomTitle,
     content: randomContent,
-    kdaRate: randomKdaRate,
-    winRate: randomWinRate,
   },
   {
     lolName: randomName,
@@ -186,8 +168,6 @@ const dummyRandomData = [
     mike: randomMike,
     title: randomTitle,
     content: randomContent,
-    kdaRate: randomKdaRate,
-    winRate: randomWinRate,
   },
   {
     lolName: randomName,
@@ -203,8 +183,6 @@ const dummyRandomData = [
     mike: randomMike,
     title: randomTitle,
     content: randomContent,
-    kdaRate: randomKdaRate,
-    winRate: randomWinRate,
   },
   {
     lolName: randomName,
@@ -220,8 +198,6 @@ const dummyRandomData = [
     mike: randomMike,
     title: randomTitle,
     content: randomContent,
-    kdaRate: randomKdaRate,
-    winRate: randomWinRate,
   },
   {
     lolName: randomName,
@@ -237,8 +213,6 @@ const dummyRandomData = [
     mike: randomMike,
     title: randomTitle,
     content: randomContent,
-    kdaRate: randomKdaRate,
-    winRate: randomWinRate,
   },
   {
     lolName: randomName,
@@ -254,8 +228,6 @@ const dummyRandomData = [
     mike: randomMike,
     title: randomTitle,
     content: randomContent,
-    kdaRate: randomKdaRate,
-    winRate: randomWinRate,
   },
   {
     lolName: randomName,
@@ -271,8 +243,6 @@ const dummyRandomData = [
     mike: randomMike,
     title: randomTitle,
     content: randomContent,
-    kdaRate: randomKdaRate,
-    winRate: randomWinRate,
   },
   {
     lolName: randomName,
@@ -288,8 +258,6 @@ const dummyRandomData = [
     mike: randomMike,
     title: randomTitle,
     content: randomContent,
-    kdaRate: randomKdaRate,
-    winRate: randomWinRate,
   },
   {
     lolName: randomName,
@@ -305,8 +273,6 @@ const dummyRandomData = [
     mike: randomMike,
     title: randomTitle,
     content: randomContent,
-    kdaRate: randomKdaRate,
-    winRate: randomWinRate,
   },
   {
     lolName: randomName,
@@ -322,8 +288,6 @@ const dummyRandomData = [
     mike: randomMike,
     title: randomTitle,
     content: randomContent,
-    kdaRate: randomKdaRate,
-    winRate: randomWinRate,
   },
 ];
 
@@ -357,8 +321,6 @@ function randomDataProducer() {
       mike: randomMike,
       title: randomTitle,
       content: randomContent,
-      kdaRate: randomKdaRate,
-      winRate: randomWinRate,
     });
   }
   return { dummyRandomDatas };
