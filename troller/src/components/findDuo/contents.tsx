@@ -49,17 +49,20 @@ function Contents({ userData }: IUserDataType) {
   return (
     <Content>
       <Timer validTime={validTime}>
-        {validTime > 0 ? `${minutes}:${seconds}` : '만료'}
+        <div className="user">
+          {userData.mike ? (
+            <MicIcon className="micOn" />
+          ) : (
+            <MicOffIcon className="micOff" />
+          )}
+          <span className="lolName">{userData.lolName}</span>
+        </div>
+        <span>{validTime > 0 ? `${minutes}:${seconds}` : '만료'}</span>
       </Timer>
       <ArticleWrapper>
         <Article>
           <div className="titleBox">
             <h2 className="title">{userData.title}</h2>
-            {userData.mike ? (
-              <MicIcon className="micOn" />
-            ) : (
-              <MicOffIcon className="micOff" />
-            )}
           </div>
           <p className="content">{userData.content}</p>
         </Article>
@@ -74,7 +77,11 @@ function Contents({ userData }: IUserDataType) {
             <div className="positionBox">
               <img className="position" src={userData.favorPosition} alt="" />
             </div>
-            <span className="lolName">{userData.lolName}</span>
+            {userData.favorChampion.map(champion => (
+              <div className="mostChamps">
+                <img src={champion} alt="chamion" />
+              </div>
+            ))}
           </div>
           <div className="secondLine">
             <div className="tierBox">
@@ -103,13 +110,6 @@ function Contents({ userData }: IUserDataType) {
         </UserStatus>
       </ArticleWrapper>
       <ContentFooter>
-        <div className="mostChampBox">
-          {userData.favorChampion.map(champion => (
-            <div className="mostChamps">
-              <img src={champion} alt="chamion" />
-            </div>
-          ))}
-        </div>
         <ChatBtnBox>
           <ChatBtn>채팅하기</ChatBtn>
           <ChatBtn>AI 듀오매칭</ChatBtn>

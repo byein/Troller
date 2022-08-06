@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { BORDER_RADIUS, DEFAULT_FONTSIZE } from '../global/global';
+import { BORDER_RADIUS, DEFAULT_FONTSIZE, TRANSITION } from '../global/global';
 
 const CategoryWrapper = styled('div')`
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -28,6 +28,11 @@ const CategoryWrapper = styled('div')`
     border-radius: ${`${BORDER_RADIUS - 5}px`};
     cursor: pointer;
     border: none;
+    ${TRANSITION}
+    &:hover {
+      background-color: ${props => props.theme.btnColor.onHover};
+      color: ${props => props.theme.txtColor.primary};
+    }
   }
 `;
 
@@ -39,11 +44,18 @@ const FilterPosition = styled('div')`
   .position {
     width: 45px;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
     border-top: 1px ${props => props.theme.bgColor.light} solid;
     border-bottom: 1px ${props => props.theme.bgColor.light} solid;
     border-right: 1px ${props => props.theme.bgColor.light} solid;
     &:nth-of-type(1) {
       border-left: 1px ${props => props.theme.bgColor.light} solid;
+    }
+    .img {
+      width: 60%;
     }
   }
 `;

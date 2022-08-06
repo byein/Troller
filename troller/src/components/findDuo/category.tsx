@@ -1,6 +1,7 @@
 import CreateIcon from '@mui/icons-material/Create';
 import EjectIcon from '@mui/icons-material/Eject';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
+import positions from '../../api/findDuoPositionCategory';
 import {
   CategoryWrapper,
   FilterPosition,
@@ -18,11 +19,15 @@ function Category({
     <CategoryWrapper>
       <span className="title">필터링</span>
       <FilterPosition>
-        <div className="position" />
-        <div className="position" />
-        <div className="position" />
-        <div className="position" />
-        <div className="position" />
+        {positions.map(position => (
+          <div className="position" key={position.favorPositionDesc}>
+            <img
+              className="img"
+              src={position.disabled}
+              alt={position.favorPositionDesc}
+            />
+          </div>
+        ))}
       </FilterPosition>
       <FilterRate>
         <div className="select" />
