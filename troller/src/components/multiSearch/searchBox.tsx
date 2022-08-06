@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Outlet, useNavigate, useOutletContext } from 'react-router-dom';
+import { useApi } from '../../hooks/axiosHooks';
 import { SearchBox } from '../../styles/multiSearch/main';
-// import { Axios as axios } from '../../hooks/axiosMethod';
 
 interface ISearchDataType {
   name: 'sdfsdf';
@@ -38,17 +38,11 @@ function Search() {
     e.preventDefault();
     const contents = text.split('\n');
     const req: { [user: string]: string } = {};
-    let query = '';
     for (let i = 0; i < row; i += 1) {
       if (contents[i] !== '') {
         req[`user${i + 1}`] = contents[i].slice(0, -15);
-        if (i === row - 1) {
-          query += `user${i + 1}=${contents[i].slice(0, -15)}`;
-        } else {
-          query += `user${i + 1}=${contents[i].slice(0, -15)}&`;
-        }
       } else {
-        alert('멀티서치: 공백 줄바꿈은 없애 주십시오.');
+        alert('멀티서치: 공백 또는 줄바꿈은 없애 주십시오.');
         return; // 공백 줄바꿈 방지
       }
       if (i === 6) {
@@ -56,8 +50,10 @@ function Search() {
         return;
       }
     }
+    // const { status, data } = await useApi.get('/TEMPORALAPI', {
+    //   params: {},
+    // }); => 나중에 서버에서 작업하는 경우 사용
     setisExtracted(true);
-    navigate(`/multi_search/${query}`);
   };
   return (
     <>
