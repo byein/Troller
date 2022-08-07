@@ -30,8 +30,7 @@ const CategoryWrapper = styled('div')`
     border: none;
     ${TRANSITION}
     &:hover {
-      background-color: ${props => props.theme.btnColor.onHover};
-      color: ${props => props.theme.txtColor.primary};
+      background-color: ${props => props.theme.txtColor.selected};
     }
   }
 `;
@@ -48,9 +47,11 @@ const FilterPosition = styled('div')`
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    background-color: ${props => props.theme.bgColor.dark};
     border-top: 1px ${props => props.theme.bgColor.light} solid;
     border-bottom: 1px ${props => props.theme.bgColor.light} solid;
     border-right: 1px ${props => props.theme.bgColor.light} solid;
+    border-left: none;
     &:nth-of-type(1) {
       border-left: 1px ${props => props.theme.bgColor.light} solid;
     }
@@ -60,30 +61,4 @@ const FilterPosition = styled('div')`
   }
 `;
 
-const FilterRate = styled('div')`
-  width: 110px;
-  height: 45px;
-  border: 1px ${props => props.theme.bgColor.light} solid;
-  background-color: ${props => props.theme.bgColor.dark};
-  color: ${props => props.theme.bgColor.light};
-  border-radius: ${`${BORDER_RADIUS - 5}px`};
-  display: flex;
-  .select {
-    width: 80%;
-    height: 100%;
-  }
-  .section {
-    width: 20%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    .triangle {
-      font-size: 15px;
-      cursor: pointer;
-      transform: rotate(180deg);
-    }
-  }
-`;
-
-export { CategoryWrapper, FilterPosition, FilterRate };
+export { CategoryWrapper, FilterPosition };

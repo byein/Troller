@@ -18,7 +18,7 @@ const def: Theme = {
   },
   txtColor: {
     primary: 'white',
-    selected: '#59EAD0',
+    selected: '#CDFAF9',
   },
 };
 

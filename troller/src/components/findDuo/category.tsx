@@ -1,12 +1,9 @@
 import CreateIcon from '@mui/icons-material/Create';
-import EjectIcon from '@mui/icons-material/Eject';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
+import React, { useEffect, useState } from 'react';
+import { CategoryWrapper, FilterPosition } from '../../styles/findDuo/category';
 import positions from '../../api/findDuoPositionCategory';
-import {
-  CategoryWrapper,
-  FilterPosition,
-  FilterRate,
-} from '../../styles/findDuo/category';
+import SelectRate from './selectRate';
 
 function Category({
   setOnoff,
@@ -15,26 +12,48 @@ function Category({
   setOnoff: (arg1: (arg2: boolean) => boolean) => void;
   onoff: boolean;
 }) {
+  const [selectedPosition, setSelectedPosition] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
+  const select = (index: number) => {
+    const newSelectedPosition = [...selectedPosition];
+    for (let i = 0; i < selectedPosition.length; i += 1) {
+      if (selectedPosition[i]) {
+        newSelectedPosition[i] = false;
+        setSelectedPosition(newSelectedPosition);
+      }
+    }
+    newSelectedPosition[index] = true;
+    setSelectedPosition(newSelectedPosition);
+  };
   return (
     <CategoryWrapper>
       <span className="title">필터링</span>
       <FilterPosition>
-        {positions.map(position => (
-          <div className="position" key={position.favorPositionDesc}>
+        {positions.map((position, index) => (
+          <button
+            onClick={e => {
+              select(index);
+            }}
+            type="button"
+            className="position"
+            key={position.favorPositionDesc}
+          >
             <img
               className="img"
-              src={position.disabled}
+              src={
+                selectedPosition[index] ? position.focused : position.disabled
+              }
               alt={position.favorPositionDesc}
             />
-          </div>
+          </button>
         ))}
       </FilterPosition>
-      <FilterRate>
-        <div className="select" />
-        <div className="section">
-          <EjectIcon className="triangle" />
-        </div>
-      </FilterRate>
+      <SelectRate />
       <button
         className="create"
         onClick={() => {

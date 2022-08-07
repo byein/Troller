@@ -52,16 +52,8 @@ const Timer = styled('div')<{ validTime: number; isLoading: boolean }>`
   }
   .user {
     .lolName {
-      margin: 0 0 0 5px;
       color: ${props => props.theme.txtColor.selected};
-    }
-    .micOn {
-      font-size: 15px;
-      color: ${props => props.theme.validation.resolve};
-    }
-    .micOff {
-      font-size: 15px;
-      color: ${props => props.theme.bgColor.light};
+      font-weight: bold;
     }
   }
 `;
@@ -76,15 +68,24 @@ const ArticleWrapper = styled('div')`
 `;
 
 const Article = styled('div')<{ isLoading: boolean }>`
-  width: 45%;
+  width: 270px;
   min-height: 100px;
   margin: 0 5px 0 0;
   .titleBox {
+    ${props => (props.isLoading ? Skeleton : null)}
     width: 100%;
     display: flex;
+    justify-content: space-between;
     align-items: center;
+    .micOn {
+      font-size: 15px;
+      color: ${props => props.theme.validation.resolve};
+    }
+    .micOff {
+      font-size: 15px;
+      color: ${props => props.theme.bgColor.light};
+    }
     .title {
-      ${props => (props.isLoading ? Skeleton : null)}
       font-size: ${`${LARGE_FONTSIZE - 10}px`};
       font-weight: bold;
     }
@@ -95,9 +96,8 @@ const Article = styled('div')<{ isLoading: boolean }>`
     width: 100%;
     height: 90px;
     border-radius: ${`${BORDER_RADIUS - 3}px`};
-    margin-top: 10px;
     word-wrap: break-word;
-    color: rgba(255, 255, 255, 0.7);
+    color: ${props => props.theme.bgColor.light};
   }
 `;
 
@@ -110,9 +110,9 @@ const UserStatus = styled('div')<{
   lose: number;
 }>`
   ${props => (props.isLoading ? Skeleton : null)}
-  width: 55%;
-  height: 120px;
-  padding: 0 0 0 5px;
+  width: 155px;
+  height: 128px;
+  padding: 5px;
   background-color: rgba(0, 0, 0, 0.2);
   border-radius: ${`${BORDER_RADIUS - 3}px`};
   ${BOX_SHADOW}
@@ -121,6 +121,7 @@ const UserStatus = styled('div')<{
   justify-content: space-evenly;
   .firstLine {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
     height: 29px;
@@ -137,15 +138,9 @@ const UserStatus = styled('div')<{
         width: 90%;
       }
     }
-    /* .mostChampBox {
-      width: 45%;
-      height: auto;
-      display: flex;
-      justify-content: space-between; */
     .mostChamps {
       height: 100%;
       aspect-ratio: 1 / 1;
-      margin: 0 5px 0 0;
       border-radius: ${`${BORDER_RADIUS - 5}px`};
       overflow: hidden;
       display: flex;
@@ -155,10 +150,10 @@ const UserStatus = styled('div')<{
         width: 90%;
       }
     }
-    /* } */
   }
   .secondLine {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
     height: 29px;
@@ -192,13 +187,12 @@ const UserStatus = styled('div')<{
     height: 29px;
     color: ${props => props.theme.bgColor.dark};
     .winLoseBox {
-      width: 60%;
+      width: 100%;
       height: 25px;
       display: flex;
       align-items: center;
       border-radius: ${`${BORDER_RADIUS - 3}px`};
       overflow: hidden;
-      margin: 0 10px 0 0;
       border: 1px solid ${props => props.theme.bgColor.light};
       .win,
       .lose {
@@ -253,8 +247,7 @@ const ChatBtn = styled('button')`
   background-color: ${props => props.theme.bgColor.light};
   ${TRANSITION}
   &:hover {
-    background-color: ${props => props.theme.btnColor.onHover};
-    color: ${props => props.theme.txtColor.primary};
+    background-color: ${props => props.theme.txtColor.selected};
   }
 `;
 

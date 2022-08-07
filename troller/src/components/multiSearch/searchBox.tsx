@@ -50,6 +50,7 @@ function Search() {
         return;
       }
     }
+    console.log(req);
     // const { status, data } = await useApi.get('/TEMPORALAPI', {
     //   params: {},
     // }); => 나중에 서버에서 작업하는 경우 사용
@@ -79,18 +80,3 @@ function useStats() {
   return useOutletContext<IOutletDataType>();
 }
 export { Search, useStats };
-
-// if (req !== undefined) {
-//   const { res, data } = await axios.post<ISearchDataType[]>(
-//     '/multiSearch',
-//     req
-//   );
-//   if (data !== undefined || null) {
-//   setisExtracted(true);
-//   setsearchData(data);
-//   }
-//   if (res?.status === 401) {
-//     // 해당 유저정보가 없을 때 401 or something
-//     alert('멀티서치: 해당 유저를 찾을 수 없습니다.');
-//   }
-// }

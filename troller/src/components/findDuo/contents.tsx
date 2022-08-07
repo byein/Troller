@@ -11,7 +11,6 @@ import {
   Timer,
   UserStatus,
 } from '../../styles/findDuo/contents';
-import { Skeleton } from '../../styles/global/global';
 
 interface IUserDataType {
   userData: {
@@ -32,7 +31,7 @@ interface IUserDataType {
 }
 
 function Contents({ userData }: IUserDataType) {
-  const [load, setLoad] = useState(true);
+  const [load, setLoad] = useState(false);
   const [validTime, setvalidTime] = useState(userData.validTime);
   const minutes = Math.floor(validTime / 60)
     .toString()
@@ -52,11 +51,6 @@ function Contents({ userData }: IUserDataType) {
     <Content>
       <Timer validTime={validTime} isLoading={load}>
         <div className="user">
-          {userData.mike ? (
-            <MicIcon className="micOn" />
-          ) : (
-            <MicOffIcon className="micOff" />
-          )}
           <span className="lolName">{userData.lolName}</span>
         </div>
         <span className="validTime">
@@ -67,7 +61,13 @@ function Contents({ userData }: IUserDataType) {
         <Article isLoading={load}>
           <div className="titleBox">
             <h2 className="title">{userData.title}</h2>
+            {userData.mike ? (
+              <MicIcon className="micOn" />
+            ) : (
+              <MicOffIcon className="micOff" />
+            )}
           </div>
+          <hr className="seperator" />
           <p className="content">{userData.content}</p>
         </Article>
         <UserStatus
@@ -96,7 +96,7 @@ function Contents({ userData }: IUserDataType) {
             <span className="kdaRate">{`${(
               (userData.kill + userData.assist) /
               userData.death
-            ).toFixed(1)}%`}</span>
+            ).toFixed(1)}`}</span>
           </div>
           <div className="thirdLine">
             <div className="winLoseBox">
@@ -107,10 +107,6 @@ function Contents({ userData }: IUserDataType) {
                 <span>{userData.lose}</span>
               </div>
             </div>
-            <span className="winRate">{`${(
-              (userData.win / (userData.win + userData.lose)) *
-              100
-            ).toFixed(2)}%`}</span>
           </div>
         </UserStatus>
       </ArticleWrapper>
