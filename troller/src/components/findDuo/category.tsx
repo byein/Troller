@@ -1,6 +1,6 @@
 import CreateIcon from '@mui/icons-material/Create';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { CategoryWrapper, FilterPosition } from '../../styles/findDuo/category';
 import positions from '../../api/findDuoPositionCategory';
 import SelectRate from './selectRate';
@@ -12,6 +12,13 @@ function Category({
   setOnoff: (arg1: (arg2: boolean) => boolean) => void;
   onoff: boolean;
 }) {
+  const [top, mid, bottom, jungle, utility] = [
+    'TOP',
+    'MID',
+    'BOTTOM',
+    'JUNGLE',
+    'UTILITY',
+  ]; // selectPosition에서 TRUE값이 있는 위치를 감지하는 배열
   const [selectedPosition, setSelectedPosition] = useState([
     false,
     false,

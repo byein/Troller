@@ -125,6 +125,7 @@ const Tab = styled('li')<{ isActive: boolean }>`
     !props.isActive
       ? props.theme.txtColor.primary
       : props.theme.txtColor.selected};
+  font-weight: 600;
   &:hover {
     color: ${props => props.theme.txtColor.selected};
   }

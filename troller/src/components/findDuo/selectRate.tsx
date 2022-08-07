@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import EjectIcon from '@mui/icons-material/Eject';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   BORDER_RADIUS,
   DEFAULT_FONTSIZE,
@@ -79,12 +79,15 @@ const SelectRateWrapper = styled('div')<{ toggle: boolean }>`
 `;
 
 function SelectRate() {
+  const firstRender = '시간순';
+  const [isClicked, setisClicked] = useState(false);
   const [rates, setRates] = useState(['승률', 'KDA']);
   const [toggle, setToggle] = useState(false);
   const toggleSelection = () => {
     setToggle(prev => !prev);
   };
   const selectRate = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setisClicked(true);
     const { innerText } = e.currentTarget;
     if (innerText === rates[0]) {
       setRates([innerText, rates[1]]);
@@ -96,7 +99,7 @@ function SelectRate() {
   return (
     <SelectRateWrapper toggle={toggle}>
       <div className="value">
-        <span className="txt">{rates[0]}</span>
+        <span className="txt">{isClicked ? rates[0] : firstRender}</span>
         {toggle ? (
           <div className="selection">
             {rates.map((rate, index) => (
