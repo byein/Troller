@@ -8,7 +8,7 @@ const StatWrapper = styled('div')`
   justify-content: space-evenly;
   margin: 30px 0 0 0;
 `;
-const UserStat = styled('div')`
+const UserStat = styled('div')<{ isLoading?: boolean }>`
   width: 270px;
   height: 100%;
   color: ${props => props.theme.txtColor.primary};
