@@ -67,7 +67,10 @@ const Modal = styled('form')<{ mike: boolean }>`
   height: 100%;
   background-color: ${props => props.theme.bgColor.dark};
   border-radius: ${`${BORDER_RADIUS}px`};
-  border: 5px double ${props => props.theme.txtColor.selected};
+  ${TRANSITION}
+  border: 5px double
+    ${props =>
+    props.mike ? props.theme.validation.resolve : props.theme.bgColor.light};
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   color: ${props => props.theme.bgColor.light};
   font-size: ${`${DEFAULT_FONTSIZE}px`};
@@ -80,41 +83,47 @@ const Modal = styled('form')<{ mike: boolean }>`
     width: 100%;
     height: 19%;
     display: flex;
-    justify-content: space-between;
     .validTime {
-      width: 150px;
+      width: 105px;
       height: 90%;
       display: flex;
-      justify-content: center;
+      margin: 0 5px 0 0;
       align-items: center;
       border-radius: ${`${BORDER_RADIUS - 5}px`};
       border: 1px solid ${props => props.theme.bgColor.light};
       .title {
         width: auto;
-        margin: 0 5px 0 0;
+        margin: 0 10px 0 0;
       }
       .time {
-        width: 20%;
+        width: 30%;
         height: 50%;
         background-color: transparent;
         border: none;
         border-bottom: 2px solid ${props => props.theme.bgColor.light};
+        color: ${props => props.theme.bgColor.light};
+        padding: 0;
         &:focus {
           outline: none;
         }
       }
     }
     .mike {
-      width: 115px;
+      width: 85px;
       height: 90%;
+      margin: 0 5px 0 0;
       display: flex;
-      justify-content: center;
+      justify-content: space-around;
       align-items: center;
       border-radius: ${`${BORDER_RADIUS - 5}px`};
       border: 1px solid ${props => props.theme.bgColor.light};
       .title {
         width: auto;
         margin: 0 5px 0 0;
+        color: ${props =>
+          props.mike
+            ? props.theme.validation.resolve
+            : props.theme.bgColor.light};
       }
       .switch {
         width: 45px;
@@ -127,13 +136,13 @@ const Modal = styled('form')<{ mike: boolean }>`
         background-color: ${props =>
           props.mike
             ? props.theme.validation.resolve
-            : props.theme.validation.error};
+            : props.theme.bgColor.light};
         .toggle {
           width: 28px;
           height: 28px;
           ${TRANSITION}
           transform: ${props =>
-            props.mike ? 'translateX(0)' : 'translateX(17px)'};
+            props.mike ? 'translateX(17px)' : 'translateX(0)'};
           background-color: ${props => props.theme.bgColor.dark};
           border: 1px solid ${props => props.theme.bgColor.light};
           border-radius: 14px;
@@ -143,7 +152,7 @@ const Modal = styled('form')<{ mike: boolean }>`
       }
     }
     .submit {
-      width: calc(100% - 280px);
+      width: calc(100% - 200px);
       height: 90%;
       cursor: pointer;
       border-radius: ${`${BORDER_RADIUS - 5}px`};

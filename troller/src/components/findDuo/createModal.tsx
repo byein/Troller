@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import MicIcon from '@mui/icons-material/Mic';
+import MicOffIcon from '@mui/icons-material/MicOff';
+import TimerIcon from '@mui/icons-material/Timer';
 import { useForm } from 'react-hook-form';
-import { preProcessFile } from 'typescript';
 import { ModalWrapper, Modal, Welcome } from '../../styles/findDuo/createModal';
 
 interface ICreateModalProps {
@@ -25,12 +27,14 @@ function CreateModal() {
       <Modal mike={mike}>
         <div className="header">
           <div className="validTime">
-            <span className="title">유효시간:</span>
+            <span className="title">
+              <TimerIcon />
+            </span>
             <input type="number" className="time" />
-            <span>분</span>
+            <span> 분</span>
           </div>
           <div className="mike">
-            <span className="title">마이크</span>
+            <span className="title">{mike ? <MicIcon /> : <MicOffIcon />}</span>
             <button type="button" className="switch" onClick={toggleMike}>
               <div className="toggle" />
             </button>
