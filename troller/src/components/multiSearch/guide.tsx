@@ -1,28 +1,17 @@
 import { GuideBox } from '../../styles/multiSearch/main';
-
-import stepOne from '../../static/img/multiSearch/step1.png';
+import guideSet from '../../api/multiSearchGuideSet';
 
 function Guide() {
   return (
     <GuideBox>
-      <div className="imgBox">
-        <div className="img">
-          <img src={stepOne} alt="guide" />
+      {guideSet.map(data => (
+        <div className="imgBox" key={data.id}>
+          <div className="img">
+            <img src={data.step2} alt="guide" />
+          </div>
+          <div className="desc">{data.description}</div>
         </div>
-        <div className="desc" />
-      </div>
-      <div className="imgBox">
-        <div className="img">
-          <img src={stepOne} alt="guide" />
-        </div>
-        <div className="desc" />
-      </div>
-      <div className="imgBox">
-        <div className="img">
-          <img src={stepOne} alt="guide" />
-        </div>
-        <div className="desc" />
-      </div>
+      ))}
     </GuideBox>
   );
 }

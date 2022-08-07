@@ -27,11 +27,11 @@ interface IUserDataType {
     mike: boolean;
     title: string;
     content: string;
-    kdaRate: number;
   };
 }
 
 function Contents({ userData }: IUserDataType) {
+  const [load, setLoad] = useState(false);
   const [validTime, setvalidTime] = useState(userData.validTime);
   const minutes = Math.floor(validTime / 60)
     .toString()
@@ -49,11 +49,16 @@ function Contents({ userData }: IUserDataType) {
   }, [validTime]);
   return (
     <Content>
-      <Timer validTime={validTime}>
-        {validTime > 0 ? `${minutes}:${seconds}` : '만료'}
+      <Timer validTime={validTime} isLoading={load}>
+        <div className="user">
+          <span className="lolName">{userData.lolName}</span>
+        </div>
+        <span className="validTime">
+          {validTime > 0 ? `${minutes}:${seconds}` : '만료'}
+        </span>
       </Timer>
       <ArticleWrapper>
-        <Article>
+        <Article isLoading={load}>
           <div className="titleBox">
             <h2 className="title">{userData.title}</h2>
             {userData.mike ? (
@@ -62,10 +67,14 @@ function Contents({ userData }: IUserDataType) {
               <MicOffIcon className="micOff" />
             )}
           </div>
+          <hr className="seperator" />
           <p className="content">{userData.content}</p>
         </Article>
         <UserStatus
-          kdaRate={userData.kdaRate}
+          isLoading={load}
+          kill={userData.kill}
+          death={userData.death}
+          assist={userData.assist}
           win={userData.win}
           lose={userData.lose}
         >
@@ -73,14 +82,21 @@ function Contents({ userData }: IUserDataType) {
             <div className="positionBox">
               <img className="position" src={userData.favorPosition} alt="" />
             </div>
-            <span className="lolName">{userData.lolName}</span>
+            {userData.favorChampion.map(champion => (
+              <div className="mostChamps">
+                <img src={champion} alt="chamion" />
+              </div>
+            ))}
           </div>
           <div className="secondLine">
             <div className="tierBox">
               <img className="tier" src={userData.tier} alt="tier" />
             </div>
             <span className="kda">{`${userData.kill} / ${userData.death} / ${userData.assist}`}</span>
-            <span className="kdaRate">{`${userData.kdaRate}%`}</span>
+            <span className="kdaRate">{`${(
+              (userData.kill + userData.assist) /
+              userData.death
+            ).toFixed(1)}`}</span>
           </div>
           <div className="thirdLine">
             <div className="winLoseBox">
@@ -91,21 +107,10 @@ function Contents({ userData }: IUserDataType) {
                 <span>{userData.lose}</span>
               </div>
             </div>
-            <span className="winRate">{`${(
-              (userData.win / (userData.win + userData.lose)) *
-              100
-            ).toFixed(2)}%`}</span>
           </div>
         </UserStatus>
       </ArticleWrapper>
       <ContentFooter>
-        <div className="mostChampBox">
-          {userData.favorChampion.map(champion => (
-            <div className="mostChamps">
-              <img src={champion} alt="chamion" />
-            </div>
-          ))}
-        </div>
         <ChatBtnBox>
           <ChatBtn>채팅하기</ChatBtn>
           <ChatBtn>AI 듀오매칭</ChatBtn>

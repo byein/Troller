@@ -3,15 +3,17 @@ import anivia from './dummyImg/champions/anivia.jpg';
 import ari from './dummyImg/champions/ari.jpg';
 import bard from './dummyImg/champions/bard.jpg';
 import barum from './dummyImg/champions/barum.jpg';
-import mid from './dummyImg/ranked-positions/mid.jpg';
-import river from './dummyImg/ranked-positions/river.jpg';
-import jungle from './dummyImg/ranked-positions/jungle.jpg';
+import top from '../static/img/common/positions/top_focused.png';
+import mid from '../static/img/common/positions/mid_focused.png';
+import bottom from '../static/img/common/positions/bottom_focused.png';
+import jungle from '../static/img/common/positions/jungle_focused.png';
+import utility from '../static/img/common/positions/utility_focused.png';
 import bronze from './dummyImg/ranked-tier/bronze.jpg';
 import silver from './dummyImg/ranked-tier/silver.jpg';
 import gold from './dummyImg/ranked-tier/gold.jpg';
 
 const dummyChamps = [amu, anivia, ari, bard, barum];
-const dummyPositions = [mid, river, jungle];
+const dummyPositions = [top, mid, bottom, jungle, utility];
 const dummyTiers = [bronze, silver, gold];
 const dummyNames = ['아이언포우', '에잇', '엘리스', '에브라', '에젤리스'];
 const dummyWins = [23, 12, 10, 8, 7];
@@ -21,8 +23,6 @@ const dummyDeaths = [10, 5, 3, 2, 1];
 const dummyAssists = [10, 5, 3, 2, 1];
 const dummyMike = [true, false];
 const dummyValidTimes = [50, 60, 70, 80, 90];
-const dummyKdaRate = [0.5, 0.6, 0.7, 0.8, 0.9];
-const dummyWinRates = [30, 40, 60, 80, 90];
 const dummyTitles = [
   '나랑 할 사람',
   '아이언포우임',
@@ -61,10 +61,6 @@ const randomAssist =
 const randomMike = dummyMike[Math.floor(Math.random() * dummyMike.length)];
 const randomValidTime =
   dummyValidTimes[Math.floor(Math.random() * dummyValidTimes.length)];
-const randomKdaRate =
-  dummyKdaRate[Math.floor(Math.random() * dummyKdaRate.length)];
-const randomWinRate =
-  dummyWinRates[Math.floor(Math.random() * dummyWinRates.length)];
 const randomTitle = dummyTitles[Math.floor(Math.random() * dummyTitles.length)];
 const randomContent =
   dummyContents[Math.floor(Math.random() * dummyContents.length)];
@@ -84,8 +80,6 @@ const dummyRandomData = [
     mike: randomMike,
     title: randomTitle,
     content: randomContent,
-    kdaRate: randomKdaRate,
-    winRate: randomWinRate,
   },
   {
     lolName: randomName,
@@ -101,8 +95,6 @@ const dummyRandomData = [
     mike: randomMike,
     title: randomTitle,
     content: randomContent,
-    kdaRate: randomKdaRate,
-    winRate: randomWinRate,
   },
   {
     lolName: randomName,
@@ -118,8 +110,6 @@ const dummyRandomData = [
     mike: randomMike,
     title: randomTitle,
     content: randomContent,
-    kdaRate: randomKdaRate,
-    winRate: randomWinRate,
   },
   {
     lolName: randomName,
@@ -135,8 +125,6 @@ const dummyRandomData = [
     mike: randomMike,
     title: randomTitle,
     content: randomContent,
-    kdaRate: randomKdaRate,
-    winRate: randomWinRate,
   },
   {
     lolName: randomName,
@@ -152,8 +140,6 @@ const dummyRandomData = [
     mike: randomMike,
     title: randomTitle,
     content: randomContent,
-    kdaRate: randomKdaRate,
-    winRate: randomWinRate,
   },
   {
     lolName: randomName,
@@ -169,8 +155,6 @@ const dummyRandomData = [
     mike: randomMike,
     title: randomTitle,
     content: randomContent,
-    kdaRate: randomKdaRate,
-    winRate: randomWinRate,
   },
   {
     lolName: randomName,
@@ -186,8 +170,6 @@ const dummyRandomData = [
     mike: randomMike,
     title: randomTitle,
     content: randomContent,
-    kdaRate: randomKdaRate,
-    winRate: randomWinRate,
   },
   {
     lolName: randomName,
@@ -203,8 +185,6 @@ const dummyRandomData = [
     mike: randomMike,
     title: randomTitle,
     content: randomContent,
-    kdaRate: randomKdaRate,
-    winRate: randomWinRate,
   },
   {
     lolName: randomName,
@@ -220,8 +200,6 @@ const dummyRandomData = [
     mike: randomMike,
     title: randomTitle,
     content: randomContent,
-    kdaRate: randomKdaRate,
-    winRate: randomWinRate,
   },
   {
     lolName: randomName,
@@ -237,8 +215,6 @@ const dummyRandomData = [
     mike: randomMike,
     title: randomTitle,
     content: randomContent,
-    kdaRate: randomKdaRate,
-    winRate: randomWinRate,
   },
   {
     lolName: randomName,
@@ -254,8 +230,6 @@ const dummyRandomData = [
     mike: randomMike,
     title: randomTitle,
     content: randomContent,
-    kdaRate: randomKdaRate,
-    winRate: randomWinRate,
   },
   {
     lolName: randomName,
@@ -271,8 +245,6 @@ const dummyRandomData = [
     mike: randomMike,
     title: randomTitle,
     content: randomContent,
-    kdaRate: randomKdaRate,
-    winRate: randomWinRate,
   },
   {
     lolName: randomName,
@@ -288,8 +260,6 @@ const dummyRandomData = [
     mike: randomMike,
     title: randomTitle,
     content: randomContent,
-    kdaRate: randomKdaRate,
-    winRate: randomWinRate,
   },
   {
     lolName: randomName,
@@ -305,8 +275,6 @@ const dummyRandomData = [
     mike: randomMike,
     title: randomTitle,
     content: randomContent,
-    kdaRate: randomKdaRate,
-    winRate: randomWinRate,
   },
   {
     lolName: randomName,
@@ -322,8 +290,6 @@ const dummyRandomData = [
     mike: randomMike,
     title: randomTitle,
     content: randomContent,
-    kdaRate: randomKdaRate,
-    winRate: randomWinRate,
   },
 ];
 
@@ -357,8 +323,6 @@ function randomDataProducer() {
       mike: randomMike,
       title: randomTitle,
       content: randomContent,
-      kdaRate: randomKdaRate,
-      winRate: randomWinRate,
     });
   }
   return { dummyRandomDatas };

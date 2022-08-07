@@ -125,6 +125,9 @@ const Tab = styled('li')<{ isActive: boolean }>`
     !props.isActive
       ? props.theme.txtColor.primary
       : props.theme.txtColor.selected};
+  &:hover {
+    color: ${props => props.theme.txtColor.selected};
+  }
 `;
 
 const MainContainer = styled('div')<{ pathname: string }>`
@@ -148,16 +151,16 @@ const MainContainer = styled('div')<{ pathname: string }>`
 
 const SKELETON_ANIMATION = keyframes`
   0% {
-    background-color: #4b4b4b;
-    opacity: 0.9;
+    background-color: #7f8c8d;
+    opacity: 0.5;
   }
   50% {
-    background-color: #4b4b4b;
-    opacity: 1;
+    background-color: #bdc3c7;
+    opacity: 0.5;
   }
   100% {
-    background-color: #4b4b4b;
-    opacity: 0.9;
+    background-color: #7f8c8d;
+    opacity: 0.5;
   }
 `;
 const SKELETON_BAR_ANIMATION = keyframes`
@@ -171,22 +174,11 @@ const SKELETON_BAR_ANIMATION = keyframes`
   }
 `;
 
-const Skeleton = styled('div')`
+const Skeleton = css`
   width: 100%;
-  height: 100%;
-  border-radius: ${`${BORDER_RADIUS}px`};
   animation: ${SKELETON_ANIMATION} 0.9s linear infinite;
   position: relative;
   overflow: hidden;
-  .bar {
-    position: absolute;
-    top: -140px;
-    left: -70px;
-    width: 150%;
-    height: 20px;
-    background-color: rgba(255, 255, 255, 0.25);
-    animation: ${SKELETON_BAR_ANIMATION} 0.9s ease-in-out infinite;
-  }
 `;
 
 export {

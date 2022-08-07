@@ -3,7 +3,6 @@ import {
   BORDER_RADIUS,
   BOX_SHADOW,
   DEFAULT_FONTSIZE,
-  FLOAT_COLOR,
   TRANSITION,
 } from '../global/global';
 
@@ -52,8 +51,9 @@ const SearchBox = styled('form')`
       height: 30px;
       border-radius: ${`${BORDER_RADIUS - 5}px`};
       border: none;
-      color: ${props => props.theme.txtColor.primary};
-      background-color: ${props => props.theme.btnColor.primary};
+      color: ${props => props.theme.bgColor.dark};
+      background-color: ${props => props.theme.bgColor.light};
+      cursor: pointer;
       ${TRANSITION}
       &:hover {
         background-color: ${props => props.theme.btnColor.onHover};
@@ -63,7 +63,6 @@ const SearchBox = styled('form')`
 `;
 
 const GuideBox = styled('div')`
-  ${BOX_SHADOW}
   width: 100%;
   height: 350px;
   display: flex;
@@ -73,13 +72,15 @@ const GuideBox = styled('div')`
   background-color: ${props => props.theme.bgColor.light};
   border-radius: ${`${BORDER_RADIUS}px`};
   .imgBox {
+    ${BOX_SHADOW}
     width: 28%;
     height: 90%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 1px solid black;
+    border-radius: ${`${BORDER_RADIUS - 5}px`};
+    overflow: hidden;
     .img {
       width: 100%;
       height: 70%;
