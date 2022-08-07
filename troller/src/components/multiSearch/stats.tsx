@@ -6,41 +6,11 @@ function Stats() {
   const { load } = useStats();
   return (
     <StatWrapper>
-      <UserStat>
-        {load ? (
-          <Skeleton>
-            <div className="bar" />
-          </Skeleton>
-        ) : null}
-      </UserStat>
-      <UserStat>
-        {load ? (
-          <Skeleton>
-            <div className="bar" />
-          </Skeleton>
-        ) : null}
-      </UserStat>
-      <UserStat>
-        {load ? (
-          <Skeleton>
-            <div className="bar" />
-          </Skeleton>
-        ) : null}
-      </UserStat>
-      <UserStat>
-        {load ? (
-          <Skeleton>
-            <div className="bar" />
-          </Skeleton>
-        ) : null}
-      </UserStat>
-      <UserStat>
-        {load ? (
-          <Skeleton>
-            <div className="bar" />
-          </Skeleton>
-        ) : null}
-      </UserStat>
+      <UserStat isLoading={load} />
+      <UserStat />
+      <UserStat />
+      <UserStat />
+      <UserStat />
     </StatWrapper>
   );
 }

@@ -3,7 +3,6 @@ import {
   BORDER_RADIUS,
   BOX_SHADOW,
   DEFAULT_FONTSIZE,
-  FLOAT_COLOR,
   TRANSITION,
 } from '../global/global';
 
@@ -54,6 +53,7 @@ const SearchBox = styled('form')`
       border: none;
       color: ${props => props.theme.bgColor.dark};
       background-color: ${props => props.theme.bgColor.light};
+      cursor: pointer;
       ${TRANSITION}
       &:hover {
         background-color: ${props => props.theme.btnColor.onHover};

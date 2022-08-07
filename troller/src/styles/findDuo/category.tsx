@@ -16,7 +16,7 @@ const CategoryWrapper = styled('div')`
   position: relative;
   font-size: ${`${DEFAULT_FONTSIZE}px`};
   .title {
-    margin: 0 10px 0 0;
+    margin: 0 15px 0 0;
   }
   .create {
     position: absolute;

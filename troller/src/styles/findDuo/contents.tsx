@@ -3,6 +3,7 @@ import {
   BORDER_RADIUS,
   BOX_SHADOW,
   LARGE_FONTSIZE,
+  Skeleton,
   TRANSITION,
 } from '../global/global';
 
@@ -17,7 +18,7 @@ const ContentsWrapper = styled('div')`
 
 const Content = styled('div')`
   width: 100%;
-  min-height: 100px;
+  height: 236px;
   display: inline-block;
   padding: 15px;
   margin-bottom: 16px;
@@ -34,22 +35,22 @@ const Content = styled('div')`
   }
 `;
 
-const Timer = styled('div')<{ validTime: number }>`
+const Timer = styled('div')<{ validTime: number; isLoading: boolean }>`
+  ${props => (props.isLoading ? Skeleton : null)}
   width: 100%;
   margin: 0 0 10px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: auto 0 auto 0;
-  color: ${props =>
-    props.validTime > 0
-      ? props.theme.txtColor.primary
-      : props.theme.validation.error};
+  font-size: 15px;
+  .validTime {
+    color: ${props =>
+      props.validTime > 0
+        ? props.theme.txtColor.primary
+        : props.theme.validation.error};
+  }
   .user {
-    width: auto;
-    height: 100%;
-    display: flex;
-    align-items: center;
     .lolName {
       margin: 0 0 0 5px;
       color: ${props => props.theme.txtColor.selected};
@@ -74,35 +75,41 @@ const ArticleWrapper = styled('div')`
   margin: 0 0 10px 0;
 `;
 
-const Article = styled('div')`
+const Article = styled('div')<{ isLoading: boolean }>`
   width: 45%;
   min-height: 100px;
+  margin: 0 5px 0 0;
   .titleBox {
     width: 100%;
     display: flex;
     align-items: center;
     .title {
+      ${props => (props.isLoading ? Skeleton : null)}
       font-size: ${`${LARGE_FONTSIZE - 10}px`};
       font-weight: bold;
-      margin: 0 5px 0 0;
     }
   }
   .content {
+    ${props => (props.isLoading ? Skeleton : null)}
     display: block;
     width: 100%;
-    padding-top: 10px;
+    height: 90px;
+    border-radius: ${`${BORDER_RADIUS - 3}px`};
+    margin-top: 10px;
     word-wrap: break-word;
     color: rgba(255, 255, 255, 0.7);
   }
 `;
 
 const UserStatus = styled('div')<{
+  isLoading: boolean;
   kill: number;
   death: number;
   assist: number;
   win: number;
   lose: number;
 }>`
+  ${props => (props.isLoading ? Skeleton : null)}
   width: 55%;
   height: 120px;
   padding: 0 0 0 5px;

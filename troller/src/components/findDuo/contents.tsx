@@ -11,6 +11,7 @@ import {
   Timer,
   UserStatus,
 } from '../../styles/findDuo/contents';
+import { Skeleton } from '../../styles/global/global';
 
 interface IUserDataType {
   userData: {
@@ -31,6 +32,7 @@ interface IUserDataType {
 }
 
 function Contents({ userData }: IUserDataType) {
+  const [load, setLoad] = useState(true);
   const [validTime, setvalidTime] = useState(userData.validTime);
   const minutes = Math.floor(validTime / 60)
     .toString()
@@ -48,7 +50,7 @@ function Contents({ userData }: IUserDataType) {
   }, [validTime]);
   return (
     <Content>
-      <Timer validTime={validTime}>
+      <Timer validTime={validTime} isLoading={load}>
         <div className="user">
           {userData.mike ? (
             <MicIcon className="micOn" />
@@ -57,16 +59,19 @@ function Contents({ userData }: IUserDataType) {
           )}
           <span className="lolName">{userData.lolName}</span>
         </div>
-        <span>{validTime > 0 ? `${minutes}:${seconds}` : '만료'}</span>
+        <span className="validTime">
+          {validTime > 0 ? `${minutes}:${seconds}` : '만료'}
+        </span>
       </Timer>
       <ArticleWrapper>
-        <Article>
+        <Article isLoading={load}>
           <div className="titleBox">
             <h2 className="title">{userData.title}</h2>
           </div>
           <p className="content">{userData.content}</p>
         </Article>
         <UserStatus
+          isLoading={load}
           kill={userData.kill}
           death={userData.death}
           assist={userData.assist}
