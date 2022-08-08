@@ -1,7 +1,11 @@
 import CreateIcon from '@mui/icons-material/Create';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import React, { useState } from 'react';
-import { CategoryWrapper, FilterPosition } from '../../styles/findDuo/category';
+import {
+  CategoryWrapper,
+  FilterPosition,
+  SelectBtn,
+} from '../../styles/findDuo/category';
 import positions from '../../api/findDuoPositionCategory';
 import SelectRate from './selectRate';
 
@@ -42,13 +46,14 @@ function Category({
       <span className="title">필터링</span>
       <FilterPosition>
         {positions.map((position, index) => (
-          <button
+          <SelectBtn
             onClick={e => {
               select(index);
             }}
             type="button"
             className="position"
             key={position.favorPositionDesc}
+            isSelected={selectedPosition[index]}
           >
             <img
               className="img"
@@ -57,7 +62,7 @@ function Category({
               }
               alt={position.favorPositionDesc}
             />
-          </button>
+          </SelectBtn>
         ))}
       </FilterPosition>
       <SelectRate />

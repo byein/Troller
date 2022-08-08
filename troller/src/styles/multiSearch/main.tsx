@@ -63,10 +63,10 @@ const SearchBox = styled('form')`
 `;
 
 const GuideBox = styled('div')`
-  width: 100%;
+  width: 1410px;
   height: 350px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   margin: 20px 0 0 0;
   background-color: ${props => props.theme.bgColor.light};

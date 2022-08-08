@@ -3,34 +3,32 @@ import MicIcon from '@mui/icons-material/Mic';
 import MicOffIcon from '@mui/icons-material/MicOff';
 import TimerIcon from '@mui/icons-material/Timer';
 import { useForm } from 'react-hook-form';
-import { useResetRecoilState, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { ModalWrapper, Modal, Welcome } from '../../styles/findDuo/createModal';
 import { useAccessApi } from '../../hooks/axiosHooks';
-import registerReqState from '../../recoil/findDuoAtoms';
+import contentData from '../../recoil/findDuoAtoms';
 
 interface ICreateModalProps {
   title: string;
   content: string;
   validTime: number;
 }
-interface IResponseDataType {
-  data: {
-    id: number;
-    lolName: string;
-    favorChampions: string[];
-    favorPosition: string;
-    tier: string;
-    win: number;
-    lose: number;
-    kill: number;
-    death: number;
-    assist: number;
-    validTime: number;
-    mike: boolean;
-    title: string;
-    content: string;
-  }[];
-}
+type IResponseDataType = {
+  id: number;
+  lolName: string;
+  favorChampions: string[];
+  favorPosition: string;
+  tier: string;
+  win: number;
+  lose: number;
+  kill: number;
+  death: number;
+  assist: number;
+  validTime: number;
+  mike: boolean;
+  title: string;
+  content: string;
+}[];
 
 function WelcomeBox() {
   const welcome = `Register Your Post & Find Your Duo`;
@@ -42,8 +40,8 @@ function WelcomeBox() {
   );
 }
 
-function CreateModal() {
-  const setResData = useSetRecoilState(registerReqState);
+function CreateModal({ setOnoff }: { setOnoff: (arg: boolean) => void }) {
+  const setResData = useSetRecoilState(contentData);
   const [mike, setMike] = useState(false);
   const { register, handleSubmit } = useForm<ICreateModalProps>();
   const toggleMike = () => {
@@ -62,8 +60,9 @@ function CreateModal() {
       request
     );
     if (status === 200) {
-      setResData(data?.data);
-    } // 성공하면 findDuo부모컴포넌트에 useRecoilValue로 해당 값 가져와서 사용.
+      setResData(data);
+      setOnoff(false);
+    }
   });
   return (
     <ModalWrapper onSubmit={onSubmit}>

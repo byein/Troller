@@ -14,8 +14,9 @@ import {
 
 interface IUserDataType {
   userData: {
+    id: number;
     lolName: string;
-    favorPosition: string;
+    favorPositions: string;
     favorChampion: string[];
     tier: string;
     win: number;
@@ -80,7 +81,7 @@ function Contents({ userData }: IUserDataType) {
         >
           <div className="firstLine">
             <div className="positionBox">
-              <img className="position" src={userData.favorPosition} alt="" />
+              <img className="position" src={userData.favorPositions} alt="" />
             </div>
             {userData.favorChampion.map(champion => (
               <div className="mostChamps">

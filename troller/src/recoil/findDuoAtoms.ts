@@ -1,25 +1,25 @@
 import { atom } from 'recoil';
 
-const registerReqState = atom<
+const contentData = atom<
   {
-    id: number | null;
-    lolName: string | null;
-    favorChampions: string[] | null;
-    favorPosition: string | null;
-    tier: string | null;
-    win: number | null;
-    lose: number | null;
-    kill: number | null;
-    death: number | null;
-    assist: number | null;
-    validTime: number | null;
-    mike: boolean | null;
-    title: string | null;
-    content: string | null;
+    id: number;
+    lolName: string;
+    favorChampions: string[];
+    favorPosition: string;
+    tier: string;
+    win: number;
+    lose: number;
+    kill: number;
+    death: number;
+    assist: number;
+    validTime: number;
+    mike: boolean;
+    title: string;
+    content: string;
   }[]
 >({
-  key: 'registerReqState',
+  key: 'contentData',
   default: [],
 });
 
-export default registerReqState;
+export default contentData;
