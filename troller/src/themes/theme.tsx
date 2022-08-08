@@ -9,7 +9,7 @@ const def: Theme = {
   },
   borderColor: '#969eba',
   validation: {
-    resolve: '#1CF610',
+    resolve: '#00E600',
     error: '#F70009',
   },
   btnColor: {

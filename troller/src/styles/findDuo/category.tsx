@@ -3,7 +3,7 @@ import { BORDER_RADIUS, DEFAULT_FONTSIZE, TRANSITION } from '../global/global';
 
 const CategoryWrapper = styled('div')`
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  width: 100%;
+  width: 1410px;
   height: 50px;
   margin: 15px 0 15px 0;
   padding: 0 15px;
