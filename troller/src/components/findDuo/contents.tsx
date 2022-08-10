@@ -13,27 +13,44 @@ import {
 } from '../../styles/findDuo/contents';
 
 interface IUserDataType {
-  userData: {
-    id: number;
-    lolName: string;
-    favorPositions: string;
-    favorChampion: string[];
-    tier: string;
-    win: number;
-    lose: number;
-    kill: number;
-    death: number;
-    assist: number;
-    validTime: number;
-    mike: boolean;
-    title: string;
-    content: string;
-  };
+  id: number;
+  lolName: string;
+  favorChampions: string[];
+  favorPosition: string;
+  tier: string;
+  win: number;
+  lose: number;
+  kill: number;
+  death: number;
+  assist: number;
+  validTime: number;
+  mike: boolean;
+  title: string;
+  content: string;
 }
 
-function Contents({ userData }: IUserDataType) {
+function Contents({
+  data: {
+    id,
+    lolName,
+    favorChampions,
+    favorPosition,
+    tier,
+    win,
+    lose,
+    kill,
+    death,
+    assist,
+    validTime,
+    mike,
+    title,
+    content,
+  },
+}: {
+  data: IUserDataType;
+}) {
   const [load, setLoad] = useState(false);
-  const [validTime, setvalidTime] = useState(userData.validTime);
+  const [validTimer, setvalidTimer] = useState(validTime);
   const minutes = Math.floor(validTime / 60)
     .toString()
     .padStart(2, '0');
@@ -41,7 +58,7 @@ function Contents({ userData }: IUserDataType) {
   useEffect(() => {
     const timer = setInterval(() => {
       if (validTime > 0) {
-        setvalidTime(prev => prev - 1);
+        setvalidTimer(prev => prev - 1);
       } else {
         clearInterval(timer);
       }
@@ -52,7 +69,7 @@ function Contents({ userData }: IUserDataType) {
     <Content>
       <Timer validTime={validTime} isLoading={load}>
         <div className="user">
-          <span className="lolName">{userData.lolName}</span>
+          <span className="lolName">{lolName}</span>
         </div>
         <span className="validTime">
           {validTime > 0 ? `${minutes}:${seconds}` : '만료'}
@@ -61,29 +78,29 @@ function Contents({ userData }: IUserDataType) {
       <ArticleWrapper>
         <Article isLoading={load}>
           <div className="titleBox">
-            <h2 className="title">{userData.title}</h2>
-            {userData.mike ? (
+            <h2 className="title">{title}</h2>
+            {mike ? (
               <MicIcon className="micOn" />
             ) : (
               <MicOffIcon className="micOff" />
             )}
           </div>
           <hr className="seperator" />
-          <p className="content">{userData.content}</p>
+          <p className="content">{content}</p>
         </Article>
         <UserStatus
           isLoading={load}
-          kill={userData.kill}
-          death={userData.death}
-          assist={userData.assist}
-          win={userData.win}
-          lose={userData.lose}
+          kill={kill}
+          death={death}
+          assist={assist}
+          win={win}
+          lose={lose}
         >
           <div className="firstLine">
             <div className="positionBox">
-              <img className="position" src={userData.favorPositions} alt="" />
+              <img className="position" src={favorPosition} alt="" />
             </div>
-            {userData.favorChampion.map(champion => (
+            {favorChampions.map(champion => (
               <div className="mostChamps">
                 <img src={champion} alt="chamion" />
               </div>
@@ -91,21 +108,20 @@ function Contents({ userData }: IUserDataType) {
           </div>
           <div className="secondLine">
             <div className="tierBox">
-              <img className="tier" src={userData.tier} alt="tier" />
+              <img className="tier" src={tier} alt="tier" />
             </div>
-            <span className="kda">{`${userData.kill} / ${userData.death} / ${userData.assist}`}</span>
-            <span className="kdaRate">{`${(
-              (userData.kill + userData.assist) /
-              userData.death
-            ).toFixed(1)}`}</span>
+            <span className="kda">{`${kill} / ${death} / ${assist}`}</span>
+            <span className="kdaRate">{`${((kill + assist) / death).toFixed(
+              1
+            )}`}</span>
           </div>
           <div className="thirdLine">
             <div className="winLoseBox">
               <div className="win">
-                <span>{userData.win}</span>
+                <span>{win}</span>
               </div>
               <div className="lose">
-                <span>{userData.lose}</span>
+                <span>{lose}</span>
               </div>
             </div>
           </div>

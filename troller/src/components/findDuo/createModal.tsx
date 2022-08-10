@@ -55,14 +55,15 @@ function CreateModal({ setOnoff }: { setOnoff: (arg: boolean) => void }) {
       validTime,
       mike,
     };
-    const { status, data } = await useAccessApi.post<IResponseDataType>(
-      'exampleAPI',
-      request
-    );
-    if (status === 200) {
-      setResData(data);
-      setOnoff(false);
-    }
+    console.table(request);
+    // const { status, data } = await useAccessApi.post<IResponseDataType>(
+    //   'exampleAPI',
+    //   request
+    // );
+    // if (status === 200) {
+    //   setResData(data);
+    //   setOnoff(false);
+    // }
   });
   return (
     <ModalWrapper onSubmit={onSubmit}>
