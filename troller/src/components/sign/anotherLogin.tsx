@@ -1,5 +1,5 @@
 import qs from 'query-string';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import {
   AnotherWay,
@@ -11,12 +11,14 @@ import kakao from '../../static/img/snsSign/kakao_login_medium_wide.png';
 import { useApi } from '../../hooks/axiosHooks';
 import onChange from '../../hooks/hooks';
 
-const host = '3.37.22.89';
-const port = 3000;
+const API_KEY = '5d497d3a5b84df801c7913fd22e153b9';
+const LOCAL_HOST = '127.0.0.1';
+const DEPLOY_HOST = '3.37.22.89';
+const PORT = 3000;
 
 function KakaoLogin() {
-  const KAKAO_REDIRECT_URL = `http://${host}:${port}/auth/kakao`;
-  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_AUTH_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URL}&response_type=code`;
+  const KAKAO_REDIRECT_URL = `http://${LOCAL_HOST}:${PORT}/auth/kakao`;
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${API_KEY}&redirect_uri=${KAKAO_REDIRECT_URL}&response_type=code`;
   return (
     <a className="login" href={KAKAO_AUTH_URL}>
       <img className="login_btn" src={kakao} alt="start with kakao" />
@@ -43,26 +45,26 @@ function Auth() {
   const [isSummoner, setisSummoner] = useState(false);
   const { search } = new URL(window.location.href);
   const { code } = qs.parse(search);
-  // useEffect(() => {
-  //   window.history.replaceState(null, 'Kakao Auth', '/auth/kakao/');
-  //   (async () => {
-  //     const {
-  //       status,
-  //       data: { accessToken, refreshToken },
-  //     } = await useApi.post('/api/member/sign-in/kakao/login', {
-  //       code,
-  //     });
-  //     if (status === 200) {
-  //       localStorage.setItem('access_token', accessToken);
-  //       localStorage.setItem('refresh_token', refreshToken);
-  //       window.location.href = '/';
-  //     }
-  //     if (status === 401) {
-  //       setTokens({ accessToken, refreshToken });
-  //       setisNewbie(true);
-  //     }
-  //   })();
-  // });
+  useEffect(() => {
+    window.history.replaceState(null, 'Kakao Auth', '/auth/kakao/');
+    (async () => {
+      const {
+        status,
+        data: { accessToken, refreshToken },
+      } = await useApi.post('/api/member/sign-in/kakao/login', {
+        code,
+      });
+      if (status === 200) {
+        localStorage.setItem('access_token', accessToken);
+        localStorage.setItem('refresh_token', refreshToken);
+        window.location.href = '/';
+      }
+      if (status === 401) {
+        setTokens({ accessToken, refreshToken });
+        setisNewbie(true);
+      }
+    })();
+  });
   const summonerCheck = async () => {
     const {
       data: { dupLolName, validLolName },
@@ -80,13 +82,14 @@ function Auth() {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const {
+      status,
       data: { accessToken, refreshToken },
     } = await useApi.post('/api/member/sign-in/kakao/sign-up', {
       lolName,
       accessToken: tokens?.accessToken,
       refreshToken: tokens?.refreshToken,
     });
-    if (accessToken && refreshToken) {
+    if (status === 201) {
       localStorage.setItem('access_token', accessToken);
       localStorage.setItem('refresh_token', refreshToken);
       alert('Welcome to Logo!');

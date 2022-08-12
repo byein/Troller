@@ -5,30 +5,14 @@ import TimerIcon from '@mui/icons-material/Timer';
 import { useForm } from 'react-hook-form';
 import { useSetRecoilState } from 'recoil';
 import { ModalWrapper, Modal, Welcome } from '../../styles/findDuo/createModal';
+import { headData, IHeadDataType } from '../../recoil/findDuoAtoms';
 import { useAccessApi } from '../../hooks/axiosHooks';
-import contentData from '../../recoil/findDuoAtoms';
 
 interface ICreateModalProps {
   title: string;
   content: string;
   validTime: number;
 }
-type IResponseDataType = {
-  id: number;
-  lolName: string;
-  favorChampions: string[];
-  favorPosition: string;
-  tier: string;
-  win: number;
-  lose: number;
-  kill: number;
-  death: number;
-  assist: number;
-  validTime: number;
-  mike: boolean;
-  title: string;
-  content: string;
-}[];
 
 function WelcomeBox() {
   const welcome = `Register Your Post & Find Your Duo`;
@@ -40,8 +24,8 @@ function WelcomeBox() {
   );
 }
 
-function CreateModal({ setOnoff }: { setOnoff: (arg: boolean) => void }) {
-  const setResData = useSetRecoilState(contentData);
+function CreateModal() {
+  const setResponseData = useSetRecoilState(headData);
   const [mike, setMike] = useState(false);
   const { register, handleSubmit } = useForm<ICreateModalProps>();
   const toggleMike = () => {
@@ -55,14 +39,13 @@ function CreateModal({ setOnoff }: { setOnoff: (arg: boolean) => void }) {
       validTime,
       mike,
     };
-    console.table(request);
-    // const { status, data } = await useAccessApi.post<IResponseDataType>(
-    //   'exampleAPI',
+    // const { status, data } = await useAccessApi.post<IHeadDataType[]>(
+    //   'registerNewContentAPI',
     //   request
     // );
     // if (status === 200) {
-    //   setResData(data);
-    //   setOnoff(false);
+    //   setResponseData(data);
+    //   window.location.reload();
     // }
   });
   return (

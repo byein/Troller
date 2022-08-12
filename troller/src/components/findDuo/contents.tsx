@@ -1,6 +1,7 @@
 import MicIcon from '@mui/icons-material/Mic';
 import MicOffIcon from '@mui/icons-material/MicOff';
 import { useEffect, useState } from 'react';
+import { IHeadDataType } from '../../recoil/findDuoAtoms';
 import {
   Article,
   ArticleWrapper,
@@ -11,23 +12,6 @@ import {
   Timer,
   UserStatus,
 } from '../../styles/findDuo/contents';
-
-interface IUserDataType {
-  id: number;
-  lolName: string;
-  favorChampions: string[];
-  favorPosition: string;
-  tier: string;
-  win: number;
-  lose: number;
-  kill: number;
-  death: number;
-  assist: number;
-  validTime: number;
-  mike: boolean;
-  title: string;
-  content: string;
-}
 
 function Contents({
   data: {
@@ -46,27 +30,28 @@ function Contents({
     title,
     content,
   },
+  load,
 }: {
-  data: IUserDataType;
+  data: IHeadDataType;
+  load: boolean;
 }) {
-  const [load, setLoad] = useState(false);
-  const [validTimer, setvalidTimer] = useState(validTime);
-  const minutes = Math.floor(validTime / 60)
+  const [validTimer, setvalidTimer] = useState(validTime - 1);
+  const minutes = Math.floor(validTimer / 60)
     .toString()
     .padStart(2, '0');
-  const seconds = (validTime % 60).toString().padStart(2, '0');
+  const seconds = (validTimer % 60).toString().padStart(2, '0');
   useEffect(() => {
     const timer = setInterval(() => {
-      if (validTime > 0) {
+      if (validTimer > 0) {
         setvalidTimer(prev => prev - 1);
       } else {
         clearInterval(timer);
       }
     }, 1000);
     return () => clearInterval(timer);
-  }, [validTime]);
+  }, [validTimer]);
   return (
-    <Content>
+    <Content key={id}>
       <Timer validTime={validTime} isLoading={load}>
         <div className="user">
           <span className="lolName">{lolName}</span>

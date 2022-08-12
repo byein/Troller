@@ -1,53 +1,47 @@
 import { useEffect, useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useRecoilValue } from 'recoil';
-import { dummyRandomData } from '../../api/dummyData';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import Category from '../../components/findDuo/category';
 import Contents from '../../components/findDuo/contents';
 import CreateModal from '../../components/findDuo/createModal';
 import { ContentsWrapper } from '../../styles/findDuo/contents';
 import { FindDuoWrapper, MoreBtn } from '../../styles/findDuo/findDuo';
-import contentData from '../../recoil/findDuoAtoms';
+import {
+  headData,
+  filterParams,
+  IHeadDataType,
+} from '../../recoil/findDuoAtoms';
 import { useApi } from '../../hooks/axiosHooks';
-
-type HeadDataType = {
-  id: number;
-  lolName: string;
-  favorChampions: string[];
-  favorPosition: string;
-  tier: string;
-  win: number;
-  lose: number;
-  kill: number;
-  death: number;
-  assist: number;
-  validTime: number;
-  mike: boolean;
-  title: string;
-  content: string;
-}[];
 
 const limitNumber = 3 * 4;
 function FindDuo() {
-  const findDuoData = useRecoilValue(contentData);
-  const [headData, setHeadData] = useState<HeadDataType>(dummyRandomData); // 나중에 []로 바꿔야함
+  const filterData = useRecoilValue(filterParams);
+  const [head, setHead] = useRecoilState<IHeadDataType[]>(headData); // final data.
+  const [load, setLoad] = useState(false);
   const [onoff, setOnoff] = useState(false);
   const [contentsNum, setContentsNum] = useState(limitNumber);
   useEffect(() => {
-    (async () => {
-      const { status, data } = await useApi.get<HeadDataType>('exampleAPI');
-      if (status === 200) {
-        setHeadData(data);
-      }
-    })();
-  }, [findDuoData.length, findDuoData]);
+    // setLoad(true);
+    // (async () => {
+    //   const { status, data } = await useApi.get<HeadDataType>(
+    //     'firstRenderAPI',
+    //     {
+    //       params: filterData,
+    //     }
+    //   );
+    //   if (status === 200) {
+    //     setHead(data);
+    //     setLoad(false);
+    //   }
+    // })();
+  }, [filterData, head]); // excute when first rendering, and filterData is changed by filter bar.
   return (
     <FindDuoWrapper>
       <Category setOnoff={setOnoff} onoff={onoff} />
-      {onoff ? <CreateModal setOnoff={setOnoff} /> : null}
+      {onoff ? <CreateModal /> : null}
       <ContentsWrapper>
-        {headData?.slice(0, contentsNum).map(data => (
-          <Contents data={data} />
+        {head?.slice(0, contentsNum).map(data => (
+          <Contents data={data} load={load} key={data.id} />
         ))}
       </ContentsWrapper>
       <MoreBtn onClick={() => setContentsNum(prev => prev + limitNumber)}>

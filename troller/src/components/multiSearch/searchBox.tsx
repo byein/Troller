@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Outlet, useNavigate, useOutletContext } from 'react-router-dom';
 import { useApi } from '../../hooks/axiosHooks';
 import { SearchBox } from '../../styles/multiSearch/main';
@@ -18,6 +18,7 @@ function Search() {
   const [text, setText] = useState('');
   const [isExtracted, setisExtracted] = useState(false);
   const [load, setload] = useState(true);
+  const [focused, setfocused] = useState(false);
   const [searchData, setsearchData] = useState<ISearchDataType[]>(); // 회의 후 타입지정
   const onChange = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     const { value } = e.currentTarget;
@@ -56,15 +57,33 @@ function Search() {
     // }); => 나중에 서버에서 작업하는 경우 사용
     setisExtracted(true);
   };
+  useEffect(() => {
+    if (text === '') {
+      setfocused(false);
+    } else {
+      setfocused(true);
+    }
+  }, [text]);
   return (
     <>
-      <SearchBox onSubmit={onSubmit}>
+      <SearchBox onSubmit={onSubmit} focused={focused}>
+        <div className="placeholder">
+          고양이님이 로비에 참가하셨습니다.
+          <br />
+          멍멍스님이 로비에 참가하셨습니다.
+          <br />
+          너굴맨님이 로비에 참가하셨습니다.
+          <br />
+          두더지님이 로비에 참가하셨습니다.
+          <br />
+          미어캣님이 로비에 참가하셨습니다.
+        </div>
         <textarea
           className="search__input"
           onKeyDown={onKeyDown}
           onChange={onChange}
+          onFocus={() => setfocused(prev => !prev)}
           spellCheck="false"
-          placeholder="고양이님이 로비에 참가하셨습니다.&#13;&#10;멍멍스님이 로비에 참가하셨습니다.&#13;&#10;너굴맨님이 로비에 참가하셨습니다.&#13;&#10;두더지님이 로비에 참가하셨습니다.&#13;&#10;미어캣님이 로비에 참가하셨습니다."
         />
         <div className="search__submit">
           <button type="submit" className="search__btn">
