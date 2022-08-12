@@ -84,7 +84,6 @@ function Signup() {
           params: { email },
         }
       );
-      console.log(statusCode);
       if (statusCode === 200) {
         setrequestAuth(true);
         setvalidTime(CODE_VALID_TIME);
