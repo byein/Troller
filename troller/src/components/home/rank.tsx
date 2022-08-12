@@ -56,7 +56,6 @@ function RankTableRender() {
   // const getValues = Object.values(rankData).map((entrie, idx) => {
   //   return console.log(entrie, idx);
   // });
-
   // console.log(rankData[0][name]);
   const rendering = () => {
     const result: JSX.Element[] = [];

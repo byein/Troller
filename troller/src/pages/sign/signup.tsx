@@ -105,7 +105,6 @@ function Signup() {
         lolName,
       },
     });
-    console.log(dupLolName, validLolName);
     if (dupLolName && validLolName) {
       setisSummoner(true);
     } else {

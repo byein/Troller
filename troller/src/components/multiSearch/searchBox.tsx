@@ -51,7 +51,6 @@ function Search() {
         return;
       }
     }
-    console.log(req);
     // const { status, data } = await useApi.get('/TEMPORALAPI', {
     //   params: {},
     // }); => 나중에 서버에서 작업하는 경우 사용

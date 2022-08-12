@@ -61,7 +61,6 @@ function Auth() {
       }
       if (status === 401) {
         setTokens({ accessToken, refreshToken });
-        console.log({ accessToken, refreshToken });
         setisNewbie(true);
       }
     })();
@@ -96,7 +95,6 @@ function Auth() {
       alert('Welcome to Logo!');
       window.location.href = '/';
     }
-    console.log(status);
   };
   return (
     <SignBox>

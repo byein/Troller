@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import Category from '../../components/findDuo/category';
 import Contents from '../../components/findDuo/contents';
 import CreateModal from '../../components/findDuo/createModal';
 import { ContentsWrapper } from '../../styles/findDuo/contents';
-import { FindDuoWrapper, MoreBtn } from '../../styles/findDuo/findDuo';
+import FindDuoWrapper from '../../styles/findDuo/findDuo';
 import {
   headData,
   filterParams,
@@ -13,13 +12,11 @@ import {
 } from '../../recoil/findDuoAtoms';
 import { useApi } from '../../hooks/axiosHooks';
 
-const limitNumber = 3 * 4;
 function FindDuo() {
   const filterData = useRecoilValue(filterParams);
   const [head, setHead] = useRecoilState<IHeadDataType[]>(headData); // final data.
   const [load, setLoad] = useState(false);
   const [onoff, setOnoff] = useState(false);
-  const [contentsNum, setContentsNum] = useState(limitNumber);
   useEffect(() => {
     // setLoad(true);
     // (async () => {
@@ -40,14 +37,10 @@ function FindDuo() {
       <Category setOnoff={setOnoff} onoff={onoff} />
       {onoff ? <CreateModal /> : null}
       <ContentsWrapper>
-        {head?.slice(0, contentsNum).map(data => (
+        {head?.map(data => (
           <Contents data={data} load={load} key={data.id} />
         ))}
       </ContentsWrapper>
-      <MoreBtn onClick={() => setContentsNum(prev => prev + limitNumber)}>
-        <ExpandMoreIcon className="more" />
-      </MoreBtn>
-      {/* 이거 나중에 고쳐야함 */}
     </FindDuoWrapper>
   );
 }
