@@ -55,8 +55,8 @@ function Auth() {
         code,
       });
       if (status === 200) {
-        localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('refreshToken', refreshToken);
+        localStorage.setItem('access_token', accessToken);
+        localStorage.setItem('refresh_token', refreshToken);
         window.location.href = '/';
       }
       if (status === 401) {
