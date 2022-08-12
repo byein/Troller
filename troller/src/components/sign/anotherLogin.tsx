@@ -61,7 +61,7 @@ function Auth() {
       }
       if (status === 401) {
         setTokens({ accessToken, refreshToken });
-        console.log(tokens);
+        console.log({ accessToken, refreshToken });
         setisNewbie(true);
       }
     })();
@@ -75,13 +75,13 @@ function Auth() {
       },
     });
     if (dupLolName && validLolName) {
-      console.log({ dupLolName, validLolName });
       setisSummoner(true);
     } else {
       alert('유효하지 않거나 이미 등록이 된 소환사 이름입니다.');
     }
   };
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     const {
       status,
       data: { accessToken, refreshToken },
@@ -96,6 +96,7 @@ function Auth() {
       alert('Welcome to Logo!');
       window.location.href = '/';
     }
+    console.log(status);
   };
   return (
     <SignBox>
