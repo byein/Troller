@@ -61,10 +61,11 @@ function Auth() {
       }
       if (status === 401) {
         setTokens({ accessToken, refreshToken });
+        console.log(tokens);
         setisNewbie(true);
       }
     })();
-  });
+  }, [tokens, code]);
   const summonerCheck = async () => {
     const {
       data: { dupLolName, validLolName },
@@ -74,13 +75,13 @@ function Auth() {
       },
     });
     if (dupLolName && validLolName) {
+      console.log({ dupLolName, validLolName });
       setisSummoner(true);
     } else {
       alert('유효하지 않거나 이미 등록이 된 소환사 이름입니다.');
     }
   };
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
     const {
       status,
       data: { accessToken, refreshToken },
