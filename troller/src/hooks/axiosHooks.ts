@@ -22,7 +22,7 @@ useApi.interceptors.response.use(
 const useAccessApi = axios.create({
   headers: {
     'Content-Type': 'application/json',
-    Authorization: `Bearer ${ACCESS_TOKEN}`,
+    'JWT-accessToken': `${ACCESS_TOKEN}`,
   },
 });
 
@@ -48,12 +48,12 @@ useAccessApi.interceptors.response.use(
       );
       if (status === 200) {
         localStorage.setItem('access_token', accessToken);
-        originalRequest.headers = { Authorization: `Bearer ${accessToken}` };
+        originalRequest.headers = { 'JWT-accessToken': `${ACCESS_TOKEN}` };
         return axios(originalRequest);
       }
       if (status === 403) {
         localStorage.clear();
-        alert('Logo: 로그인을 해주세요.');
+        alert('Session Expired: 로그인을 해주세요.');
         window.location.href = '/sign_in';
       }
     }

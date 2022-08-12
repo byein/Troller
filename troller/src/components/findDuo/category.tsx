@@ -1,9 +1,15 @@
 import CreateIcon from '@mui/icons-material/Create';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
-import React, { useEffect, useState } from 'react';
-import { CategoryWrapper, FilterPosition } from '../../styles/findDuo/category';
+import { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import {
+  CategoryWrapper,
+  FilterPosition,
+  SelectBtn,
+} from '../../styles/findDuo/category';
 import positions from '../../api/findDuoPositionCategory';
 import SelectRate from './selectRate';
+import { filterParams } from '../../recoil/findDuoAtoms';
 
 function Category({
   setOnoff,
@@ -12,6 +18,7 @@ function Category({
   setOnoff: (arg1: (arg2: boolean) => boolean) => void;
   onoff: boolean;
 }) {
+  const [positionReq, setPositionReq] = useRecoilState(filterParams);
   const [selectedPosition, setSelectedPosition] = useState([
     false,
     false,
@@ -27,7 +34,10 @@ function Category({
         setSelectedPosition(newSelectedPosition);
       }
     }
+    const newPositionReq = { ...positionReq };
     newSelectedPosition[index] = true;
+    newPositionReq.position = positions[index].favorPositionDesc;
+    setPositionReq(newPositionReq);
     setSelectedPosition(newSelectedPosition);
   };
   return (
@@ -35,13 +45,14 @@ function Category({
       <span className="title">필터링</span>
       <FilterPosition>
         {positions.map((position, index) => (
-          <button
+          <SelectBtn
             onClick={e => {
               select(index);
             }}
             type="button"
             className="position"
             key={position.favorPositionDesc}
+            isSelected={selectedPosition[index]}
           >
             <img
               className="img"
@@ -50,7 +61,7 @@ function Category({
               }
               alt={position.favorPositionDesc}
             />
-          </button>
+          </SelectBtn>
         ))}
       </FilterPosition>
       <SelectRate />

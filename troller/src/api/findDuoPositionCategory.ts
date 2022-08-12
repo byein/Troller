@@ -16,11 +16,6 @@ const positions = [
     favorPositionDesc: 'TOP',
   },
   {
-    disabled: jungle_disabled,
-    focused: jungle_focused,
-    favorPositionDesc: 'JUNGLE',
-  },
-  {
     disabled: mid_disabled,
     focused: mid_focused,
     favorPositionDesc: 'MID',
@@ -29,6 +24,11 @@ const positions = [
     disabled: bottom_disabled,
     focused: bottom_focused,
     favorPositionDesc: 'BOTTOM',
+  },
+  {
+    disabled: jungle_disabled,
+    focused: jungle_focused,
+    favorPositionDesc: 'JUNGLE',
   },
   {
     disabled: utility_disabled,

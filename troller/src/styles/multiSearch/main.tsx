@@ -4,6 +4,7 @@ import {
   BOX_SHADOW,
   DEFAULT_FONTSIZE,
   TRANSITION,
+  TRANSPARENT_TXTCOLOR,
 } from '../global/global';
 
 const MultiSearchWrapper = styled('div')`
@@ -15,7 +16,7 @@ const MultiSearchWrapper = styled('div')`
   align-items: center;
 `;
 
-const SearchBox = styled('form')`
+const SearchBox = styled('form')<{ focused: boolean }>`
   ${BOX_SHADOW}
   width: 450px;
   height: 200px;
@@ -26,6 +27,19 @@ const SearchBox = styled('form')`
   background-color: ${props => props.theme.bgColor.dark};
   margin-top: 100px;
   border-radius: ${`${BORDER_RADIUS}px`};
+  position: relative;
+  .placeholder {
+    display: ${props => (props.focused ? 'none' : 'flex')};
+    width: 100%;
+    height: 100px;
+    position: absolute;
+    top: 0;
+    margin: 20px 0 20px 0;
+    justify-content: center;
+    align-items: center;
+    color: ${TRANSPARENT_TXTCOLOR};
+    z-index: 0;
+  }
   .search__input {
     width: 73%;
     height: 100px;
@@ -37,6 +51,7 @@ const SearchBox = styled('form')`
     background-color: rgba(0, 0, 0, 0);
     padding: 0;
     resize: none;
+    z-index: 1;
     &:focus {
       outline: none;
     }
@@ -56,17 +71,17 @@ const SearchBox = styled('form')`
       cursor: pointer;
       ${TRANSITION}
       &:hover {
-        background-color: ${props => props.theme.btnColor.onHover};
+        background-color: ${props => props.theme.txtColor.selected};
       }
     }
   }
 `;
 
 const GuideBox = styled('div')`
-  width: 100%;
+  width: 1410px;
   height: 350px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   margin: 20px 0 0 0;
   background-color: ${props => props.theme.bgColor.light};
