@@ -17,7 +17,7 @@ const DEPLOY_HOST = '3.37.22.89';
 const PORT = 3000;
 
 function KakaoLogin() {
-  const KAKAO_REDIRECT_URL = `http://${LOCAL_HOST}:${PORT}/auth/kakao`;
+  const KAKAO_REDIRECT_URL = `http://${DEPLOY_HOST}:${PORT}/auth/kakao`;
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${API_KEY}&redirect_uri=${KAKAO_REDIRECT_URL}&response_type=code`;
   return (
     <a className="login" href={KAKAO_AUTH_URL}>
