@@ -76,7 +76,7 @@ function Auth() {
     if (dupLolName && validLolName) {
       setisSummoner(true);
     } else {
-      alert('유효하지 않은 소환사 이름입니다.');
+      alert('유효하지 않거나 이미 등록이 된 소환사 이름입니다.');
     }
   };
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
