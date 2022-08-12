@@ -3,7 +3,7 @@ import { BORDER_RADIUS, DEFAULT_FONTSIZE, TRANSITION } from '../global/global';
 
 const CategoryWrapper = styled('div')`
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  width: 100%;
+  width: 1410px;
   height: 50px;
   margin: 15px 0 15px 0;
   padding: 0 15px;
@@ -40,25 +40,55 @@ const FilterPosition = styled('div')`
   height: 45px;
   display: flex;
   margin: 0 10px 0 0;
-  .position {
-    width: 45px;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    background-color: ${props => props.theme.bgColor.dark};
-    border-top: 1px ${props => props.theme.bgColor.light} solid;
-    border-bottom: 1px ${props => props.theme.bgColor.light} solid;
-    border-right: 1px ${props => props.theme.bgColor.light} solid;
-    border-left: none;
-    &:nth-of-type(1) {
-      border-left: 1px ${props => props.theme.bgColor.light} solid;
-    }
-    .img {
-      width: 60%;
-    }
+`;
+
+const SelectBtn = styled('button')<{ isSelected: boolean }>`
+  width: 45px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: ${props => props.theme.bgColor.dark};
+  border-top: 1px ${props => props.theme.bgColor.light} solid;
+  border-bottom: 1px ${props => props.theme.bgColor.light} solid;
+  border-right: 1px ${props => props.theme.bgColor.light} solid;
+  border-left: none;
+  ${TRANSITION}
+  &:first-of-type {
+    border-left: 1px ${props => props.theme.bgColor.light} solid;
+    box-shadow: ${props =>
+      props.isSelected
+        ? `inset 0px 2px 50px -30px rgba(205, 250, 249, 0.94)`
+        : 'inset 0px 2px 50px -30px rgba(205, 250, 249, 0)'};
+  }
+  &:nth-of-type(2) {
+    box-shadow: ${props =>
+      props.isSelected
+        ? `inset 0px 2px 50px -30px rgba(205, 250, 249, 0.94)`
+        : 'inset 0px 2px 50px -30px rgba(205, 250, 249, 0)'};
+  }
+  &:nth-of-type(3) {
+    box-shadow: ${props =>
+      props.isSelected
+        ? `inset 0px 2px 50px -30px rgba(205, 250, 249, 0.94)`
+        : 'inset 0px 2px 50px -30px rgba(205, 250, 249, 0)'};
+  }
+  &:nth-of-type(4) {
+    box-shadow: ${props =>
+      props.isSelected
+        ? `inset 0px 2px 50px -30px rgba(205, 250, 249, 0.94)`
+        : 'inset 0px 2px 50px -30px rgba(205, 250, 249, 0)'};
+  }
+  &:last-of-type {
+    box-shadow: ${props =>
+      props.isSelected
+        ? `inset 0px 2px 50px -30px rgba(205, 250, 249, 0.94)`
+        : 'inset 0px 2px 50px -30px rgba(205, 250, 249, 0)'};
+  }
+  .img {
+    width: 60%;
   }
 `;
 
-export { CategoryWrapper, FilterPosition };
+export { CategoryWrapper, FilterPosition, SelectBtn };

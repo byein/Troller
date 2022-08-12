@@ -11,7 +11,7 @@ const kdaRateMean = 0.7;
 const winRateMean = 70;
 
 const ContentsWrapper = styled('div')`
-  width: 100%;
+  width: 1410px;
   columns: 3;
   column-gap: 16px;
 `;

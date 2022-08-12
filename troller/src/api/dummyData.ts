@@ -65,11 +65,29 @@ const randomTitle = dummyTitles[Math.floor(Math.random() * dummyTitles.length)];
 const randomContent =
   dummyContents[Math.floor(Math.random() * dummyContents.length)];
 
-const dummyRandomData = [
+type HeadDataType = {
+  id: number;
+  lolName: string;
+  favorChampions: string[];
+  favorPosition: string;
+  tier: string;
+  win: number;
+  lose: number;
+  kill: number;
+  death: number;
+  assist: number;
+  validTime: number;
+  mike: boolean;
+  title: string;
+  content: string;
+}[];
+
+const dummyRandomData: HeadDataType = [
   {
+    id: 1,
     lolName: randomName,
+    favorChampions: dummyChamps.slice(0, 3),
     favorPosition: randomPosition,
-    favorChampion: dummyChamps.slice(0, 3),
     tier: randomTier,
     win: randomWin,
     lose: randomLose,
@@ -82,9 +100,10 @@ const dummyRandomData = [
     content: randomContent,
   },
   {
+    id: 2,
     lolName: randomName,
+    favorChampions: dummyChamps.slice(0, 3),
     favorPosition: randomPosition,
-    favorChampion: dummyChamps.slice(0, 3),
     tier: randomTier,
     win: randomWin,
     lose: randomLose,
@@ -97,9 +116,10 @@ const dummyRandomData = [
     content: randomContent,
   },
   {
+    id: 3,
     lolName: randomName,
+    favorChampions: dummyChamps.slice(0, 3),
     favorPosition: randomPosition,
-    favorChampion: dummyChamps.slice(0, 3),
     tier: randomTier,
     win: randomWin,
     lose: randomLose,
@@ -112,9 +132,10 @@ const dummyRandomData = [
     content: randomContent,
   },
   {
+    id: 4,
     lolName: randomName,
+    favorChampions: dummyChamps.slice(0, 3),
     favorPosition: randomPosition,
-    favorChampion: dummyChamps.slice(0, 3),
     tier: randomTier,
     win: randomWin,
     lose: randomLose,
@@ -127,9 +148,10 @@ const dummyRandomData = [
     content: randomContent,
   },
   {
+    id: 5,
     lolName: randomName,
+    favorChampions: dummyChamps.slice(0, 3),
     favorPosition: randomPosition,
-    favorChampion: dummyChamps.slice(0, 3),
     tier: randomTier,
     win: randomWin,
     lose: randomLose,
@@ -142,9 +164,10 @@ const dummyRandomData = [
     content: randomContent,
   },
   {
+    id: 6,
     lolName: randomName,
+    favorChampions: dummyChamps.slice(0, 3),
     favorPosition: randomPosition,
-    favorChampion: dummyChamps.slice(0, 3),
     tier: randomTier,
     win: randomWin,
     lose: randomLose,
@@ -157,9 +180,10 @@ const dummyRandomData = [
     content: randomContent,
   },
   {
+    id: 7,
     lolName: randomName,
+    favorChampions: dummyChamps.slice(0, 3),
     favorPosition: randomPosition,
-    favorChampion: dummyChamps.slice(0, 3),
     tier: randomTier,
     win: randomWin,
     lose: randomLose,
@@ -172,9 +196,10 @@ const dummyRandomData = [
     content: randomContent,
   },
   {
+    id: 8,
     lolName: randomName,
+    favorChampions: dummyChamps.slice(0, 3),
     favorPosition: randomPosition,
-    favorChampion: dummyChamps.slice(0, 3),
     tier: randomTier,
     win: randomWin,
     lose: randomLose,
@@ -187,9 +212,10 @@ const dummyRandomData = [
     content: randomContent,
   },
   {
+    id: 9,
     lolName: randomName,
+    favorChampions: dummyChamps.slice(0, 3),
     favorPosition: randomPosition,
-    favorChampion: dummyChamps.slice(0, 3),
     tier: randomTier,
     win: randomWin,
     lose: randomLose,
@@ -202,9 +228,10 @@ const dummyRandomData = [
     content: randomContent,
   },
   {
+    id: 10,
     lolName: randomName,
+    favorChampions: dummyChamps.slice(0, 3),
     favorPosition: randomPosition,
-    favorChampion: dummyChamps.slice(0, 3),
     tier: randomTier,
     win: randomWin,
     lose: randomLose,
@@ -217,9 +244,10 @@ const dummyRandomData = [
     content: randomContent,
   },
   {
+    id: 11,
     lolName: randomName,
+    favorChampions: dummyChamps.slice(0, 3),
     favorPosition: randomPosition,
-    favorChampion: dummyChamps.slice(0, 3),
     tier: randomTier,
     win: randomWin,
     lose: randomLose,
@@ -232,9 +260,10 @@ const dummyRandomData = [
     content: randomContent,
   },
   {
+    id: 12,
     lolName: randomName,
+    favorChampions: dummyChamps.slice(0, 3),
     favorPosition: randomPosition,
-    favorChampion: dummyChamps.slice(0, 3),
     tier: randomTier,
     win: randomWin,
     lose: randomLose,
@@ -247,9 +276,10 @@ const dummyRandomData = [
     content: randomContent,
   },
   {
+    id: 13,
     lolName: randomName,
+    favorChampions: dummyChamps.slice(0, 3),
     favorPosition: randomPosition,
-    favorChampion: dummyChamps.slice(0, 3),
     tier: randomTier,
     win: randomWin,
     lose: randomLose,
@@ -262,9 +292,10 @@ const dummyRandomData = [
     content: randomContent,
   },
   {
+    id: 14,
     lolName: randomName,
+    favorChampions: dummyChamps.slice(0, 3),
     favorPosition: randomPosition,
-    favorChampion: dummyChamps.slice(0, 3),
     tier: randomTier,
     win: randomWin,
     lose: randomLose,
@@ -277,9 +308,10 @@ const dummyRandomData = [
     content: randomContent,
   },
   {
+    id: 15,
     lolName: randomName,
+    favorChampions: dummyChamps.slice(0, 3),
     favorPosition: randomPosition,
-    favorChampion: dummyChamps.slice(0, 3),
     tier: randomTier,
     win: randomWin,
     lose: randomLose,
@@ -311,7 +343,7 @@ function randomDataProducer() {
   for (let i = 0; i < 30; i += i) {
     dummyRandomDatas.push({
       lolName: randomName,
-      favorPosition: randomPosition,
+      favorPositions: randomPosition,
       favorChampion: randomChamps,
       tier: randomTier,
       win: randomWin,

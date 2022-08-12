@@ -41,29 +41,33 @@ function MyPageHeader() {
 function Header({ pathname }: { pathname: string }) {
   return (
     <GlobalHeader pathname={pathname}>
-      <span className="logo">
-        <Link to="/">Logo</Link>
-      </span>
-      <div>
-        <ul>
-          <Tab isActive={pathname === '/multi_search'}>
-            <Link to="multi_search">멀티서치</Link>
-          </Tab>
-          <Tab isActive={pathname === '/find_duo'}>
-            <Link to="find_duo">듀오찾기</Link>
-          </Tab>
-          <Tab isActive={pathname.includes('/rank')}>
-            <Link to="rank/normal">랭킹</Link>
-          </Tab>
-        </ul>
+      <div className="innerWrapper">
+        <div className="leftSideBlock">
+          <span className="logo">
+            <Link to="/">Logo</Link>
+          </span>
+          <div>
+            <ul>
+              <Tab isActive={pathname === '/multi_search'}>
+                <Link to="multi_search">멀티서치</Link>
+              </Tab>
+              <Tab isActive={pathname === '/find_duo'}>
+                <Link to="find_duo">듀오찾기</Link>
+              </Tab>
+              <Tab isActive={pathname.includes('/rank')}>
+                <Link to="rank/normal">랭킹</Link>
+              </Tab>
+            </ul>
+          </div>
+        </div>
+        <span className="signin">
+          {ACCESS_TOKEN !== null || undefined ? (
+            <MyPageHeader />
+          ) : (
+            <Link to="sign_in">로그인</Link>
+          )}
+        </span>
       </div>
-      <span className="signin">
-        {ACCESS_TOKEN !== null || undefined ? (
-          <MyPageHeader />
-        ) : (
-          <Link to="sign_in">로그인</Link>
-        )}
-      </span>
     </GlobalHeader>
   );
 }

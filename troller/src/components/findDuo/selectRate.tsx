@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
 import EjectIcon from '@mui/icons-material/Eject';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { filterParams } from '../../recoil/findDuoAtoms';
 import {
   BORDER_RADIUS,
   DEFAULT_FONTSIZE,
@@ -79,29 +81,41 @@ const SelectRateWrapper = styled('div')<{ toggle: boolean }>`
 `;
 
 function SelectRate() {
-  const [rates, setRates] = useState(['승률', 'KDA']);
+  const firstRender = 'TIME';
+  const [rateReq, setRateReq] = useRecoilState(filterParams);
+  const [isClicked, setisClicked] = useState(false);
+  const [rates, setRates] = useState(['WIN', 'KDA']);
   const [toggle, setToggle] = useState(false);
   const toggleSelection = () => {
     setToggle(prev => !prev);
   };
   const selectRate = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setisClicked(true);
     const { innerText } = e.currentTarget;
     if (innerText === rates[0]) {
       setRates([innerText, rates[1]]);
     } else {
       setRates([innerText, rates[0]]);
     }
+    const newRateReq = { ...rateReq };
+    newRateReq.rate = innerText;
+    setRateReq(newRateReq);
     setToggle(false);
   };
   return (
     <SelectRateWrapper toggle={toggle}>
       <div className="value">
-        <span className="txt">{rates[0]}</span>
+        <span className="txt">{isClicked ? rates[0] : firstRender}</span>
         {toggle ? (
           <div className="selection">
-            {rates.map((rate, index) => (
-              <button className="section" onClick={selectRate} type="button">
-                {rates[index]}
+            {rates.map(rate => (
+              <button
+                key={rate}
+                className="section"
+                onClick={selectRate}
+                type="button"
+              >
+                {rate}
               </button>
             ))}
           </div>

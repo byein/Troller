@@ -13,7 +13,7 @@ const BOX_SHADOW = css`
 const FLOAT_COLOR = css`
   background-color: rgba(10, 31, 98, 0.4);
 `;
-const TRANSPARENT_TXTCOLOR = `rgba(255, 255, 255, 0.7)`;
+const TRANSPARENT_TXTCOLOR = `rgba(255, 255, 255, 0.5)`;
 
 const GlobalContainer = styled('div')`
   width: 100vw;
@@ -25,7 +25,7 @@ const GlobalHeader = styled('header')<{ pathname: string }>`
   width: 100vw;
   height: 80px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   position: absolute;
   background-color: ${props =>
@@ -35,56 +35,65 @@ const GlobalHeader = styled('header')<{ pathname: string }>`
       ? props.theme.bgColor.dark
       : 'none'};
   z-index: 1;
-  span {
-    margin: 15px;
-    color: ${props => props.theme.txtColor.primary};
-  }
-  .logo {
-    font-size: 30px;
-    color: ${props => props.theme.txtColor.primary};
-  }
-  .signin {
-    width: 100px;
+  .innerWrapper {
+    width: 1400px;
     height: 100%;
-    margin: 0;
-    font-size: ${`${DEFAULT_FONTSIZE}px`};
-    color: ${props => props.theme.txtColor.primary};
-    display: ${props =>
-      props.pathname === '/sign_in' ||
-      props.pathname === '/sign_up' ||
-      props.pathname === '/forgot_pw'
-        ? 'none'
-        : 'flex'};
-    flex-direction: column;
-    justify-content: center;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    position: relative;
-    .block {
-      display: block;
-      .mypage {
-        cursor: pointer;
-      }
-      .menu {
-      }
+    span {
+      margin: auto 0 auto 0;
+      color: ${props => props.theme.txtColor.primary};
     }
-  }
-  div {
-    width: 280px;
-    height: 100%;
-    position: absolute;
-    left: 120px;
-    font-size: ${`${DEFAULT_FONTSIZE}px`};
-    display: ${props =>
-      props.pathname === '/sign_in' ||
-      props.pathname === '/sign_up' ||
-      props.pathname === '/forgot_pw'
-        ? 'none'
-        : 'block'};
-    ul {
-      width: 100%;
+    .leftSideBlock {
+      width: 400px;
       height: 100%;
       display: flex;
+      justify-content: space-between;
       align-items: center;
+      .logo {
+        font-size: 30px;
+        color: ${props => props.theme.txtColor.primary};
+      }
+      div {
+        width: 280px;
+        height: 100%;
+        font-size: ${`${DEFAULT_FONTSIZE}px`};
+        display: ${props =>
+          props.pathname === '/sign_in' ||
+          props.pathname === '/sign_up' ||
+          props.pathname === '/forgot_pw'
+            ? 'none'
+            : 'block'};
+        ul {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+        }
+      }
+    }
+    .signin {
+      height: 100%;
+      margin: 0;
+      font-size: ${`${DEFAULT_FONTSIZE}px`};
+      color: ${props => props.theme.txtColor.primary};
+      display: ${props =>
+        props.pathname === '/sign_in' ||
+        props.pathname === '/sign_up' ||
+        props.pathname === '/forgot_pw'
+          ? 'none'
+          : 'flex'};
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      .block {
+        display: block;
+        .mypage {
+          cursor: pointer;
+        }
+      }
     }
   }
 `;
@@ -125,6 +134,7 @@ const Tab = styled('li')<{ isActive: boolean }>`
     !props.isActive
       ? props.theme.txtColor.primary
       : props.theme.txtColor.selected};
+  font-weight: 600;
   &:hover {
     color: ${props => props.theme.txtColor.selected};
   }
