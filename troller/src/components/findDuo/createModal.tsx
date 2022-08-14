@@ -1,7 +1,6 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import MicIcon from '@mui/icons-material/Mic';
 import MicOffIcon from '@mui/icons-material/MicOff';
-import TimerIcon from '@mui/icons-material/Timer';
 import { useForm } from 'react-hook-form';
 import { useSetRecoilState } from 'recoil';
 import {
@@ -57,27 +56,36 @@ function CreateModal() {
     setIsSelected(newIsSelected);
     setPositionData(positions[index].favorPositionDesc);
   };
-  const onSubmit = handleSubmit(async (registery: ICreateModalProps) => {
-    const request = {
-      title: registery.title,
-      content: registery.content,
-      mike,
-      positionData,
-    };
-    console.table(request);
-    // const { status, data } = await useAccessApi.post<IHeadDataType[]>(
-    //   'registerNewContentAPI',
-    //   request
-    // );
-    // if (status === 200) {
-    //   setResponseData(data);
-    //   window.location.reload();
-    // }
-  });
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    handleSubmit(async (registery: ICreateModalProps) => {
+      const request = {
+        title: registery.title,
+        content: registery.content,
+        timeStamp: +new Date(),
+        mike,
+        positionData,
+      };
+      if (positionData === '') {
+        e.preventDefault();
+        alert('듀오찾기: 포지션을 선택 해 주세요');
+      } else {
+        console.table(request);
+        // const { status, data } = await useAccessApi.post<IHeadDataType[]>(
+        //   'registerNewContentAPI',
+        //   request
+        // );
+        // if (status === 200) {
+        //   setResponseData(data);
+        //   window.location.reload();
+        // }
+      }
+    })();
+  };
   return (
-    <ModalWrapper onSubmit={onSubmit}>
+    <ModalWrapper>
       <WelcomeBox />
-      <Modal mike={mike}>
+      <Modal onSubmit={e => onSubmit(e)} mike={mike}>
         <div className="header">
           <div className="positions">
             {positions.map((position, index) => {

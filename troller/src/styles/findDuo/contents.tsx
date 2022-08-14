@@ -18,7 +18,7 @@ const ContentsWrapper = styled('div')`
 
 const Content = styled('div')`
   width: 100%;
-  height: 236px;
+  height: auto;
   display: inline-block;
   padding: 15px;
   margin-bottom: 16px;
@@ -35,7 +35,7 @@ const Content = styled('div')`
   }
 `;
 
-const Timer = styled('div')<{ validTime: number; isLoading: boolean }>`
+const Header = styled('form')<{ isLoading: boolean }>`
   ${props => (props.isLoading ? Skeleton : null)}
   width: 100%;
   margin: 0 0 10px 0;
@@ -44,16 +44,24 @@ const Timer = styled('div')<{ validTime: number; isLoading: boolean }>`
   align-items: center;
   padding: auto 0 auto 0;
   font-size: 15px;
-  .validTime {
-    color: ${props =>
-      props.validTime > 0
-        ? props.theme.txtColor.primary
-        : props.theme.validation.error};
-  }
   .user {
     .lolName {
       color: ${props => props.theme.txtColor.selected};
       font-weight: bold;
+    }
+  }
+  .delete {
+    width: auto;
+    height: 100%;
+    border: none;
+    background-color: transparent;
+    border-radius: ${`${BORDER_RADIUS - 5}px`};
+    padding: 0;
+    cursor: pointer;
+    color: ${props => props.theme.txtColor.primary};
+    ${TRANSITION}
+    &:hover {
+      color: #f87d64;
     }
   }
 `;
@@ -254,7 +262,7 @@ const ChatBtn = styled('button')`
 export {
   ContentsWrapper,
   Content,
-  Timer,
+  Header,
   ArticleWrapper,
   Article,
   UserStatus,

@@ -1,6 +1,7 @@
 import MicIcon from '@mui/icons-material/Mic';
 import MicOffIcon from '@mui/icons-material/MicOff';
-import { useEffect, useState } from 'react';
+import BackspaceIcon from '@mui/icons-material/Backspace';
+import { useForm } from 'react-hook-form';
 import { IHeadDataType } from '../../recoil/findDuoAtoms';
 import {
   Article,
@@ -9,9 +10,10 @@ import {
   ChatBtnBox,
   Content,
   ContentFooter,
-  Timer,
+  Header,
   UserStatus,
 } from '../../styles/findDuo/contents';
+import { useAccessApi } from '../../hooks/axiosHooks';
 
 function Contents({
   data: {
@@ -25,7 +27,6 @@ function Contents({
     kill,
     death,
     assist,
-    validTime,
     mike,
     title,
     content,
@@ -35,31 +36,20 @@ function Contents({
   data: IHeadDataType;
   load: boolean;
 }) {
-  const [validTimer, setvalidTimer] = useState(validTime - 1);
-  const minutes = Math.floor(validTimer / 60)
-    .toString()
-    .padStart(2, '0');
-  const seconds = (validTimer % 60).toString().padStart(2, '0');
-  useEffect(() => {
-    const timer = setInterval(() => {
-      if (validTimer > 0) {
-        setvalidTimer(prev => prev - 1);
-      } else {
-        clearInterval(timer);
-      }
-    }, 1000);
-    return () => clearInterval(timer);
-  }, [validTimer]);
+  const { handleSubmit } = useForm();
+  const onSubmit = handleSubmit(async () => {
+    // const { status } = await useAccessApi.delete('exampleDeleteAPI');
+  });
   return (
     <Content key={id}>
-      <Timer validTime={validTime} isLoading={load}>
+      <Header onSubmit={onSubmit} isLoading={load}>
         <div className="user">
           <span className="lolName">{lolName}</span>
         </div>
-        <span className="validTime">
-          {validTime > 0 ? `${minutes}:${seconds}` : '만료'}
-        </span>
-      </Timer>
+        <button className="delete" type="submit">
+          <BackspaceIcon />
+        </button>
+      </Header>
       <ArticleWrapper>
         <Article isLoading={load}>
           <div className="titleBox">
