@@ -1,17 +1,22 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import MicIcon from '@mui/icons-material/Mic';
 import MicOffIcon from '@mui/icons-material/MicOff';
-import TimerIcon from '@mui/icons-material/Timer';
 import { useForm } from 'react-hook-form';
 import { useSetRecoilState } from 'recoil';
-import { ModalWrapper, Modal, Welcome } from '../../styles/findDuo/createModal';
+import {
+  ModalWrapper,
+  Modal,
+  Welcome,
+  SelectBtn,
+} from '../../styles/findDuo/createModal';
 import { headData, IHeadDataType } from '../../recoil/findDuoAtoms';
 import { useAccessApi } from '../../hooks/axiosHooks';
+import positions from '../../api/findDuoPositionCategory';
 
 interface ICreateModalProps {
   title: string;
   content: string;
-  validTime: number;
+  position: 'TOP' | 'MID' | 'BOTTOM' | 'JUNGLE' | 'UTILITY';
 }
 
 function WelcomeBox() {
@@ -27,50 +32,89 @@ function WelcomeBox() {
 function CreateModal() {
   const setResponseData = useSetRecoilState(headData);
   const [mike, setMike] = useState(false);
+  const [positionData, setPositionData] = useState('');
   const { register, handleSubmit } = useForm<ICreateModalProps>();
   const toggleMike = () => {
     setMike(prev => !prev);
   };
-  const onSubmit = handleSubmit(async (registery: ICreateModalProps) => {
-    const validTime = registery.validTime * 60;
-    const request = {
-      title: registery.title,
-      content: registery.content,
-      validTime,
-      mike,
-    };
-    // const { status, data } = await useAccessApi.post<IHeadDataType[]>(
-    //   'registerNewContentAPI',
-    //   request
-    // );
-    // if (status === 200) {
-    //   setResponseData(data);
-    //   window.location.reload();
-    // }
-  });
+  const [isSelected, setIsSelected] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
+  const selectPosition = (index: number) => {
+    const newIsSelected = [...isSelected];
+    for (let i = 0; i < newIsSelected.length; i += 1) {
+      if (newIsSelected[i]) {
+        newIsSelected[i] = false;
+        setIsSelected(newIsSelected);
+      }
+    }
+    newIsSelected[index] = true;
+    setIsSelected(newIsSelected);
+    setPositionData(positions[index].favorPositionDesc);
+  };
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    handleSubmit(async (registery: ICreateModalProps) => {
+      const request = {
+        title: registery.title,
+        content: registery.content,
+        timeStamp: +new Date(),
+        mike,
+        positionData,
+      };
+      if (positionData === '') {
+        e.preventDefault();
+        alert('듀오찾기: 포지션을 선택 해 주세요');
+      } else {
+        console.table(request);
+        // const { status, data } = await useAccessApi.post<IHeadDataType[]>(
+        //   'registerNewContentAPI',
+        //   request
+        // );
+        // if (status === 200) {
+        //   setResponseData(data);
+        //   window.location.reload();
+        // }
+      }
+    })();
+  };
   return (
-    <ModalWrapper onSubmit={onSubmit}>
+    <ModalWrapper>
       <WelcomeBox />
-      <Modal mike={mike}>
+      <Modal onSubmit={e => onSubmit(e)} mike={mike}>
         <div className="header">
-          <div className="validTime">
-            <span className="title">
-              <TimerIcon />
-            </span>
-            <input
-              type="number"
-              min={3}
-              max={15}
-              className="time"
-              {...register('validTime', { required: true, min: 5, max: 15 })}
-            />
-            <span> 분</span>
+          <div className="positions">
+            {positions.map((position, index) => {
+              return (
+                <SelectBtn
+                  isSelected={isSelected[index]}
+                  key={position.favorPositionDesc}
+                  className="position"
+                  type="button"
+                  onClick={e => {
+                    selectPosition(index);
+                  }}
+                >
+                  <img
+                    className="positionImg"
+                    src={
+                      isSelected[index] ? position.focused : position.disabled
+                    }
+                    alt="position"
+                  />
+                </SelectBtn>
+              );
+            })}
           </div>
           <div className="mike">
             <span className="title">{mike ? <MicIcon /> : <MicOffIcon />}</span>
             <div className="switch">
               <button className="toggle" type="button" onClick={toggleMike}>
-                {/**/}
+                img
               </button>
             </div>
           </div>

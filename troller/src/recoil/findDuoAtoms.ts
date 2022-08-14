@@ -12,7 +12,6 @@ export interface IHeadDataType {
   kill: number;
   death: number;
   assist: number;
-  validTime: number;
   mike: boolean;
   title: string;
   content: string;
