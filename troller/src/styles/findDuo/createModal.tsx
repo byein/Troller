@@ -1,11 +1,6 @@
 import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
-import {
-  BORDER_RADIUS,
-  DEFAULT_FONTSIZE,
-  LARGE_FONTSIZE,
-  TRANSITION,
-} from '../global/global';
+import { BORDER_RADIUS, DEFAULT_FONTSIZE, TRANSITION } from '../global/global';
 
 const MODAL_FADE_IN = keyframes`
   0% {
@@ -107,34 +102,17 @@ const Modal = styled('form')<{ mike: boolean }>`
     width: 100%;
     height: 19%;
     display: flex;
-    .validTime {
-      width: 105px;
+    .positions {
+      width: 197px;
       height: 90%;
       display: flex;
-      justify-content: space-evenly;
-      align-items: center;
       margin: 0 5px 0 0;
-      border-radius: ${`${BORDER_RADIUS - 5}px`};
-      border: 1px solid ${props => props.theme.bgColor.light};
-      .title {
-        width: auto;
-        margin: 0 10px 0 0;
-      }
-      .time {
-        width: 30%;
-        height: 50%;
-        background-color: transparent;
-        border: none;
-        border-bottom: 2px solid ${props => props.theme.bgColor.light};
-        color: ${props => props.theme.bgColor.light};
-        padding: 0;
-        &:focus {
-          outline: none;
-        }
+      border-left: 1px solid ${props => props.theme.bgColor.light};
+      .position {
       }
     }
     .mike {
-      width: 85px;
+      width: 100px;
       height: 90%;
       margin: 0 5px 0 0;
       display: flex;
@@ -179,11 +157,12 @@ const Modal = styled('form')<{ mike: boolean }>`
       }
     }
     .submit {
-      width: calc(100% - 200px);
+      width: calc(100% - 297px);
       height: 90%;
       cursor: pointer;
       border-radius: ${`${BORDER_RADIUS - 5}px`};
       border: none;
+      margin: 0;
       background-color: ${props => props.theme.bgColor.light};
       ${TRANSITION}
       &:hover {
@@ -231,5 +210,26 @@ const Modal = styled('form')<{ mike: boolean }>`
     }
   }
 `;
+const SelectBtn = styled('button')<{ isSelected: boolean }>`
+  border: none;
+  background-color: transparent;
+  aspect-ratio: 1 / 1;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid ${props => props.theme.bgColor.light};
+  border-bottom: 1px solid ${props => props.theme.bgColor.light};
+  border-right: 1px solid ${props => props.theme.bgColor.light};
+  cursor: pointer;
+  ${TRANSITION}
+  box-shadow: ${props =>
+    props.isSelected
+      ? `inset 0px 2px 50px -30px rgba(205, 250, 249, 0.94)`
+      : 'inset 0px 2px 50px -30px rgba(205, 250, 249, 0)'};
+  .positionImg {
+    width: 45%;
+    margin: auto;
+  }
+`;
 
-export { ModalWrapper, Welcome, Modal };
+export { ModalWrapper, Welcome, Modal, SelectBtn };
