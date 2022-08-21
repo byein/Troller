@@ -2,6 +2,7 @@ import MicIcon from '@mui/icons-material/Mic';
 import MicOffIcon from '@mui/icons-material/MicOff';
 import BackspaceIcon from '@mui/icons-material/Backspace';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { IHeadDataType } from '../../recoil/findDuoAtoms';
 import {
   Article,
@@ -36,10 +37,20 @@ function Contents({
   data: IHeadDataType;
   load: boolean;
 }) {
+  const router = useNavigate();
   const { handleSubmit } = useForm();
+
+  const moveToChatRoom = async () => {
+    // const { status } = await useAccessApi.get('/chat/room');
+    // if (status === 200) {
+    router(`/sub/chat/room/${lolName}`);
+    // }
+  }; // 채팅방으로 이동
+
   const onSubmit = handleSubmit(async () => {
-    // const { status } = await useAccessApi.delete('exampleDeleteAPI');
-  });
+    // const { status } = await useAccessApi.delete('exampleDeleteAPI',{
+    //   params: {id}});
+  }); // delete my content
   return (
     <Content key={id}>
       <Header onSubmit={onSubmit} isLoading={load}>
@@ -104,7 +115,7 @@ function Contents({
       </ArticleWrapper>
       <ContentFooter>
         <ChatBtnBox>
-          <ChatBtn>채팅하기</ChatBtn>
+          <ChatBtn onClick={moveToChatRoom}>채팅하기</ChatBtn>
           <ChatBtn>AI 듀오매칭</ChatBtn>
         </ChatBtnBox>
       </ContentFooter>

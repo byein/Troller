@@ -14,6 +14,8 @@ import TierAbility from './pages/fullSearch/tierAbility';
 import Stats from './components/multiSearch/stats';
 import MyPage from './pages/mypage/mypage';
 import { Auth } from './components/sign/anotherLogin';
+import ChatBox from './pages/liveChat/chatBox';
+import LiveChat from './components/liveChat/liveChat';
 
 export default function Router() {
   return (
@@ -36,6 +38,9 @@ export default function Router() {
           <Route path=":userId" element={<FullSearch />}>
             <Route path="kda" element={<KDA />} />
             <Route path="tier_ability" element={<TierAbility />} />
+          </Route>
+          <Route path="sub/chat/room" element={<ChatBox />}>
+            <Route path=":roomId" element={<LiveChat />} />
           </Route>
         </Route>
       </Routes>

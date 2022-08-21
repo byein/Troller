@@ -1,40 +1,50 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
-import { GlobalHeader, Menu, Tab } from '../../styles/global/global';
 import { ACCESS_TOKEN } from '../../hooks/axiosHooks';
+import { GlobalHeader, Tab } from '../../styles/global/global';
 
 function MyPageHeader() {
+  const router = useNavigate();
   const [isOpen, setisOpen] = useState(false);
+  const handleClick = () => {
+    setisOpen(!isOpen);
+  };
   const logOut = () => {
+    setisOpen(false);
     localStorage.clear();
     window.location.href = '/';
   };
   return (
-    <span className="block">
-      <MenuIcon
-        className="mypage"
-        onClick={() => {
-          setisOpen(prev => !prev);
-        }}
-      />
+    <button type="button" className="block" onClick={handleClick}>
+      <MenuIcon className="mypage" />
       {isOpen ? (
-        <Menu>
-          <span className="menues">
-            <Link to="/my_page">마이페이지</Link>
-          </span>
-          <span
-            className="menues"
-            onClick={logOut}
-            onKeyDown={logOut}
-            role="button"
-            tabIndex={0}
-          >
-            로그아웃
-          </span>
-        </Menu>
+        <div className="menuBox">
+          <div className="menues">
+            <button className="menu" type="button" onClick={handleClick}>
+              my page
+            </button>
+          </div>
+          <div className="menues">
+            <button
+              className="menu"
+              type="button"
+              onClick={() => {
+                router('/sub/chat/room/friends');
+              }}
+            >
+              live chat
+              <span className="alert" />
+            </button>
+          </div>
+          <div className="menues">
+            <button className="menu" type="button" onClick={logOut}>
+              sign out
+            </button>
+          </div>
+        </div>
       ) : null}
-    </span>
+    </button>
   );
 }
 
@@ -66,6 +76,7 @@ function Header({ pathname }: { pathname: string }) {
           ) : (
             <Link to="sign_in">로그인</Link>
           )}
+          <span className="alert" />
         </span>
       </div>
     </GlobalHeader>
