@@ -5,24 +5,25 @@ import { dummyRandomData } from '../../api/dummyData';
 function ChatFriends() {
   return (
     <>
-      {dummyRandomData.map(item => (
-        <FriendList key={item.id}>
-          <div className="user">
-            <div className="leftside">
-              <div className="lolName">{`${item.lolName}`}</div>
-              <span className="content">
-                sdfdsfsdfgsdfgsfdgsdsdsdfasdfas${30}
-              </span>
+      {dummyRandomData.map(
+        (
+          item // 나중에 friends로 바꿔야함
+        ) => (
+          <FriendList key={item.id}>
+            <div className="user">
+              <div className="leftside">
+                <div className="lolName">{`${item.lolName}`}</div>
+                <span className="content">
+                  sdfdsfsdfgsdfgsfdgsdsdsdfasdfas${30}
+                </span>
+              </div>
             </div>
-            <div className="rightside">
-              <span className="alert">{item.kill}</span>
-            </div>
-          </div>
-          <button className="delete" type="button">
-            <BackspaceIcon />
-          </button>
-        </FriendList>
-      ))}
+            <button className="delete" type="button">
+              <BackspaceIcon />
+            </button>
+          </FriendList>
+        )
+      )}
     </>
   );
 }

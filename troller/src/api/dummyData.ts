@@ -15,7 +15,7 @@ import gold from './dummyImg/ranked-tier/gold.jpg';
 const dummyChamps = [amu, anivia, ari, bard, barum];
 const dummyPositions = [top, mid, bottom, jungle, utility];
 const dummyTiers = [bronze, silver, gold];
-const dummyNames = ['아이언포우', '에잇', '엘리스', '에브라', '에젤리스'];
+const dummyNames = ['Croco'];
 const dummyWins = [23, 12, 10, 8, 7];
 const dummyLoses = [10, 5, 3, 2, 1];
 const dummyKills = [10, 5, 3, 2, 1];

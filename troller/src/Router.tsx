@@ -37,7 +37,7 @@ export default function Router() {
             <Route path="tier_ability" element={<TierAbility />} />
           </Route>
           <Route path="sub/chat/room" element={<ChatBox />}>
-            <Route path=":roomId" element={<LiveChat />} />
+            <Route path=":opponentLolName/:chatRoomId" element={<LiveChat />} />
           </Route>
         </Route>
       </Routes>
