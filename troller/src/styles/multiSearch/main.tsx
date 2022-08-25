@@ -25,7 +25,7 @@ const SearchBox = styled('form')<{ focused: boolean }>`
   justify-content: center;
   align-items: center;
   background-color: ${props => props.theme.bgColor.dark};
-  margin-top: 100px;
+  margin-top: 30px;
   border-radius: ${`${BORDER_RADIUS}px`};
   position: relative;
   .placeholder {

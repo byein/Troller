@@ -1,25 +1,61 @@
 import React, { useEffect, useState } from 'react';
-import { Outlet, useNavigate, useOutletContext } from 'react-router-dom';
-import { useApi } from '../../hooks/axiosHooks';
+import delayFetcher from '../../hooks/search/delayFetcher';
 import { SearchBox } from '../../styles/multiSearch/main';
+// eslint-disable-next-line import/no-cycle
+import Stats from './stats';
 
-interface ISearchDataType {
-  name: 'sdfsdf';
-  level: 'dsfgdsf';
-} // 임시 데이터
-interface IOutletDataType {
-  searchData: ISearchDataType[];
-  load: boolean;
+interface IUserType {
+  name: string;
+  tierIcon: string;
+  rank: string;
+  point: string;
+  trollPossibility: string;
+}
+
+interface IMostChampionsType {
+  mostThreeChampions: {
+    championUi: string;
+    gamePlayed: string;
+    winRate: string;
+  }[];
+}
+
+interface IPositionsType {
+  firstLinePreference: string;
+  secondLinePreference: string;
+  firstLinePlayed: string;
+  secondLinePlayed: string;
+}
+
+interface IRecordsType {
+  lastTwentyRecords: {
+    win: string;
+    lose: string;
+    winRate: string;
+  };
+  gameRecord: {
+    championUi: string;
+    win: boolean;
+    kill: string;
+    death: string;
+    assist: string;
+    lastPlayTime: string;
+  }[];
+}
+export interface IResultType {
+  info: IUserType | undefined;
+  most: IMostChampionsType | undefined;
+  line: IPositionsType | undefined;
+  gameRecord: IRecordsType | undefined;
 }
 
 function Search() {
-  const navigate = useNavigate();
   const [row, setRow] = useState(1);
   const [text, setText] = useState('');
-  const [isExtracted, setisExtracted] = useState(false);
-  const [load, setload] = useState(true);
+  const [isParsed, setIsParsed] = useState(false);
+  const [load, setload] = useState(false);
   const [focused, setfocused] = useState(false);
-  const [searchData, setsearchData] = useState<ISearchDataType[]>(); // 회의 후 타입지정
+  const [searchData, setsearchData] = useState<IResultType[]>();
   const onChange = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     const { value } = e.currentTarget;
     const rows = value.split('\n').length;
@@ -37,11 +73,12 @@ function Search() {
   };
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setload(true);
     const contents = text.split('\n');
-    const req: { [user: string]: string } = {};
+    let req: string[] = [];
     for (let i = 0; i < row; i += 1) {
-      if (contents[i] !== '') {
-        req[`user${i + 1}`] = contents[i].slice(0, -15);
+      if (contents[i] !== '' && contents[i].length > 14) {
+        req = [...req, contents[i].slice(0, -15)];
       } else {
         alert('멀티서치: 공백 또는 줄바꿈은 없애 주십시오.');
         return; // 공백 줄바꿈 방지
@@ -51,10 +88,58 @@ function Search() {
         return;
       }
     }
-    // const { status, data } = await useApi.get('/TEMPORALAPI', {
-    //   params: {},
-    // }); => 나중에 서버에서 작업하는 경우 사용
-    setisExtracted(true);
+    setIsParsed(true);
+    const getUsersData = async () => {
+      const reqLen = req.length;
+      if (reqLen === 1) {
+        setload(true);
+        const { personalData } = await delayFetcher(req[0]);
+        setsearchData([personalData]);
+        setload(false);
+      } else if (reqLen === 2) {
+        setload(true);
+        const { personalData } = await delayFetcher(req[0]);
+        const { personalData: personalData2 } = await delayFetcher(req[1]);
+        setsearchData([personalData, personalData2]);
+        setload(false);
+      } else if (reqLen === 3) {
+        setload(true);
+        const { personalData } = await delayFetcher(req[0]);
+        const { personalData: personalData2 } = await delayFetcher(req[1]);
+        const { personalData: personalData3 } = await delayFetcher(req[2]);
+        setsearchData([personalData, personalData2, personalData3]);
+        setload(false);
+      } else if (reqLen === 4) {
+        setload(true);
+        const { personalData } = await delayFetcher(req[0]);
+        const { personalData: personalData2 } = await delayFetcher(req[1]);
+        const { personalData: personalData3 } = await delayFetcher(req[2]);
+        const { personalData: personalData4 } = await delayFetcher(req[3]);
+        setsearchData([
+          personalData,
+          personalData2,
+          personalData3,
+          personalData4,
+        ]);
+        setload(false);
+      } else if (reqLen === 5) {
+        setload(true);
+        const { personalData } = await delayFetcher(req[0]);
+        const { personalData: personalData2 } = await delayFetcher(req[1]);
+        const { personalData: personalData3 } = await delayFetcher(req[2]);
+        const { personalData: personalData4 } = await delayFetcher(req[3]);
+        const { personalData: personalData5 } = await delayFetcher(req[4]);
+        setsearchData([
+          personalData,
+          personalData2,
+          personalData3,
+          personalData4,
+          personalData5,
+        ]);
+        setload(false);
+      }
+    };
+    await getUsersData();
   };
   useEffect(() => {
     if (text === '') {
@@ -63,6 +148,9 @@ function Search() {
       setfocused(true);
     }
   }, [text]);
+  useEffect(() => {
+    console.log(searchData);
+  }, [searchData]);
   return (
     <>
       <SearchBox onSubmit={onSubmit} focused={focused}>
@@ -90,11 +178,9 @@ function Search() {
           </button>
         </div>
       </SearchBox>
-      {isExtracted ? <Outlet context={{ load }} /> : null}
+      {isParsed && <Stats searchData={searchData} load={load} />}
     </>
   );
 }
-function useStats() {
-  return useOutletContext<IOutletDataType>();
-}
-export { Search, useStats };
+
+export default Search;
