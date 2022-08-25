@@ -17,9 +17,9 @@ const TRANSPARENT_TXTCOLOR = `rgba(255, 255, 255, 0.5)`;
 
 const GlobalContainer = styled('div')`
   width: 100vw;
-  height: auto;
+  min-height: 100vh;
   position: relative;
-`; // Header와 MainContainer를 감싸는 Container!
+`;
 
 const GlobalHeader = styled('header')<{ pathname: string }>`
   width: 100vw;
@@ -31,7 +31,8 @@ const GlobalHeader = styled('header')<{ pathname: string }>`
   background-color: ${props =>
     props.pathname === '/find_duo' ||
     props.pathname.includes('/multi_search') ||
-    props.pathname.includes('/rank')
+    props.pathname.includes('/rank') ||
+    props.pathname.includes('/sub')
       ? props.theme.bgColor.dark
       : 'none'};
   z-index: 1;
@@ -88,41 +89,64 @@ const GlobalHeader = styled('header')<{ pathname: string }>`
       justify-content: center;
       align-items: center;
       position: relative;
-      .block {
+      .alert {
         display: block;
+        position: absolute;
+        top: 27px;
+        right: 0;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background-color: ${props => props.theme.validation.resolve};
+      }
+      .block {
+        height: 50px;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        border: none;
+        background-color: transparent;
         .mypage {
           cursor: pointer;
+          color: ${props => props.theme.txtColor.primary};
+        }
+        .menuBox {
+          width: 350%;
+          height: auto;
+          position: absolute;
+          top: 50px;
+          border: 1px solid ${props => props.theme.txtColor.primary};
+          border-bottom: none;
+          .menues {
+            .menu {
+              width: 100%;
+              height: 30px;
+              background-color: ${props => props.theme.bgColor.dark};
+              color: ${props => props.theme.txtColor.primary};
+              cursor: pointer;
+              border: none;
+              border-bottom: 1px solid ${props => props.theme.txtColor.primary};
+              position: relative;
+              .alert {
+                position: absolute;
+                top: 12.5px;
+                right: 8px;
+                display: block;
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                background-color: ${props => props.theme.validation.resolve};
+              }
+              ${TRANSITION}
+              &:hover {
+                color: ${props => props.theme.txtColor.selected};
+              }
+            }
+          }
         }
       }
-    }
-  }
-`;
-
-const Menu = styled('span')`
-  width: 100px;
-  height: 80px;
-  background-color: ${props => props.theme.bgColor.light};
-  border-radius: ${`${BORDER_RADIUS}px`};
-  position: absolute;
-  right: 15px;
-  top: 50px;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  .menues {
-    font-size: ${`${DEFAULT_FONTSIZE}px`};
-    width: 100%;
-    height: 40px;
-    color: black;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    &:first-of-type {
-      border-bottom: 1px solid;
-      border-bottom-color: rgba(0, 0, 0, 0.3);
     }
   }
 `;
@@ -142,8 +166,9 @@ const Tab = styled('li')<{ isActive: boolean }>`
 
 const MainContainer = styled('div')<{ pathname: string }>`
   width: 100vw;
-  min-height: 100vh;
-  padding: 80px 15px 0 15px;
+  min-height: 100%;
+  padding: ${props =>
+    props.pathname.includes('/sub') ? `80px 0 0 0` : `80px 15px 0 15px`};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -152,7 +177,8 @@ const MainContainer = styled('div')<{ pathname: string }>`
     ${props =>
       props.pathname === '/find_duo' ||
       props.pathname.includes('/multi_search') ||
-      props.pathname.includes('/rank')
+      props.pathname.includes('/rank') ||
+      props.pathname.includes('/sub')
         ? `0, ${props.theme.bgColor.light} 0, ${props.theme.bgColor.light} 0`
         : `180deg, ${props.theme.bgColor.blue} 0.06%, ${props.theme.bgColor.gray} 100%`}
   );
@@ -170,16 +196,6 @@ const SKELETON_ANIMATION = keyframes`
   }
   100% {
     background-color: #7f8c8d;
-    opacity: 0.5;
-  }
-`;
-const SKELETON_BAR_ANIMATION = keyframes`
-  0% {
-    transform: translateY(0) rotate(-45deg);
-    opacity: 0.3;
-  }
-  100% {
-    transform: translateY(1000px) rotate(-45deg);
     opacity: 0.5;
   }
 `;
@@ -204,5 +220,4 @@ export {
   TRANSPARENT_TXTCOLOR,
   TRANSITION,
   Skeleton,
-  Menu,
 };
