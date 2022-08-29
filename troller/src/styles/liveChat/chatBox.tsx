@@ -40,7 +40,7 @@ const FriendsBox = styled('div')`
 
 const SocketBox = styled('div')`
   width: calc(100% - 700px);
-  height: 650px;
+  height: 80%;
   margin: 80px 46px 0 0;
   border: 1px solid ${props => props.theme.txtColor.selected};
   border-radius: 10px;
