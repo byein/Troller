@@ -199,6 +199,25 @@ const UserStat = styled('div')<{ load: boolean; trollParse: number }>`
         font-size: ${`${DEFAULT_FONTSIZE}px`};
         color: ${props => props.theme.bgColor.light};
       }
+      .winlose {
+        font-size: ${`${DEFAULT_FONTSIZE}px`};
+        color: ${props => props.theme.txtColor.selected};
+      }
+      .winrate {
+        font-size: ${`${DEFAULT_FONTSIZE}px`};
+        color: ${props => props.theme.txtColor.selected};
+        margin: 0 0 0 10px;
+      }
+    }
+    .records {
+      width: 100%;
+      height: 125px;
+      .record {
+        width: 100%;
+        height: 20px;
+        background-color: white;
+        margin: 5px 0 0 0;
+      }
     }
   }
 `;

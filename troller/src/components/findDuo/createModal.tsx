@@ -70,22 +70,24 @@ function CreateModal() {
         e.preventDefault();
         alert('듀오찾기: 포지션을 선택 해 주세요');
       } else {
-        console.table(request);
-        // const { status, data } = await useAccessApi.post<IHeadDataType[]>(
-        //   'registerNewContentAPI',
-        //   request
-        // );
-        // if (status === 200) {
-        //   setResponseData(data);
-        //   window.location.reload();
-        // }
+        const { status, data } = await useAccessApi.post<IHeadDataType[]>(
+          '/api/findDuo/exampleEndPoint/create',
+          request
+        ); // 500 error
+        if (status === 200) {
+          console.log(data);
+          // setResponseData(data);
+        }
       }
     })();
   };
   return (
     <ModalWrapper>
       <WelcomeBox />
-      <Modal onSubmit={e => onSubmit(e)} mike={mike}>
+      <Modal
+        onSubmit={(e: React.FormEvent<HTMLFormElement>) => onSubmit(e)}
+        mike={mike}
+      >
         <div className="header">
           <div className="positions">
             {positions.map((position, index) => {
@@ -95,7 +97,7 @@ function CreateModal() {
                   key={position.favorPositionDesc}
                   className="position"
                   type="button"
-                  onClick={e => {
+                  onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                     selectPosition(index);
                   }}
                 >

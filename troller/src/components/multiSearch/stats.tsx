@@ -234,6 +234,20 @@ function Stats({
           <div className="recordBox">
             <div className="header">
               <span className="title">최근 전적</span>
+              <div className="rs">
+                <span className="winlose">
+                  {userData.gameRecord?.lastTwentyRecords.win}승{' '}
+                  {userData.gameRecord?.lastTwentyRecords.lose}패
+                </span>
+                <span className="winrate">
+                  {userData.gameRecord?.lastTwentyRecords.winRate.split('.')[1]}
+                </span>
+              </div>
+            </div>
+            <div className="records">
+              {userData.gameRecord?.gameRecord.map(record => (
+                <div className="record" />
+              ))}
             </div>
           </div>
         </UserStat>

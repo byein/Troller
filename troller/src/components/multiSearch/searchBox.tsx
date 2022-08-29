@@ -148,9 +148,6 @@ function Search() {
       setfocused(true);
     }
   }, [text]);
-  useEffect(() => {
-    console.log(searchData);
-  }, [searchData]);
   return (
     <>
       <SearchBox onSubmit={onSubmit} focused={focused}>

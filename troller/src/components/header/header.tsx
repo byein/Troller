@@ -30,7 +30,7 @@ function MyPageHeader() {
               className="menu"
               type="button"
               onClick={() => {
-                router('/sub/chat/room/friends');
+                router('/sub/chat/room/friends/all');
               }}
             >
               live chat

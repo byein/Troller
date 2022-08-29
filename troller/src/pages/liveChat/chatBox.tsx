@@ -1,46 +1,13 @@
-import { useEffect, useState } from 'react';
-import * as StompJs from '@stomp/stompjs';
+import { Outlet, useParams } from 'react-router-dom';
 import {
   ChatWrapper,
   FriendsBox,
   SocketBox,
 } from '../../styles/liveChat/chatBox';
 import ChatFriends from '../../components/liveChat/friends';
-import LiveChat from '../../components/liveChat/liveChat';
-import { useAccessApi } from '../../hooks/axiosHooks';
 
 function ChatBox() {
-  const [lolName, setlolName] = useState('');
-
-  const client = new StompJs.Client({
-    brokerURL: 'ws://exampleEndPoint/ws',
-    // connectHeaders: {
-    //   lolName,
-    // },
-    reconnectDelay: 5000,
-    debug: () => {
-      alert('연결 실패');
-    },
-  }); // 소켓 연결
-
-  const connectUser = async () => {
-    client.onConnect = frame => {
-      console.log(frame);
-    };
-    client.onStompError = frame => {
-      console.log(frame);
-    };
-    client.activate();
-  };
-
-  useEffect(() => {
-    if (lolName !== '') {
-      (async () => {
-        const { data } = await useAccessApi.get('findlolName');
-        setlolName(data.lolName);
-      })();
-    }
-  });
+  const { opponentLolName, chatRoomId } = useParams();
   return (
     <ChatWrapper>
       <div className="contents">
@@ -49,7 +16,9 @@ function ChatBox() {
           <ChatFriends />
         </FriendsBox>
         <SocketBox>
-          <LiveChat />
+          {opponentLolName !== 'friends' && chatRoomId !== 'all' ? (
+            <Outlet />
+          ) : null}
         </SocketBox>
       </div>
     </ChatWrapper>
