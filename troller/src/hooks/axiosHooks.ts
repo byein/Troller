@@ -38,6 +38,7 @@ useAccessApi.interceptors.response.use(
       } = await axios.patch(
         '/api/jwt/refresh/re-issuance',
         {
+          accessToken: ACCESS_TOKEN,
           refreshToken: REFRESH_TOKEN,
         },
         {

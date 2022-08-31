@@ -15,7 +15,7 @@ const delay = (lolName: string, api: string) => {
       } catch (e) {
         reject(e);
       }
-    }, 1000);
+    }, 500);
   });
 };
 

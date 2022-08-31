@@ -41,11 +41,24 @@ function Contents({
   const { handleSubmit } = useForm();
 
   const moveToChatRoom = async () => {
-    // const { status } = await useAccessApi.get('/chat/room');
-    // if (status === 200) {
-    router(`/sub/chat/room/${lolName}`);
-    // }
-  }; // 채팅방으로 이동
+    const {
+      data: { chatRoomId, opponentLolName },
+      status,
+    } = await useAccessApi.post(`/api/chat/room?opponent=규 턴`);
+    if (status === 200 || status === 201) {
+      router(`/sub/chat/room/${opponentLolName}/${chatRoomId}`);
+    }
+  }; // fake for the test
+
+  // const moveToChatRoom = async () => {
+  //   const {
+  //     data: { chatRoomId, opponentLolName },
+  //     status,
+  //   } = await useAccessApi.post(`/api/chat/room?opponent=${lolName}`);
+  //   if (status === 200 || status === 201) {
+  //     router(`/sub/chat/room/${opponentLolName}/${chatRoomId}`);
+  //   }
+  // }; // The REAL one
 
   const onSubmit = handleSubmit(async () => {
     // const { status } = await useAccessApi.delete('exampleDeleteAPI',{
