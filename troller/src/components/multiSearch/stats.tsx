@@ -1,5 +1,5 @@
 /* eslint-disable no-nested-ternary */
-import { useApi } from '../../hooks/axiosHooks';
+import { useEffect } from 'react';
 import { Record, StatWrapper, UserStat } from '../../styles/multiSearch/stats';
 // eslint-disable-next-line import/no-cycle
 import { IResultType } from './searchBox';
@@ -9,103 +9,6 @@ import mid from '../../static/img/common/positions/mid_focused.png';
 import bottom from '../../static/img/common/positions/bottom_focused.png';
 import util from '../../static/img/common/positions/utility_focused.png';
 
-// dummyChampionImage
-import amu from '../../api/dummyImg/champions/amu.jpg';
-import anivia from '../../api/dummyImg/champions/anivia.jpg';
-import ari from '../../api/dummyImg/champions/ari.jpg';
-import bard from '../../api/dummyImg/champions/bard.jpg';
-import barum from '../../api/dummyImg/champions/barum.jpg';
-
-const dummyData: IResultType[] = [
-  {
-    info: {
-      name: 'JUNKING',
-      tierIcon:
-        'https://i.pinimg.com/originals/69/61/ab/6961ab1af799f02df28fa74278d78120.png',
-      rank: 'I',
-      point: '1445',
-      trollPossibility: '0.98%',
-    },
-    most: {
-      mostThreeChampions: [
-        {
-          championUi:
-            'https://www.leagueoflegends.com/static/fighter-7a08920b696ecdb673edeeae1d3c616e.png',
-          gamePlayed: '10',
-          winRate: '0.98%',
-        },
-        {
-          championUi:
-            'https://www.leagueoflegends.com/static/assassin-d64d3ffdda15e1eed637aefe6a2c7fee.png',
-          gamePlayed: '20',
-          winRate: '0.98%',
-        },
-        {
-          championUi:
-            'https://www.leagueoflegends.com/static/support-d63ae08baf517425864ddc020a5871d5.png',
-          gamePlayed: '0',
-          winRate: '0.98%',
-        },
-      ],
-    },
-    line: {
-      firstLinePreference: 'Top',
-      secondLinePreference: 'Jungle',
-      firstLinePlayed: '10',
-      secondLinePlayed: '5',
-    },
-    gameRecord: {
-      lastTwentyRecords: {
-        win: '10',
-        lose: '5',
-        winRate: '0.98%',
-      },
-      gameRecord: [
-        {
-          championUi: amu,
-          win: true,
-          kill: '15',
-          death: '3',
-          assist: '2',
-          lastPlayTime: '2시간 전',
-        },
-        {
-          championUi: anivia,
-          win: false,
-          kill: '15',
-          death: '53',
-          assist: '54',
-          lastPlayTime: '5시간 전',
-        },
-        {
-          championUi: ari,
-          win: true,
-          kill: '50',
-          death: '25',
-          assist: '5',
-          lastPlayTime: '3일 전',
-        },
-        {
-          championUi: bard,
-          win: false,
-          kill: '10',
-          death: '7',
-          assist: '60',
-          lastPlayTime: '25일 전',
-        },
-        {
-          championUi: barum,
-          win: true,
-          kill: '10',
-          death: '5',
-          assist: '5',
-          lastPlayTime: '45일 전',
-        },
-      ],
-    },
-  },
-];
-
 function Stats({
   searchData,
   load,
@@ -113,41 +16,32 @@ function Stats({
   searchData: IResultType[] | undefined;
   load: boolean;
 }) {
-  const trollParse = parseFloat(
-    dummyData[0].info!.trollPossibility.split('%')[0]
-  );
   return (
     <StatWrapper>
-      {dummyData?.map(userData => (
-        <UserStat load={load} trollParse={trollParse}>
+      {searchData?.map(userData => (
+        <UserStat load={load} key={userData.info?.name}>
           <div className="trollBox">
             <div className="troll">
               <span>트롤확률 </span>
               <span className="trollPer">
-                {userData.info!.trollPossibility}
+                {userData.info?.trollPossibility}
               </span>
             </div>
-            <span className="trollAlert">
-              {trollParse > 25 ? 'Danger' : 'Safe'}
-            </span>
+            <span className="trollAlert">Safe</span>
           </div>
           <div className="userBox">
             <div className="name">
-              <span>{userData.info!.name}</span>
+              <span>{userData.info?.name}</span>
             </div>
             <div className="tier">
               <div className="tierContainer">
                 <div className="tierIcon">
-                  <img
-                    className="icon"
-                    src={userData.info!.tierIcon}
-                    alt="tier"
-                  />
+                  <img className="icon" src={userData.info?.icon} alt="tier" />
                 </div>
-                <span className="rank"> - {userData.info!.rank}</span>
+                <span className="rank">{userData.info?.rank}</span>
               </div>
               <div className="pointContainer">
-                <span className="point"> {userData.info!.point}P</span>
+                <span className="point"> {userData.info?.point}P</span>
               </div>
             </div>
           </div>
@@ -155,7 +49,7 @@ function Stats({
             <span className="title">챔피언 TOP 3</span>
             <div className="content">
               <div className="inner">
-                {userData.most?.mostThreeChampions?.map(champ => {
+                {userData.most?.mostThreeChampion?.map(champ => {
                   return (
                     <div className="champs">
                       <div className="imgBox">
@@ -183,13 +77,13 @@ function Stats({
                 <img
                   className="icon"
                   src={
-                    userData.line?.firstLinePreference === 'Top'
+                    userData.line?.firstLinePreference === 'TOP'
                       ? top
-                      : userData.line?.firstLinePreference === 'Jungle'
+                      : userData.line?.firstLinePreference === 'JUNGLE'
                       ? jungle
-                      : userData.line?.firstLinePreference === 'Bottom'
+                      : userData.line?.firstLinePreference === 'BOTTOM'
                       ? bottom
-                      : userData.line?.firstLinePreference === 'Middle'
+                      : userData.line?.firstLinePreference === 'MIDDLE'
                       ? mid
                       : util
                   }
@@ -201,7 +95,7 @@ function Stats({
                   {userData.line?.firstLinePreference.toUpperCase()}
                 </span>
                 <span className="played">
-                  {userData.line?.firstLinePlayed} 게임
+                  {userData.line?.firstLinePlayed}게임
                 </span>
               </div>
             </div>
@@ -228,7 +122,7 @@ function Stats({
                   {userData.line?.secondLinePreference.toUpperCase()}
                 </span>
                 <span className="played">
-                  {userData.line?.secondLinePlayed} 게임
+                  {userData.line?.secondLinePlayed}게임
                 </span>
               </div>
             </div>
@@ -236,19 +130,10 @@ function Stats({
           <div className="recordBox">
             <div className="header">
               <span className="title">최근 전적</span>
-              <div className="rs">
-                <span className="winlose">
-                  {userData.gameRecord?.lastTwentyRecords.win}승{' '}
-                  {userData.gameRecord?.lastTwentyRecords.lose}패
-                </span>
-                <span className="winrate">
-                  {userData.gameRecord?.lastTwentyRecords.winRate.split('.')[1]}
-                </span>
-              </div>
             </div>
             <div className="records">
-              {userData.gameRecord?.gameRecord.map(record => (
-                <Record win={record.win}>
+              {userData.gameRecord?.gameRecord.slice(0, 5).map(record => (
+                <Record win={record.win} key={record.lastPlayTime}>
                   <div className="left">
                     <div className="championBox">
                       <img
@@ -276,3 +161,100 @@ function Stats({
 }
 
 export default Stats;
+
+// dummyChampionImage
+// import amu from '../../api/dummyImg/champions/amu.jpg';
+// import anivia from '../../api/dummyImg/champions/anivia.jpg';
+// import ari from '../../api/dummyImg/champions/ari.jpg';
+// import bard from '../../api/dummyImg/champions/bard.jpg';
+// import barum from '../../api/dummyImg/champions/barum.jpg';
+
+// const dummyData: IResultType[] = [
+//   {
+//     info: {
+//       name: 'JUNKING',
+//       tierIcon:
+//         'https://i.pinimg.com/originals/69/61/ab/6961ab1af799f02df28fa74278d78120.png',
+//       rank: 'I',
+//       point: '1445',
+//       trollPossibility: '0.98%',
+//     },
+//     most: {
+//       mostThreeChampions: [
+//         {
+//           championUi:
+//             'https://www.leagueoflegends.com/static/fighter-7a08920b696ecdb673edeeae1d3c616e.png',
+//           gamePlayed: '10',
+//           winRate: '0.98%',
+//         },
+//         {
+//           championUi:
+//             'https://www.leagueoflegends.com/static/assassin-d64d3ffdda15e1eed637aefe6a2c7fee.png',
+//           gamePlayed: '20',
+//           winRate: '0.98%',
+//         },
+//         {
+//           championUi:
+//             'https://www.leagueoflegends.com/static/support-d63ae08baf517425864ddc020a5871d5.png',
+//           gamePlayed: '0',
+//           winRate: '0.98%',
+//         },
+//       ],
+//     },
+//     line: {
+//       firstLinePreference: 'Top',
+//       secondLinePreference: 'Jungle',
+//       firstLinePlayed: '10',
+//       secondLinePlayed: '5',
+//     },
+//     gameRecord: {
+//       lastTwentyRecords: {
+//         win: '10',
+//         lose: '5',
+//         winRate: '0.98%',
+//       },
+//       gameRecord: [
+//         {
+//           championUi: amu,
+//           win: true,
+//           kill: '15',
+//           death: '3',
+//           assist: '2',
+//           lastPlayTime: '2시간 전',
+//         },
+//         {
+//           championUi: anivia,
+//           win: false,
+//           kill: '15',
+//           death: '53',
+//           assist: '54',
+//           lastPlayTime: '5시간 전',
+//         },
+//         {
+//           championUi: ari,
+//           win: true,
+//           kill: '50',
+//           death: '25',
+//           assist: '5',
+//           lastPlayTime: '3일 전',
+//         },
+//         {
+//           championUi: bard,
+//           win: false,
+//           kill: '10',
+//           death: '7',
+//           assist: '60',
+//           lastPlayTime: '25일 전',
+//         },
+//         {
+//           championUi: barum,
+//           win: true,
+//           kill: '10',
+//           death: '5',
+//           assist: '5',
+//           lastPlayTime: '45일 전',
+//         },
+//       ],
+//     },
+//   },
+// ];

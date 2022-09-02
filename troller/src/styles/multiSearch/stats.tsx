@@ -1,3 +1,4 @@
+import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import { BORDER_RADIUS, DEFAULT_FONTSIZE } from '../global/global';
 
@@ -8,13 +9,14 @@ const StatWrapper = styled('div')`
   justify-content: space-evenly;
   margin: 30px 0 0 0;
 `;
-const UserStat = styled('div')<{ load: boolean; trollParse: number }>`
+const UserStat = styled('div')<{ load: boolean }>`
   width: 270px;
   height: 100%;
   color: ${props => props.theme.txtColor.primary};
   text-align: center;
   border-radius: ${`${BORDER_RADIUS - 5}px`};
-  background-color: ${props => props.theme.bgColor.dark};
+  background-color: ${props =>
+    props.load ? props.theme.txtColor.primary : props.theme.bgColor.dark};
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   .trollBox {
     width: 100%;
@@ -32,14 +34,8 @@ const UserStat = styled('div')<{ load: boolean; trollParse: number }>`
       display: block;
       padding: 4px;
       border-radius: 5px;
-      color: ${props =>
-        props.trollParse > 25
-          ? props.theme.bgColor.light
-          : props.theme.bgColor.dark};
-      background-color: ${props =>
-        props.trollParse > 25
-          ? props.theme.validation.error
-          : props.theme.validation.resolve};
+      color: ${props => props.theme.bgColor.light};
+      background-color: ${props => props.theme.bgColor.dark};
     }
   }
   .userBox {
@@ -74,6 +70,7 @@ const UserStat = styled('div')<{ load: boolean; trollParse: number }>`
           display: flex;
           justify-content: center;
           align-items: center;
+          margin: 0 5px 0 0;
           .icon {
             width: 100%;
             height: 100%;
@@ -199,15 +196,6 @@ const UserStat = styled('div')<{ load: boolean; trollParse: number }>`
         font-size: ${`${DEFAULT_FONTSIZE}px`};
         color: ${props => props.theme.bgColor.light};
       }
-      .winlose {
-        font-size: ${`${DEFAULT_FONTSIZE}px`};
-        color: ${props => props.theme.txtColor.selected};
-      }
-      .winrate {
-        font-size: ${`${DEFAULT_FONTSIZE}px`};
-        color: ${props => props.theme.txtColor.selected};
-        margin: 0 0 0 10px;
-      }
     }
     .records {
       width: 100%;
@@ -267,4 +255,22 @@ const Record = styled.div<{ win: boolean }>`
   }
 `;
 
-export { StatWrapper, UserStat, Record };
+const LOADER_ANIMATION = keyframes`
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+`;
+
+const Loader = styled.div`
+  border: 3px solid transparent;
+  border-top: 3px solid #3498db;
+  border-radius: 50%;
+  width: 27px;
+  height: 27px;
+  animation: ${LOADER_ANIMATION} 1s linear infinite;
+`;
+
+export { StatWrapper, UserStat, Record, Loader };
