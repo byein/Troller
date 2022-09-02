@@ -1,5 +1,4 @@
 /* eslint-disable no-nested-ternary */
-import { useEffect } from 'react';
 import { Record, StatWrapper, UserStat } from '../../styles/multiSearch/stats';
 // eslint-disable-next-line import/no-cycle
 import { IResultType } from './searchBox';
