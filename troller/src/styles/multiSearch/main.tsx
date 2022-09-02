@@ -107,7 +107,8 @@ const GuideBox = styled('div')`
     .desc {
       width: 100%;
       height: 30%;
-      background-color: rgba(0, 0, 0, 0.3);
+      background-color: white;
+      padding: 10px;
     }
   }
 `;

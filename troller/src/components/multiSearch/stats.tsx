@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
 import { useApi } from '../../hooks/axiosHooks';
-import { StatWrapper, UserStat } from '../../styles/multiSearch/stats';
+import { Record, StatWrapper, UserStat } from '../../styles/multiSearch/stats';
 // eslint-disable-next-line import/no-cycle
 import { IResultType } from './searchBox';
 import top from '../../static/img/common/positions/top_focused.png';
@@ -9,10 +9,17 @@ import mid from '../../static/img/common/positions/mid_focused.png';
 import bottom from '../../static/img/common/positions/bottom_focused.png';
 import util from '../../static/img/common/positions/utility_focused.png';
 
+// dummyChampionImage
+import amu from '../../api/dummyImg/champions/amu.jpg';
+import anivia from '../../api/dummyImg/champions/anivia.jpg';
+import ari from '../../api/dummyImg/champions/ari.jpg';
+import bard from '../../api/dummyImg/champions/bard.jpg';
+import barum from '../../api/dummyImg/champions/barum.jpg';
+
 const dummyData: IResultType[] = [
   {
     info: {
-      name: 'cwctboy',
+      name: 'JUNKING',
       tierIcon:
         'https://i.pinimg.com/originals/69/61/ab/6961ab1af799f02df28fa74278d78120.png',
       rank: 'I',
@@ -55,8 +62,7 @@ const dummyData: IResultType[] = [
       },
       gameRecord: [
         {
-          championUi:
-            'https://www.leagueoflegends.com/static/fighter-7a08920b696ecdb673edeeae1d3c616e.png',
+          championUi: amu,
           win: true,
           kill: '15',
           death: '3',
@@ -64,8 +70,7 @@ const dummyData: IResultType[] = [
           lastPlayTime: '2시간 전',
         },
         {
-          championUi:
-            'https://www.leagueoflegends.com/static/fighter-7a08920b696ecdb673edeeae1d3c616e.png',
+          championUi: anivia,
           win: false,
           kill: '15',
           death: '53',
@@ -73,8 +78,7 @@ const dummyData: IResultType[] = [
           lastPlayTime: '5시간 전',
         },
         {
-          championUi:
-            'https://www.leagueoflegends.com/static/fighter-7a08920b696ecdb673edeeae1d3c616e.png',
+          championUi: ari,
           win: true,
           kill: '50',
           death: '25',
@@ -82,8 +86,7 @@ const dummyData: IResultType[] = [
           lastPlayTime: '3일 전',
         },
         {
-          championUi:
-            'https://www.leagueoflegends.com/static/fighter-7a08920b696ecdb673edeeae1d3c616e.png',
+          championUi: bard,
           win: false,
           kill: '10',
           death: '7',
@@ -91,8 +94,7 @@ const dummyData: IResultType[] = [
           lastPlayTime: '25일 전',
         },
         {
-          championUi:
-            'https://www.leagueoflegends.com/static/fighter-7a08920b696ecdb673edeeae1d3c616e.png',
+          championUi: barum,
           win: true,
           kill: '10',
           death: '5',
@@ -199,7 +201,7 @@ function Stats({
                   {userData.line?.firstLinePreference.toUpperCase()}
                 </span>
                 <span className="played">
-                  {userData.line?.firstLinePlayed}회
+                  {userData.line?.firstLinePlayed} 게임
                 </span>
               </div>
             </div>
@@ -226,7 +228,7 @@ function Stats({
                   {userData.line?.secondLinePreference.toUpperCase()}
                 </span>
                 <span className="played">
-                  {userData.line?.secondLinePlayed}회
+                  {userData.line?.secondLinePlayed} 게임
                 </span>
               </div>
             </div>
@@ -246,7 +248,24 @@ function Stats({
             </div>
             <div className="records">
               {userData.gameRecord?.gameRecord.map(record => (
-                <div className="record" />
+                <Record win={record.win}>
+                  <div className="left">
+                    <div className="championBox">
+                      <img
+                        className="championUi"
+                        src={record.championUi}
+                        alt="champion"
+                      />
+                    </div>
+                    <span className="isWin">{record.win ? '승' : '패'}</span>
+                  </div>
+                  <div className="kdaBox">
+                    <span className="kda">
+                      {record.kill} / {record.death} / {record.assist}
+                    </span>
+                  </div>
+                  <span className="time">23시간 전</span>
+                </Record>
               ))}
             </div>
           </div>

@@ -134,7 +134,7 @@ const UserStat = styled('div')<{ load: boolean; trollParse: number }>`
             .played {
               display: block;
               width: 100%;
-              font-size: ${`${DEFAULT_FONTSIZE - 4}px`};
+              font-size: ${`${DEFAULT_FONTSIZE - 2}px`};
               margin: 0 0 3px 0;
             }
           }
@@ -212,14 +212,59 @@ const UserStat = styled('div')<{ load: boolean; trollParse: number }>`
     .records {
       width: 100%;
       height: 125px;
-      .record {
-        width: 100%;
-        height: 20px;
-        background-color: white;
-        margin: 5px 0 0 0;
-      }
     }
   }
 `;
 
-export { StatWrapper, UserStat };
+const Record = styled.div<{ win: boolean }>`
+  width: 100%;
+  height: 20px;
+  margin: 5px 0 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .left {
+    width: 15%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .championBox {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      overflow: hidden;
+      .championUi {
+        width: 23px;
+        height: 100%;
+      }
+    }
+    .isWin {
+      font-size: ${`${DEFAULT_FONTSIZE - 2}px`};
+      font-weight: 600;
+      color: ${props => (props.win ? '#149eda' : '#DB6A9E')};
+    }
+  }
+  .kdaBox {
+    width: 35%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    background-color: ${props => (props.win ? '#149eda' : '#DB6A9E')};
+    .kda {
+      font-size: ${`${DEFAULT_FONTSIZE - 2}px`};
+      color: ${props => props.theme.bgColor.light};
+    }
+  }
+  .time {
+    font-size: ${`${DEFAULT_FONTSIZE - 2}px`};
+    color: white;
+  }
+`;
+
+export { StatWrapper, UserStat, Record };
