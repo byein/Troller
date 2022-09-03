@@ -19,14 +19,18 @@ import Diamond from "../../static/img/ranked-emblems/Emblem_Diamond.png";
 import Master from "../../static/img/ranked-emblems/Emblem_Master.png";
 import GrandMaster from "../../static/img/ranked-emblems/Emblem_Grandmaster.png";
 import Challenger from "../../static/img/ranked-emblems/Emblem_Challenger.png";
+
 export interface UserInfoProps {
-	nickname: string;
-	profileImg: string;
-	tier: string;
-	winRate: number;
-	winRecord: number;
-	loseRecord: number;
-	level: number;
+	name: string | undefined;
+	icon: string | undefined;
+	tier: string | undefined;
+	winRate: string | undefined;
+	win: string | undefined;
+	lose: string | undefined;
+	level: string | undefined;
+	trollPossibility: string | undefined;
+	point: string | undefined;
+	rank: string | undefined;
 }
 
 enum TierData {
@@ -42,7 +46,7 @@ enum TierData {
 	CHALLENGER = "CHALLENGER",
 }
 
-function TierImage({ tier }: { tier: string }) {
+function TierImage({ tier }: { tier: string | undefined }) {
 	// img url 임시 세팅.
 	let tierImageUrl;
 	switch (tier) {
@@ -83,8 +87,8 @@ function Record({
 	winRecord,
 	loseRecord,
 }: {
-	winRecord: number;
-	loseRecord: number;
+	winRecord: string | undefined;
+	loseRecord: string | undefined;
 }) {
 	return (
 		<Records>
@@ -94,41 +98,40 @@ function Record({
 	);
 }
 
-function ProfileImage({ profileImg }: { profileImg: string }) {
+function ProfileImage({ profileImg }: { profileImg: string | undefined }) {
 	return <ProfileImageWrapper url={profileImg} />;
 }
 
 function ProfileInfo({
-	nickname,
+	name,
+	icon,
 	tier,
 	winRate,
+	win,
+	lose,
 	level,
-	winRecord,
-	loseRecord,
-}: {
-	nickname: string;
-	tier: string;
-	winRate: number;
-	level: number;
-	winRecord: number;
-	loseRecord: number;
-}) {
+	trollPossibility,
+	point,
+	rank,
+}: UserInfoProps) {
 	return (
 		<ProfileInfoWrapper>
 			<TierNickname>
 				<TierImage tier={tier} />
-				<UserNickName>{nickname}</UserNickName>
+				<UserNickName>{name}</UserNickName>
 			</TierNickname>
 
-			<Tier>{tier}</Tier>
+			<Tier>
+				{tier} {rank}
+			</Tier>
 			<InfoGlobalWrapper>
 				<div>
 					<UserInfoDiv>Lv. {level}</UserInfoDiv>
 					<UserInfoDiv>Win_Rate: {winRate}</UserInfoDiv>
-					<UserInfoDiv>Troll_possibility: {100 - winRate}%</UserInfoDiv>
+					<UserInfoDiv>Troll_possibility: {trollPossibility}</UserInfoDiv>
 				</div>
 				<div>
-					<Record winRecord={winRecord} loseRecord={loseRecord} />
+					<Record winRecord={win} loseRecord={lose} />
 				</div>
 			</InfoGlobalWrapper>
 		</ProfileInfoWrapper>
@@ -136,24 +139,31 @@ function ProfileInfo({
 }
 
 function UserInfo({
-	nickname,
-	profileImg,
+	name,
+	icon,
 	tier,
 	winRate,
-	winRecord,
-	loseRecord,
+	win,
+	lose,
 	level,
+	trollPossibility,
+	point,
+	rank,
 }: UserInfoProps) {
 	return (
 		<UserInfoWrapper>
-			<ProfileImage profileImg={profileImg} />
+			<ProfileImage profileImg={icon} />
 			<ProfileInfo
-				nickname={nickname}
+				name={name}
+				icon={icon}
 				tier={tier}
 				winRate={winRate}
+				win={win}
+				lose={lose}
 				level={level}
-				winRecord={winRecord}
-				loseRecord={loseRecord}
+				trollPossibility={trollPossibility}
+				point={point}
+				rank={rank}
 			/>
 		</UserInfoWrapper>
 	);

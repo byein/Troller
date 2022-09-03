@@ -1,5 +1,5 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { ResultProps } from "../../pages/fullSearch/fullSearch";
 import {
 	AverageKDA,
 	Bar,
@@ -9,7 +9,6 @@ import {
 	ChampionProfile,
 	ChampionWinLose,
 	ChampionWrapper,
-	Chart,
 	ChartText,
 	KDAWrapper,
 	KillParticipation,
@@ -24,59 +23,48 @@ import {
 	SumRecordsWrapper,
 	SumRecordTitleWrapper,
 } from "../../styles/fullSearch/sumRecords";
+import top from "../../static/img/common/positions/top_focused.png";
+import jungle from "../../static/img/common/positions/jungle_focused.png";
+import mid from "../../static/img/common/positions/mid_focused.png";
+import bottom from "../../static/img/common/positions/bottom_focused.png";
+import util from "../../static/img/common/positions/utility_focused.png";
+import { Pie } from "@nivo/pie";
 
 interface WinLoseProps {
-	lose: string;
-	draw: string;
-	win: string;
+	lose: string | undefined;
+	draw: string | undefined;
+	win: string | undefined;
 }
 interface KDAProps {
-	death: string;
-	assist: string;
-	kda: string;
-	winRate: string;
-	kill: string;
+	death: string | undefined;
+	assist: string | undefined;
+	kda: string | undefined;
+	winRate: string | undefined;
+	kill: string | undefined;
 }
 interface WinLoseKDAProps {
-	averageKill: string;
-	lose: string;
-	averageKda: string;
-	draw: string;
-	winRate: string;
-	win: string;
-	averageAssist: string;
-	averageDeath: string;
+	kill: string | undefined;
+	lose: string | undefined;
+	kda: string | undefined;
+	draw: string | undefined;
+	winRate: string | undefined;
+	win: string | undefined;
+	assist: string | undefined;
+	death: string | undefined;
 }
 
 interface ChampionProps {
-	championName: string;
-	winRate: string;
-	win: string;
-	lose: string;
-	kda: string;
-}
-
-interface LatestTwentyRecordsProps {
-	averageKill: string;
-	lose: string;
-	averageKda: string;
-	draw: string;
-	winRate: string;
-	win: string;
-	averageAssist: string;
-	averageDeath: string;
-}
-
-interface PositionListProps {
-	firstLinePlayed: string;
-	firstLinePreference: string;
-	secondLinePlayed: string;
-	secondLinePreference: string;
+	championName: string | undefined;
+	winRate: string | undefined;
+	win: string | undefined;
+	lose: string | undefined;
+	kda: string | undefined;
+	championUi: string | undefined;
 }
 
 interface PositionProps {
-	linePlayed: string;
-	linePreference: string;
+	linePlayed: string | undefined;
+	linePreference: string | undefined;
 }
 
 const WinLose: React.FC<WinLoseProps> = ({ win, draw, lose }) => {
@@ -84,27 +72,6 @@ const WinLose: React.FC<WinLoseProps> = ({ win, draw, lose }) => {
 		<SumRecordTitleWrapper>
 			20전 {win}승 {lose}패 {draw}무
 		</SumRecordTitleWrapper>
-	);
-};
-
-const Kill = ({ kill }: { kill: string }) => {
-	return <span>{kill}</span>;
-};
-
-const Death = ({ death }: { death: string }) => {
-	return <span>{death}</span>;
-};
-const Assistant = ({ assist }: { assist: string }) => {
-	return <span>{assist}</span>;
-};
-
-const KDA: React.FC<KDAProps> = ({ kill, death, assist }) => {
-	return (
-		<div>
-			<Kill kill={kill} />/
-			<Death death={death} />/
-			<Assistant assist={assist} />
-		</div>
 	);
 };
 
@@ -117,19 +84,63 @@ const UserInfo: React.FC<KDAProps> = ({
 }) => {
 	return (
 		<div>
-			<KDA kill={kill} death={death} assist={assist} kda={"0"} winRate={"0"} />
+			<div>
+				{kill}/{death}/{assist}
+			</div>
 			<AverageKDA>{kda}</AverageKDA>
 			<KillParticipation>킬 관여 00%</KillParticipation>
 		</div>
 	);
 };
+const MyResponsivePie = ({ data /* see data tab */ }: { data: any }) => (
+	<Pie
+		data={data}
+		margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
+		innerRadius={0.6}
+		padAngle={1}
+		cornerRadius={5}
+		activeOuterRadiusOffset={5}
+		colors={{ scheme: "category10" }}
+		borderColor={{
+			from: "color",
+			modifiers: [["darker", 0.2]],
+		}}
+		arcLinkLabelsSkipAngle={15}
+		arcLinkLabelsTextColor="#ffffff"
+		arcLinkLabelsOffset={5}
+		arcLinkLabelsDiagonalLength={15}
+		arcLinkLabelsStraightLength={15}
+		arcLinkLabelsThickness={2}
+		arcLinkLabelsColor={{ from: "color", modifiers: [] }}
+		arcLabelsSkipAngle={15}
+		arcLabelsTextColor="#ffffff"
+		legends={[]}
+		height={88}
+		width={88}
+	/>
+);
 
-function WinLoseChart({ winRate }: { winRate: string }) {
+function WinLoseChart({ winRate }: { winRate: string | undefined }) {
+	const winRateModified = winRate?.split("%")[0];
+	const chartData = [
+		{
+			id: "win",
+			label: "win",
+			value: winRateModified,
+			color: "hsl(162, 70%, 50%)",
+		},
+		{
+			id: "lose",
+			label: "lose",
+			value: 100 - Number(winRateModified),
+			color: "hsl(242, 70%, 50%)",
+		},
+	];
 	return (
-		<>
-			<Chart />
+		<div style={{ paddingRight: 10, display: "flex" }}>
+			<MyResponsivePie data={chartData} />
 			<ChartText>{winRate}</ChartText>
-		</>
+		</div>
 	);
 }
 
@@ -152,21 +163,21 @@ const Stats: React.FC<WinLoseKDAProps> = ({
 	lose,
 	draw,
 	win,
-	averageDeath,
-	averageAssist,
-	averageKill,
-	averageKda,
+	death,
+	assist,
+	kill,
+	kda,
 	winRate,
 }) => {
 	return (
 		<StatsWrapper>
 			<WinLose win={win} lose={lose} draw={draw} />
 			<KDAPart
-				death={averageDeath}
-				assist={averageAssist}
-				kda={averageKda}
+				death={death}
+				assist={assist}
+				kda={kda}
 				winRate={winRate}
-				kill={averageKill}
+				kill={kill}
 			/>
 		</StatsWrapper>
 	);
@@ -178,10 +189,11 @@ const ChampionInfo: React.FC<ChampionProps> = ({
 	win,
 	lose,
 	kda,
+	championUi,
 }) => {
 	return (
 		<ChampionProfile>
-			<ChampionImageWrapper />
+			<ChampionImageWrapper src={championUi} alt={championName} />
 			<ChampionInfoWrapper>
 				<ChampionName>{championName}</ChampionName>
 				<ChampionWinLose>
@@ -192,47 +204,13 @@ const ChampionInfo: React.FC<ChampionProps> = ({
 	);
 };
 
-const Champion = ({ userLoLName }: { userLoLName: string }) => {
-	const [cham1, setCham1] = useState<ChampionProps>({
-		championName: "",
-		winRate: "",
-		win: "",
-		lose: "",
-		kda: "",
-	});
-	const [cham2, setCham2] = useState<ChampionProps>({
-		championName: "",
-		winRate: "",
-		win: "",
-		lose: "",
-		kda: "",
-	});
-	const [cham3, setCham3] = useState<ChampionProps>({
-		championName: "",
-		winRate: "",
-		win: "",
-		lose: "",
-		kda: "",
-	});
-
-	useEffect(() => {
-		axios
-			.get("/api/search/user/most", {
-				params: {
-					lolName: userLoLName,
-				},
-			})
-			.then(async (response) => {
-				const data = await response.data;
-				setCham1(data.mostThreeChampion[0]);
-				setCham2(data.mostThreeChampion[1]);
-				setCham3(data.mostThreeChampion[2]);
-			})
-			.catch((error) => {
-				console.error(error);
-			});
-	}, [userLoLName]);
-
+const Champion = ({
+	userLoLName,
+	resultData,
+}: {
+	userLoLName: string;
+	resultData: ResultProps | undefined;
+}) => {
 	return (
 		<ChampionWrapper>
 			<SumRecordTitleWrapper>
@@ -240,25 +218,28 @@ const Champion = ({ userLoLName }: { userLoLName: string }) => {
 			</SumRecordTitleWrapper>
 			<div>
 				<ChampionInfo
-					championName={cham1?.championName}
-					winRate={cham1?.winRate}
-					win={cham1?.win}
-					lose={cham1?.lose}
-					kda={cham1?.kda}
+					championName={resultData?.most?.mostThreeChampion[0].championName}
+					winRate={resultData?.most?.mostThreeChampion[0].winRate}
+					win={resultData?.most?.mostThreeChampion[0].win}
+					lose={resultData?.most?.mostThreeChampion[0].lose}
+					kda={resultData?.most?.mostThreeChampion[0].kda}
+					championUi={resultData?.most?.mostThreeChampion[0].championUi}
 				/>
 				<ChampionInfo
-					championName={cham2?.championName}
-					winRate={cham2?.winRate}
-					win={cham2?.win}
-					lose={cham2?.lose}
-					kda={cham2?.kda}
+					championName={resultData?.most?.mostThreeChampion[1].championName}
+					winRate={resultData?.most?.mostThreeChampion[1].winRate}
+					win={resultData?.most?.mostThreeChampion[1].win}
+					lose={resultData?.most?.mostThreeChampion[1].lose}
+					kda={resultData?.most?.mostThreeChampion[1].kda}
+					championUi={resultData?.most?.mostThreeChampion[1].championUi}
 				/>
 				<ChampionInfo
-					championName={cham3?.championName}
-					winRate={cham3?.winRate}
-					win={cham3?.win}
-					lose={cham3?.lose}
-					kda={cham3?.kda}
+					championName={resultData?.most?.mostThreeChampion[2].championName}
+					winRate={resultData?.most?.mostThreeChampion[2].winRate}
+					win={resultData?.most?.mostThreeChampion[2].win}
+					lose={resultData?.most?.mostThreeChampion[2].lose}
+					kda={resultData?.most?.mostThreeChampion[2].kda}
+					championUi={resultData?.most?.mostThreeChampion[2].championUi}
 				/>
 			</div>
 		</ChampionWrapper>
@@ -271,7 +252,19 @@ const PositionInfo: React.FC<PositionProps> = ({
 }) => {
 	return (
 		<PositionItemWrapper>
-			<PositionImageWrapper />
+			<PositionImageWrapper
+				src={
+					linePreference === "TOP"
+						? top
+						: linePreference === "JUNGLE"
+						? jungle
+						: linePreference === "MID"
+						? mid
+						: linePreference === "BOTTOM"
+						? bottom
+						: util
+				}
+			/>
 			<PositionInfoWrapper>
 				<PositionName>{linePreference}</PositionName>
 				<PositionProb>
@@ -282,112 +275,48 @@ const PositionInfo: React.FC<PositionProps> = ({
 	);
 };
 
-const Position = ({ userLoLName }: { userLoLName: string }) => {
-	const [position1, setPosition1] = useState<PositionProps>({
-		linePlayed: "",
-		linePreference: "",
-	});
-	const [position2, setPosition2] = useState<PositionProps>({
-		linePlayed: "",
-		linePreference: "",
-	});
-	useEffect(() => {
-		axios
-			.get("/api/search/user/line", {
-				params: {
-					lolName: userLoLName,
-				},
-			})
-			.then(async (response) => {
-				const data = await response.data;
-				setPosition1({
-					linePlayed: data.firstLinePlayed,
-					linePreference: data.firstLinePreference,
-				});
-				setPosition2({
-					linePlayed: data.secondLinePlayed,
-					linePreference: data.secondLinePreference,
-				});
-				console.log(data);
-			})
-			.catch((error) => {
-				console.error(error);
-			});
-	}, [userLoLName]);
-
+const Position = ({
+	userLoLName,
+	resultData,
+}: {
+	userLoLName: string;
+	resultData: ResultProps | undefined;
+}) => {
 	return (
 		<PositionWrapper>
 			<SumRecordTitleWrapper>선호 포지션 (랭크)</SumRecordTitleWrapper>
 			<div>
 				<PositionInfo
-					linePlayed={position1.linePlayed}
-					linePreference={position1.linePreference}
+					linePlayed={resultData?.line?.firstLinePlayed}
+					linePreference={resultData?.line?.firstLinePreference}
 				/>
 				<PositionInfo
-					linePlayed={position2.linePlayed}
-					linePreference={position2.linePreference}
+					linePlayed={resultData?.line?.secondLinePlayed}
+					linePreference={resultData?.line?.secondLinePreference}
 				/>
 			</div>
 		</PositionWrapper>
 	);
 };
 
-function SumRecord() {
-	const [latestTwentyRecords, setLatestTwentyRecords] =
-		useState<LatestTwentyRecordsProps>({
-			averageKill: "",
-			lose: "",
-			averageKda: "",
-			draw: "",
-			winRate: "",
-			win: "",
-			averageAssist: "",
-			averageDeath: "",
-		});
+function SumRecord({ resultData }: { resultData: ResultProps | undefined }) {
 	const [userLoLName, setUserLoLName] = useState("hideonpush");
-
-	useEffect(() => {
-		axios
-			.get("/api/search/user/gameRecord", {
-				params: {
-					lolName: userLoLName,
-				},
-			})
-			.then(async (response) => {
-				const data = await response.data;
-				console.log(data);
-				setLatestTwentyRecords({
-					lose: data.latestTwentyRecords.lose,
-					draw: data.latestTwentyRecords.draw,
-					winRate: data.latestTwentyRecords.winRate,
-					win: data.latestTwentyRecords.win,
-					averageDeath: data.latestTwentyRecords.averageDeath,
-					averageAssist: data.latestTwentyRecords.averageAssist,
-					averageKda: data.latestTwentyRecords.averageKda,
-					averageKill: data.latestTwentyRecords.averageKill,
-				});
-			})
-			.catch((error) => {
-				console.error(error);
-			});
-	}, [userLoLName]);
-
 	return (
 		<SumRecordsWrapper>
 			<Stats
-				averageKill={latestTwentyRecords.averageKill}
-				averageKda={latestTwentyRecords.averageKda}
-				draw={latestTwentyRecords.draw}
-				winRate={latestTwentyRecords.winRate}
-				win={latestTwentyRecords.win}
-				averageAssist={latestTwentyRecords.averageAssist}
-				averageDeath={latestTwentyRecords.averageDeath}
-				lose={latestTwentyRecords.lose}
+				kill={resultData?.gameRecord?.latestTwentyRecords.averageKill}
+				kda={resultData?.gameRecord?.latestTwentyRecords.averageKda}
+				draw={resultData?.gameRecord?.latestTwentyRecords.draw}
+				winRate={resultData?.gameRecord?.latestTwentyRecords.winRate}
+				win={resultData?.gameRecord?.latestTwentyRecords.win}
+				assist={resultData?.gameRecord?.latestTwentyRecords.averageAssist}
+				death={resultData?.gameRecord?.latestTwentyRecords.averageDeath}
+				lose={resultData?.gameRecord?.latestTwentyRecords.lose}
 			/>
 			<Bar />
-			<Champion userLoLName={userLoLName} />
+			<Champion userLoLName={userLoLName} resultData={resultData} />
 			<Bar />
-			<Position userLoLName={userLoLName} />
+			<Position userLoLName={userLoLName} resultData={resultData} />
 		</SumRecordsWrapper>
 	);
 }

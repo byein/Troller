@@ -1,6 +1,4 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import delayFetcher from "../../hooks/search/delayFetcher";
+import { ResultProps } from "../../pages/fullSearch/fullSearch";
 import {
 	FlexDiv,
 	RecordItemAction,
@@ -13,18 +11,17 @@ import {
 	RecordItemWrapper,
 	RecordsWrapper,
 } from "../../styles/fullSearch/recordList";
-import { IResultType } from "../multiSearch/searchBox";
 
-interface ResultProps {
+interface RecordProps {
 	result: string;
 	death: string;
-	csPerMiutes: string;
+	csPerMinutes: string;
 	playtime: string;
 	semiRuneImg: string;
 	primaryRune: string;
 	spell2img: string;
 	championUI: string;
-	win: false;
+	win: boolean;
 	spell2: string;
 	spell1: string;
 	averageTier: string;
@@ -40,108 +37,17 @@ interface ResultProps {
 	assist: string;
 	primaryRuneImg: string;
 	gameMode: string;
-	itemArray: [
-		{
-			item0: string;
-			item0Img: string;
-		},
-		{
-			item1: string;
-			item1Img: string;
-		},
-		{
-			item2: string;
-			item2Img: string;
-		},
-		{
-			item3Img: string;
-			item3: string;
-		},
-		{
-			item4Img: string;
-			item4: string;
-		},
-		{
-			item5: string;
-			item5Img: string;
-		},
-		{
-			item6Img: string;
-			item6: string;
-		}
-	];
-	players: [
-		{
-			championImg: string;
-			lolName: string;
-			championName: string;
-			Position: string;
-			team: string;
-		},
-		{
-			championImg: string;
-			lolName: string;
-			championName: string;
-			Position: string;
-			team: string;
-		},
-		{
-			championImg: string;
-			lolName: string;
-			championName: string;
-			Position: string;
-			team: string;
-		},
-		{
-			championImg: string;
-			lolName: string;
-			championName: string;
-			Position: string;
-			team: string;
-		},
-		{
-			championImg: string;
-			lolName: string;
-			championName: string;
-			Position: string;
-			team: string;
-		},
-		{
-			championImg: string;
-			lolName: string;
-			championName: string;
-			Position: string;
-			team: string;
-		},
-		{
-			championImg: string;
-			lolName: string;
-			championName: string;
-			Position: string;
-			team: string;
-		},
-		{
-			championImg: string;
-			lolName: string;
-			championName: string;
-			Position: string;
-			team: string;
-		},
-		{
-			championImg: string;
-			lolName: string;
-			championName: string;
-			Position: string;
-			team: string;
-		},
-		{
-			championImg: string;
-			lolName: string;
-			championName: string;
-			Position: string;
-			team: string;
-		}
-	];
+	itemArray: {
+		item: string;
+		itemImg: string;
+	}[];
+	players: {
+		championImg: string;
+		lolName: string;
+		championName: string;
+		Position: string;
+		team: string;
+	}[];
 }
 
 function RecordItem({
@@ -150,7 +56,7 @@ function RecordItem({
 	championName,
 	championUI,
 	cs,
-	csPerMiutes,
+	csPerMinutes,
 	death,
 	gameMode,
 	itemArray,
@@ -171,18 +77,19 @@ function RecordItem({
 	spell2img,
 	visionWard,
 	win,
-}: ResultProps) {
-	// let result = "LOSE";
+}: RecordProps) {
 	return (
 		<RecordItemLi>
 			<RecordItemWrapper result={result}>
 				<RecordItemGame result={result}>
-					<div className="type">{gameMode}</div>
+					<div className="result">
+						{result === WINLOSE.WIN ? "승리" : "패배"}
+					</div>
 					<div className="time-stamp">
 						<div>{lastPlayTime}</div>
 					</div>
 					<div className="bar" />
-					<div className="result">{result}</div>
+					<div className="type">{gameMode}</div>
 					<div className="length">{playtime}</div>
 				</RecordItemGame>
 				<RecordItemInfo>
@@ -202,18 +109,62 @@ function RecordItem({
 								</div>
 								<div className="spells">
 									<div className="spell">
-										<img src={spell1img} width="22" alt={spell1} />
+										{spell1img !== undefined ? (
+											<img src={spell1img} width="22" alt={spell1} />
+										) : (
+											<div
+												style={{
+													width: 22,
+													height: 22,
+													borderRadius: 6,
+													backgroundColor: "#ffffff",
+												}}
+											/>
+										)}
 									</div>
 									<div className="spell">
-										<img src={spell2img} width="22" alt={spell2} />
+										{spell2img !== undefined ? (
+											<img src={spell2img} width="22" alt={spell2} />
+										) : (
+											<div
+												style={{
+													width: 22,
+													height: 22,
+													borderRadius: 6,
+													backgroundColor: "#ffffff",
+												}}
+											/>
+										)}
 									</div>
 								</div>
 								<div className="runes">
 									<div className="rune">
-										<img src={primaryRuneImg} width="22" alt={primaryRune} />
+										{primaryRuneImg !== undefined ? (
+											<img src={primaryRuneImg} width="22" alt={primaryRune} />
+										) : (
+											<div
+												style={{
+													width: 22,
+													height: 22,
+													borderRadius: 6,
+													backgroundColor: "#ffffff",
+												}}
+											/>
+										)}
 									</div>
 									<div className="rune">
-										<img src={semiRuneImg} width="22" alt={semiRune} />
+										{semiRuneImg !== undefined ? (
+											<img src={semiRuneImg} width="22" alt={semiRune} />
+										) : (
+											<div
+												style={{
+													width: 22,
+													height: 22,
+													borderRadius: 6,
+													backgroundColor: "#ffffff",
+												}}
+											/>
+										)}
 									</div>
 								</div>
 							</FlexDiv>
@@ -231,11 +182,11 @@ function RecordItem({
 
 						<div className="stats">
 							<div className="p-kill">
-								<div>킬관여 {killRate}%</div>
+								<div>킬관여 {killRate}</div>
 							</div>
 							<div className="ward">제어와드 {visionWard}</div>
 							<div className="cs">
-								CS {cs} ({csPerMiutes})
+								CS {cs} ({csPerMinutes})
 							</div>
 							<div className="average-tier">{averageTier}</div>
 						</div>
@@ -243,55 +194,29 @@ function RecordItem({
 					<FlexDiv result={result}>
 						<div className="items">
 							<ul>
-								<li>
-									<img
-										src={itemArray[0].item0Img}
-										width="22"
-										alt={itemArray[0].item0}
-									/>
-								</li>
-								<li>
-									<img
-										src={itemArray[1].item1Img}
-										width="22"
-										alt={itemArray[1].item1}
-									/>
-								</li>
-								<li>
-									<img
-										src={itemArray[2].item2Img}
-										width="22"
-										alt={itemArray[2].item2}
-									/>
-								</li>
-								<li>
-									<img
-										src={itemArray[3].item3Img}
-										width="22"
-										alt={itemArray[3].item3}
-									/>
-								</li>
-								<li>
-									<img
-										src={itemArray[4].item4Img}
-										width="22"
-										alt={itemArray[4].item4}
-									/>
-								</li>
-								<li>
-									<img
-										src={itemArray[5].item5Img}
-										width="22"
-										alt={itemArray[5].item5}
-									/>
-								</li>
+								{itemArray.map((i, index) => {
+									if (index === 6) {
+										return <></>;
+									}
+									return i.item !== "None" ? (
+										<li>
+											<img src={i.itemImg} width="22" alt={i.item} />
+										</li>
+									) : (
+										<li></li>
+									);
+								})}
 							</ul>
 							<div className="ward">
-								<img
-									src={itemArray[6].item6Img}
-									width="22"
-									alt={itemArray[6].item6}
-								/>
+								{itemArray[6].item !== "None" ? (
+									<img
+										src={itemArray[6].itemImg}
+										width="22"
+										alt={itemArray[6].item}
+									/>
+								) : (
+									<></>
+								)}
 							</div>
 						</div>
 					</FlexDiv>
@@ -431,420 +356,44 @@ enum WINLOSE {
 	LOSE = "LOSE",
 }
 
-function RecordList() {
-	const arr: WINLOSE[] = [
-		WINLOSE.WIN,
-		WINLOSE.LOSE,
-		WINLOSE.WIN,
-		WINLOSE.WIN,
-		WINLOSE.WIN,
-		WINLOSE.WIN,
-		WINLOSE.LOSE,
-		WINLOSE.LOSE,
-		WINLOSE.LOSE,
-		WINLOSE.LOSE,
-		WINLOSE.WIN,
-		WINLOSE.LOSE,
-		WINLOSE.WIN,
-		WINLOSE.WIN,
-		WINLOSE.WIN,
-		WINLOSE.WIN,
-		WINLOSE.LOSE,
-		WINLOSE.LOSE,
-		WINLOSE.LOSE,
-		WINLOSE.LOSE,
-	];
-	const [userLoLName, setUserLoLName] = useState("hideonpush");
-	const [gameRecord, setGameRecord] = useState<ResultProps>({
-		result: "",
-		death: "",
-		csPerMiutes: "",
-		playtime: "",
-		semiRuneImg: "",
-		primaryRune: "",
-		spell2img: "",
-		championUI: "",
-		win: false,
-		spell2: "",
-		spell1: "",
-		averageTier: "",
-		semiRune: "",
-		visionWard: "",
-		kda: "",
-		kill: "",
-		killRate: "",
-		cs: "",
-		championName: "",
-		spell1img: "",
-		lastPlayTime: "",
-		assist: "",
-		primaryRuneImg: "",
-		gameMode: "",
-		itemArray: [
-			{
-				item0: "",
-				item0Img: "",
-			},
-			{
-				item1: "",
-				item1Img: "",
-			},
-			{
-				item2: "",
-				item2Img: "",
-			},
-			{
-				item3Img: "",
-				item3: "",
-			},
-			{
-				item4Img: "",
-				item4: "",
-			},
-			{
-				item5: "",
-				item5Img: "",
-			},
-			{
-				item6Img: "",
-				item6: "",
-			},
-		],
-		players: [
-			{
-				championImg: "",
-				lolName: "",
-				championName: "",
-				Position: "",
-				team: "",
-			},
-			{
-				championImg: "",
-				lolName: "",
-				championName: "",
-				Position: "",
-				team: "",
-			},
-			{
-				championImg: "",
-				lolName: "",
-				championName: "",
-				Position: "",
-				team: "",
-			},
-			{
-				championImg: "",
-				lolName: "",
-				championName: "",
-				Position: "",
-				team: "",
-			},
-			{
-				championImg: "",
-				lolName: "",
-				championName: "",
-				Position: "",
-				team: "",
-			},
-			{
-				championImg: "",
-				lolName: "",
-				championName: "",
-				Position: "",
-				team: "",
-			},
-			{
-				championImg: "",
-				lolName: "",
-				championName: "",
-				Position: "",
-				team: "",
-			},
-			{
-				championImg: "",
-				lolName: "",
-				championName: "",
-				Position: "",
-				team: "",
-			},
-			{
-				championImg: "",
-				lolName: "",
-				championName: "",
-				Position: "",
-				team: "",
-			},
-			{
-				championImg: "",
-				lolName: "",
-				championName: "",
-				Position: "",
-				team: "",
-			},
-		],
-	});
-	const [resultData, setResultData] = useState<IResultType>();
-
-	// useEffect(() => {
-	// 	axios
-	// 		.get("/api/search/user/gameRecord", {
-	// 			params: {
-	// 				lolName: userLoLName,
-	// 			},
-	// 		})
-	// 		.then(async (response) => {
-	// 			const data = await response.data;
-	// 			console.log("20: " + data);
-	// 			await setGameRecord({
-	// 				result: data.gameRecord.win === true ? "WIN" : "LOSE",
-	// 				death: data.gameRecord.death,
-	// 				csPerMiutes: data.gameRecord.csPerMiutes,
-	// 				playtime: data.gameRecord.playtime,
-	// 				semiRuneImg: data.gameRecord.semiRuneImg,
-	// 				primaryRune: data.gameRecord.primaryRune,
-	// 				spell2img: data.gameRecord.spell2img,
-	// 				championUI: data.gameRecord.championUI,
-	// 				win: data.gameRecord.win,
-	// 				spell2: data.gameRecord.spell2,
-	// 				spell1: data.gameRecord.spell1,
-	// 				averageTier: data.gameRecord.averageTier,
-	// 				semiRune: data.gameRecord.semiRune,
-	// 				visionWard: data.gameRecord.visionWard,
-	// 				kda: data.gameRecord.kda,
-	// 				kill: data.gameRecord.kill,
-	// 				killRate: data.gameRecord.killRate,
-	// 				cs: data.gameRecord.cs,
-	// 				championName: data.gameRecord.championName,
-	// 				spell1img: data.gameRecord.spell1img,
-	// 				lastPlayTime: data.gameRecord.lastPlayTime,
-	// 				assist: data.gameRecord.assist,
-	// 				primaryRuneImg: data.gameRecord.primaryRuneImg,
-	// 				gameMode: data.gameRecord.gameMode,
-	// 				itemArray: [
-	// 					{
-	// 						item0: data.gameRecord.itemArray.item0,
-	// 						item0Img: data.gameRecord.itemArray.item0Img,
-	// 					},
-	// 					{
-	// 						item1: data.gameRecord.itemArray.item1,
-	// 						item1Img: data.gameRecord.itemArray.item1Img,
-	// 					},
-	// 					{
-	// 						item2: data.gameRecord.itemArray.item2,
-	// 						item2Img: data.gameRecord.itemArray.item2Img,
-	// 					},
-	// 					{
-	// 						item3: data.gameRecord.itemArray.item3,
-	// 						item3Img: data.gameRecord.itemArray.item3Img,
-	// 					},
-	// 					{
-	// 						item4: data.gameRecord.itemArray.item4,
-	// 						item4Img: data.gameRecord.itemArray.item4Img,
-	// 					},
-	// 					{
-	// 						item5: data.gameRecord.itemArray.item5,
-	// 						item5Img: data.gameRecord.itemArray.item5Img,
-	// 					},
-	// 					{
-	// 						item6: data.gameRecord.itemArray.item6,
-	// 						item6Img: data.gameRecord.itemArray.item6Img,
-	// 					},
-	// 				],
-	// 				players: [
-	// 					{
-	// 						championImg: data.gameRecord.players[0].championImg,
-	// 						lolName: data.gameRecord.players[0].lolName,
-	// 						championName: data.gameRecord.players[0].champioName,
-	// 						Position: data.gameRecord.players[0].Position,
-	// 						team: data.gameRecord.players.team,
-	// 					},
-	// 					{
-	// 						championImg: data.gameRecord.players[1].championImg,
-	// 						lolName: data.gameRecord.players[1].lolName,
-	// 						championName: data.gameRecord.players[1].champioName,
-	// 						Position: data.gameRecord.players[1].Position,
-	// 						team: data.gameRecord.players.team,
-	// 					},
-	// 					{
-	// 						championImg: data.gameRecord.players[2].championImg,
-	// 						lolName: data.gameRecord.players[2].lolName,
-	// 						championName: data.gameRecord.players[2].champioName,
-	// 						Position: data.gameRecord.players[2].Position,
-	// 						team: data.gameRecord.players.team,
-	// 					},
-	// 					{
-	// 						championImg: data.gameRecord.players[3].championImg,
-	// 						lolName: data.gameRecord.players[3].lolName,
-	// 						championName: data.gameRecord.players[3].champioName,
-	// 						Position: data.gameRecord.players[3].Position,
-	// 						team: data.gameRecord.players.team,
-	// 					},
-	// 					{
-	// 						championImg: data.gameRecord.players[4].championImg,
-	// 						lolName: data.gameRecord.players[4].lolName,
-	// 						championName: data.gameRecord.players[4].champioName,
-	// 						Position: data.gameRecord.players[4].Position,
-	// 						team: data.gameRecord.players.team,
-	// 					},
-	// 					{
-	// 						championImg: data.gameRecord.players[5].championImg,
-	// 						lolName: data.gameRecord.players[5].lolName,
-	// 						championName: data.gameRecord.players[5].champioName,
-	// 						Position: data.gameRecord.players[5].Position,
-	// 						team: data.gameRecord.players.team,
-	// 					},
-	// 					{
-	// 						championImg: data.gameRecord.players[6].championImg,
-	// 						lolName: data.gameRecord.players[6].lolName,
-	// 						championName: data.gameRecord.players[6].champioName,
-	// 						Position: data.gameRecord.players[6].Position,
-	// 						team: data.gameRecord.players.team,
-	// 					},
-	// 					{
-	// 						championImg: data.gameRecord.players[7].championImg,
-	// 						lolName: data.gameRecord.players[7].lolName,
-	// 						championName: data.gameRecord.players[7].champioName,
-	// 						Position: data.gameRecord.players[7].Position,
-	// 						team: data.gameRecord.players.team,
-	// 					},
-	// 					{
-	// 						championImg: data.gameRecord.players[8].championImg,
-	// 						lolName: data.gameRecord.players[8].lolName,
-	// 						championName: data.gameRecord.players[8].champioName,
-	// 						Position: data.gameRecord.players[8].Position,
-	// 						team: data.gameRecord.players.team,
-	// 					},
-	// 					{
-	// 						championImg: data.gameRecord.players[9].championImg,
-	// 						lolName: data.gameRecord.players[9].lolName,
-	// 						championName: data.gameRecord.players[9].champioName,
-	// 						Position: data.gameRecord.players[9].Position,
-	// 						team: data.gameRecord.players.team,
-	// 					},
-	// 				],
-	// 			});
-	// 		})
-	// 		.catch((error) => {
-	// 			console.error(error);
-	// 		});
-	// }, [userLoLName]);
-
-	const getUsersData = async () => {
-		const { personalData } = await delayFetcher(userLoLName);
-	};
-
+function RecordList({ resultData }: { resultData: ResultProps | undefined }) {
 	return (
 		<RecordsWrapper>
 			<RecordItemUl>
-				{arr.map((item) => (
-					<RecordItem
-						result={item}
-						death={""}
-						csPerMiutes={""}
-						playtime={""}
-						semiRuneImg={""}
-						primaryRune={""}
-						spell2img={""}
-						championUI={""}
-						win={false}
-						spell2={""}
-						spell1={""}
-						averageTier={""}
-						semiRune={""}
-						visionWard={""}
-						kda={""}
-						kill={""}
-						killRate={""}
-						cs={""}
-						championName={""}
-						spell1img={""}
-						lastPlayTime={""}
-						assist={""}
-						primaryRuneImg={""}
-						gameMode={""}
-						itemArray={[
-							{ item0: "", item0Img: "" },
-							{ item1: "", item1Img: "" },
-							{ item2: "", item2Img: "" },
-							{ item3: "", item3Img: "" },
-							{ item4: "", item4Img: "" },
-							{ item5: "", item5Img: "" },
-							{ item6: "", item6Img: "" },
-						]}
-						players={[
-							{
-								championImg: "",
-								lolName: "",
-								championName: "",
-								Position: "",
-								team: "",
-							},
-							{
-								championImg: "",
-								lolName: "",
-								championName: "",
-								Position: "",
-								team: "",
-							},
-							{
-								championImg: "",
-								lolName: "",
-								championName: "",
-								Position: "",
-								team: "",
-							},
-							{
-								championImg: "",
-								lolName: "",
-								championName: "",
-								Position: "",
-								team: "",
-							},
-							{
-								championImg: "",
-								lolName: "",
-								championName: "",
-								Position: "",
-								team: "",
-							},
-							{
-								championImg: "",
-								lolName: "",
-								championName: "",
-								Position: "",
-								team: "",
-							},
-							{
-								championImg: "",
-								lolName: "",
-								championName: "",
-								Position: "",
-								team: "",
-							},
-							{
-								championImg: "",
-								lolName: "",
-								championName: "",
-								Position: "",
-								team: "",
-							},
-							{
-								championImg: "",
-								lolName: "",
-								championName: "",
-								Position: "",
-								team: "",
-							},
-							{
-								championImg: "",
-								lolName: "",
-								championName: "",
-								Position: "",
-								team: "",
-							},
-						]}
-					/>
-				))}
+				{resultData !== undefined ? (
+					resultData.gameRecord?.gameRecord.map((item) => (
+						<RecordItem
+							result={item.win === true ? WINLOSE.WIN : WINLOSE.LOSE}
+							death={item.death}
+							csPerMinutes={item.csPerMinutes}
+							playtime={item.playtime}
+							semiRuneImg={item.semiRuneImg}
+							primaryRune={item.primaryRune}
+							spell2img={item.spell2img}
+							championUI={item.championUI}
+							win={item.win}
+							spell2={item.spell2}
+							spell1={item.spell1}
+							averageTier={item.averageTier}
+							semiRune={item.semiRune}
+							visionWard={item.visionWard}
+							kda={item.kda}
+							kill={item.kill}
+							killRate={item.killRate}
+							cs={item.cs}
+							championName={item.championName}
+							spell1img={item.spell1img}
+							lastPlayTime={item.lastPlayTime}
+							assist={item.assist}
+							primaryRuneImg={item.primaryRuneImg}
+							gameMode={item.gameMode}
+							itemArray={item.itemArray}
+							players={item.players}
+						/>
+					))
+				) : (
+					<></>
+				)}
 			</RecordItemUl>
 		</RecordsWrapper>
 	);
