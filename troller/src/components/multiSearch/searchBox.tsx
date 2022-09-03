@@ -34,7 +34,7 @@ interface IRecordsType {
     winRate: string;
   };
   gameRecord: {
-    championUi: string;
+    championUI: string;
     win: boolean;
     kill: string;
     death: string;
