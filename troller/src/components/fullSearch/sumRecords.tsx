@@ -204,13 +204,7 @@ const ChampionInfo: React.FC<ChampionProps> = ({
 	);
 };
 
-const Champion = ({
-	userLoLName,
-	resultData,
-}: {
-	userLoLName: string;
-	resultData: ResultProps | undefined;
-}) => {
+const Champion = ({ resultData }: { resultData: ResultProps | undefined }) => {
 	return (
 		<ChampionWrapper>
 			<SumRecordTitleWrapper>
@@ -275,13 +269,7 @@ const PositionInfo: React.FC<PositionProps> = ({
 	);
 };
 
-const Position = ({
-	userLoLName,
-	resultData,
-}: {
-	userLoLName: string;
-	resultData: ResultProps | undefined;
-}) => {
+const Position = ({ resultData }: { resultData: ResultProps | undefined }) => {
 	return (
 		<PositionWrapper>
 			<SumRecordTitleWrapper>선호 포지션 (랭크)</SumRecordTitleWrapper>
@@ -300,7 +288,7 @@ const Position = ({
 };
 
 function SumRecord({ resultData }: { resultData: ResultProps | undefined }) {
-	const [userLoLName, setUserLoLName] = useState("hideonpush");
+	// const [userLoLName, setUserLoLName] = useState("규 턴");
 	return (
 		<SumRecordsWrapper>
 			<Stats
@@ -314,9 +302,9 @@ function SumRecord({ resultData }: { resultData: ResultProps | undefined }) {
 				lose={resultData?.gameRecord?.latestTwentyRecords.lose}
 			/>
 			<Bar />
-			<Champion userLoLName={userLoLName} resultData={resultData} />
+			<Champion resultData={resultData} />
 			<Bar />
-			<Position userLoLName={userLoLName} resultData={resultData} />
+			<Position resultData={resultData} />
 		</SumRecordsWrapper>
 	);
 }
