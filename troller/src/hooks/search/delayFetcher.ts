@@ -4,11 +4,11 @@ const delay = (lolName: string, api: string) => {
   return new Promise((resolve, reject) => {
     setTimeout(async () => {
       try {
-        console.log(lolName, api, '=>delay fetch applied!');
         const { data, status } = await useApi.get(`/api/search/user/${api}`, {
           params: { lolName },
         });
         if (status === 200) {
+          console.log(lolName, api, '=>delay fetch applied!');
           console.log(data);
           resolve(data);
         }

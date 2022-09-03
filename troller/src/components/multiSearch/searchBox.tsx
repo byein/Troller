@@ -73,8 +73,12 @@ function Search() {
       e.preventDefault();
     }
   };
+  useEffect(() => {
+    console.log('searchData', searchData);
+  }, [searchData]);
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setsearchData([]);
     setIsParsed(false);
     setload(true);
     const contents = text.split('\n');
@@ -98,37 +102,36 @@ function Search() {
         setsearchData([personalData]);
       } else if (reqLen === 2) {
         const { personalData } = await delayFetcher(req[0]);
+        setsearchData([personalData]);
         const { personalData: personalData2 } = await delayFetcher(req[1]);
-        setsearchData([personalData, personalData2]);
+        setsearchData((prev: any | IResultType[]) => [...prev, personalData2]);
       } else if (reqLen === 3) {
         const { personalData } = await delayFetcher(req[0]);
+        setsearchData([personalData]);
         const { personalData: personalData2 } = await delayFetcher(req[1]);
+        setsearchData((prev: any | IResultType[]) => [...prev, personalData2]);
         const { personalData: personalData3 } = await delayFetcher(req[2]);
-        setsearchData([personalData, personalData2, personalData3]);
+        setsearchData((prev: any | IResultType[]) => [...prev, personalData3]);
       } else if (reqLen === 4) {
         const { personalData } = await delayFetcher(req[0]);
+        setsearchData([personalData]);
         const { personalData: personalData2 } = await delayFetcher(req[1]);
+        setsearchData((prev: any | IResultType[]) => [...prev, personalData2]);
         const { personalData: personalData3 } = await delayFetcher(req[2]);
+        setsearchData((prev: any | IResultType[]) => [...prev, personalData3]);
         const { personalData: personalData4 } = await delayFetcher(req[3]);
-        setsearchData([
-          personalData,
-          personalData2,
-          personalData3,
-          personalData4,
-        ]);
+        setsearchData((prev: any | IResultType[]) => [...prev, personalData4]);
       } else if (reqLen === 5) {
         const { personalData } = await delayFetcher(req[0]);
+        setsearchData([personalData]);
         const { personalData: personalData2 } = await delayFetcher(req[1]);
+        setsearchData((prev: any | IResultType[]) => [...prev, personalData2]);
         const { personalData: personalData3 } = await delayFetcher(req[2]);
+        setsearchData((prev: any | IResultType[]) => [...prev, personalData3]);
         const { personalData: personalData4 } = await delayFetcher(req[3]);
+        setsearchData((prev: any | IResultType[]) => [...prev, personalData4]);
         const { personalData: personalData5 } = await delayFetcher(req[4]);
-        setsearchData([
-          personalData,
-          personalData2,
-          personalData3,
-          personalData4,
-          personalData5,
-        ]);
+        setsearchData((prev: any | IResultType[]) => [...prev, personalData5]);
       }
     };
     setload(true);
