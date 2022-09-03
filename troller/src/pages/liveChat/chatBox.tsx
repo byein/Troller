@@ -17,7 +17,7 @@ function ChatBox() {
         </FriendsBox>
         <SocketBox>
           {opponentLolName !== 'friends' && chatRoomId !== 'all' ? (
-            <Outlet context={{ opponentLolName, chatRoomId }} />
+            <Outlet />
           ) : null}
         </SocketBox>
       </div>

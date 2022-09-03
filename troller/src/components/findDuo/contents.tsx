@@ -48,7 +48,17 @@ function Contents({
     if (status === 200 || status === 201) {
       router(`/sub/chat/room/${opponentLolName}/${chatRoomId}`);
     }
-  };
+  }; // fake for the test
+
+  // const moveToChatRoom = async () => {
+  //   const {
+  //     data: { chatRoomId, opponentLolName },
+  //     status,
+  //   } = await useAccessApi.post(`/api/chat/room?opponent=${lolName}`);
+  //   if (status === 200 || status === 201) {
+  //     router(`/sub/chat/room/${opponentLolName}/${chatRoomId}`);
+  //   }
+  // }; // The REAL one
 
   const onSubmit = handleSubmit(async () => {
     // const { status } = await useAccessApi.delete('exampleDeleteAPI',{
