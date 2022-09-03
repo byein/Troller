@@ -10,185 +10,129 @@ import SumRecord from "../../components/fullSearch/sumRecords";
 import {
 	FullSearchContainer,
 	FullSearchWrapper,
-	Tier,
 } from "../../styles/fullSearch/userInfo";
 import RecordList from "../../components/fullSearch/recordList";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import delayFetcher from "../../hooks/search/delayFetcher";
 
-type UserInfoProps = {
+interface UserInfoProps {
 	name: string;
+	icon: string;
 	tier: string;
-	profileImg: string;
-	winRate: number;
-	winRecord: number;
-	loseRecord: number;
-	level: number;
-};
-type GameRecordProps = {
+	winRate: string;
+	win: string;
+	lose: string;
+	level: string;
+	trollPossibility: string;
+	point: string;
+	rank: string;
+}
+interface GameRecordProps {
 	latestTwentyRecords: {
-		death: number;
-		lose: number;
-		assist: number;
-		kda: number;
-		draw: number;
-		winRate: number;
-		kill: number;
-		win: number;
+		averageDeath: string;
+		lose: string;
+		averageAssist: string;
+		averageKda: string;
+		draw: string;
+		winRate: string;
+		averageKill: string;
+		win: string;
 	};
-	gameRecord: [
-		{
-			semiRune: number;
-			death: number;
-			csPerMiutes: number;
-			visionWard: number;
-			kda: number;
-			playtime: string;
-			kill: number;
-			killRate: number;
-			cs: number;
-			primaryRune: number;
-			lastPlayTime: string;
-			assist: number;
-			gameMode: string;
-			win: boolean;
-			spell2: number;
-			spell1: number;
-			players: [
-				{
-					championImg: string;
-					tier: string;
-					lolName: string;
-					championName: string;
-					Position: string;
-					team: string;
-				},
-				{
-					championImg: string;
-					tier: string;
-					lolName: string;
-					championName: string;
-					Position: string;
-					team: string;
-				},
-				{
-					championImg: string;
-					tier: string;
-					lolName: string;
-					championName: string;
-					Position: string;
-					team: string;
-				},
-				{
-					championImg: string;
-					tier: string;
-					lolName: string;
-					championName: string;
-					Position: string;
-					team: string;
-				},
-				{
-					championImg: string;
-					tier: string;
-					lolName: string;
-					championName: string;
-					Position: string;
-					team: string;
-				},
-				{
-					championImg: string;
-					tier: string;
-					lolName: string;
-					championName: string;
-					Position: string;
-					team: string;
-				},
-				{
-					championImg: string;
-					tier: string;
-					lolName: string;
-					championName: string;
-					Position: string;
-					team: string;
-				},
-				{
-					championImg: string;
-					tier: string;
-					lolName: string;
-					championName: string;
-					Position: string;
-					team: string;
-				},
-				{
-					championImg: string;
-					tier: string;
-					lolName: string;
-					championName: string;
-					Position: string;
-					team: string;
-				},
-				{
-					championImg: string;
-					tier: string;
-					lolName: string;
-					championName: string;
-					Position: string;
-					team: string;
-				}
-			];
-		}
-	];
-};
-// 임시 데이터 세팅
+	gameRecord: {
+		averageTier: string;
+		championName: string;
+		championUI: string;
+		csPerMinutes: string;
+		itemArray: {
+			item: string;
+			itemImg: string;
+		}[];
+		primaryRuneImg: string;
+		semiRune: string;
+		semiRuneImg: string;
+		death: string;
+		visionWard: string;
+		kda: string;
+		playtime: string;
+		kill: string;
+		killRate: string;
+		cs: string;
+		primaryRune: string;
+		lastPlayTime: string;
+		assist: string;
+		gameMode: string;
+		win: boolean;
+		spell2: string;
+		spell2img: string;
+		spell1: string;
+		spell1img: string;
+		players: {
+			championImg: string;
+			tier: string;
+			lolName: string;
+			championName: string;
+			Position: string;
+			team: string;
+		}[];
+	}[];
+}
+interface ChampionProps {
+	mostThreeChampion: {
+		championName: string;
+		championUi: string;
+		winRate: string;
+		win: string;
+		lose: string;
+		kda: string;
+	}[];
+}
+interface PositionProps {
+	firstLinePreference: string;
+	secondLinePreference: string;
+	firstLinePlayed: string;
+	secondLinePlayed: string;
+}
+
+export interface ResultProps {
+	info: UserInfoProps | undefined;
+	most: ChampionProps | undefined;
+	line: PositionProps | undefined;
+	gameRecord: GameRecordProps | undefined;
+}
+
 function FullSearch() {
 	const { pathname } = useLocation();
-	const [userInfo, setUserInfo] = useState({
-		name: "test",
-		tier: "Platinum",
-		profileImg:
-			"https://dimg.donga.com/wps/NEWS/IMAGE/2013/12/18/59635708.3.jpg",
-		winRate: 0,
-		winRecord: 0,
-		loseRecord: 0,
-		level: 0,
-	});
+
 	const [userLoLName, setUserLoLName] = useState("hideonpush");
+	const [resultData, setResultData] = useState<ResultProps>();
+
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	const getUsersData = async () => {
+		const { personalData } = await delayFetcher(userLoLName);
+		setResultData(personalData);
+		return personalData;
+	};
+
 	useEffect(() => {
-		axios
-			.get("/api/search/user/info", {
-				params: {
-					lolName: userLoLName,
-				},
-			})
-			.then(async (response) => {
-				const data = await response.data;
-				console.log(data);
-				setUserInfo({
-					name: data.name,
-					tier: data.tier,
-					profileImg: data.icon,
-					winRate: data.winRate,
-					winRecord: data.win,
-					loseRecord: data.lose,
-					level: data.level,
-				});
-			})
-			.catch((error) => {
-				console.error(error);
-			});
-	}, [userLoLName]);
+		(async () => {
+			await getUsersData();
+		})();
+	}, [getUsersData, resultData]);
 	return (
 		<FullSearchGlobalWrapper>
 			<UserSection>
 				<FullSearchWrapper>
 					<UserInfo
-						nickname={userInfo.name}
-						profileImg={userInfo.profileImg}
-						tier={userInfo.tier}
-						winRate={userInfo.winRate}
-						winRecord={userInfo.winRecord}
-						loseRecord={userInfo.loseRecord}
-						level={userInfo.level}
+						name={resultData?.info?.name}
+						icon={resultData?.info?.icon}
+						tier={resultData?.info?.tier}
+						winRate={resultData?.info?.winRate}
+						win={resultData?.info?.win}
+						lose={resultData?.info?.lose}
+						level={resultData?.info?.level}
+						trollPossibility={resultData?.info?.trollPossibility}
+						point={resultData?.info?.point}
+						rank={resultData?.info?.rank}
 					/>
 					<GraphTab pathname={pathname} />
 					<FullSearchContainer pathname={pathname}>
@@ -197,8 +141,8 @@ function FullSearch() {
 				</FullSearchWrapper>
 			</UserSection>
 			<RecordSection>
-				<SumRecord />
-				<RecordList />
+				<SumRecord resultData={resultData} />
+				<RecordList resultData={resultData} />
 			</RecordSection>
 		</FullSearchGlobalWrapper>
 	);
