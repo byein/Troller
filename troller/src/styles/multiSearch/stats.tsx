@@ -1,3 +1,4 @@
+import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 import { BORDER_RADIUS, DEFAULT_FONTSIZE } from '../global/global';
 
@@ -8,13 +9,14 @@ const StatWrapper = styled('div')`
   justify-content: space-evenly;
   margin: 30px 0 0 0;
 `;
-const UserStat = styled('div')<{ load: boolean; trollParse: number }>`
+const UserStat = styled('div')<{ load: boolean }>`
   width: 270px;
   height: 100%;
   color: ${props => props.theme.txtColor.primary};
   text-align: center;
   border-radius: ${`${BORDER_RADIUS - 5}px`};
-  background-color: ${props => props.theme.bgColor.dark};
+  background-color: ${props =>
+    props.load ? props.theme.txtColor.primary : props.theme.bgColor.dark};
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   .trollBox {
     width: 100%;
@@ -32,14 +34,8 @@ const UserStat = styled('div')<{ load: boolean; trollParse: number }>`
       display: block;
       padding: 4px;
       border-radius: 5px;
-      color: ${props =>
-        props.trollParse > 25
-          ? props.theme.bgColor.light
-          : props.theme.bgColor.dark};
-      background-color: ${props =>
-        props.trollParse > 25
-          ? props.theme.validation.error
-          : props.theme.validation.resolve};
+      color: ${props => props.theme.bgColor.light};
+      background-color: ${props => props.theme.bgColor.dark};
     }
   }
   .userBox {
@@ -74,6 +70,7 @@ const UserStat = styled('div')<{ load: boolean; trollParse: number }>`
           display: flex;
           justify-content: center;
           align-items: center;
+          margin: 0 5px 0 0;
           .icon {
             width: 100%;
             height: 100%;
@@ -134,7 +131,7 @@ const UserStat = styled('div')<{ load: boolean; trollParse: number }>`
             .played {
               display: block;
               width: 100%;
-              font-size: ${`${DEFAULT_FONTSIZE - 4}px`};
+              font-size: ${`${DEFAULT_FONTSIZE - 2}px`};
               margin: 0 0 3px 0;
             }
           }
@@ -199,27 +196,81 @@ const UserStat = styled('div')<{ load: boolean; trollParse: number }>`
         font-size: ${`${DEFAULT_FONTSIZE}px`};
         color: ${props => props.theme.bgColor.light};
       }
-      .winlose {
-        font-size: ${`${DEFAULT_FONTSIZE}px`};
-        color: ${props => props.theme.txtColor.selected};
-      }
-      .winrate {
-        font-size: ${`${DEFAULT_FONTSIZE}px`};
-        color: ${props => props.theme.txtColor.selected};
-        margin: 0 0 0 10px;
-      }
     }
     .records {
       width: 100%;
       height: 125px;
-      .record {
-        width: 100%;
-        height: 20px;
-        background-color: white;
-        margin: 5px 0 0 0;
-      }
     }
   }
 `;
 
-export { StatWrapper, UserStat };
+const Record = styled.div<{ win: boolean }>`
+  width: 100%;
+  height: 20px;
+  margin: 5px 0 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .left {
+    width: 15%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .championBox {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      overflow: hidden;
+      .championUi {
+        width: 23px;
+        height: 100%;
+      }
+    }
+    .isWin {
+      font-size: ${`${DEFAULT_FONTSIZE - 2}px`};
+      font-weight: 600;
+      color: ${props => (props.win ? '#149eda' : '#DB6A9E')};
+    }
+  }
+  .kdaBox {
+    width: 35%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    background-color: ${props => (props.win ? '#149eda' : '#DB6A9E')};
+    .kda {
+      font-size: ${`${DEFAULT_FONTSIZE - 2}px`};
+      color: ${props => props.theme.bgColor.light};
+    }
+  }
+  .time {
+    font-size: ${`${DEFAULT_FONTSIZE - 2}px`};
+    color: white;
+  }
+`;
+
+const LOADER_ANIMATION = keyframes`
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+`;
+
+const Loader = styled.div`
+  border: 3px solid transparent;
+  border-top: 3px solid #3498db;
+  border-radius: 50%;
+  width: 27px;
+  height: 27px;
+  animation: ${LOADER_ANIMATION} 1s linear infinite;
+`;
+
+export { StatWrapper, UserStat, Record, Loader };

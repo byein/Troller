@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import delayFetcher from '../../hooks/search/delayFetcher';
 import { SearchBox } from '../../styles/multiSearch/main';
+import { Loader } from '../../styles/multiSearch/stats';
 // eslint-disable-next-line import/no-cycle
 import Stats from './stats';
 
 interface IUserType {
   name: string;
-  tierIcon: string;
+  tier: string;
+  icon: string;
   rank: string;
   point: string;
   trollPossibility: string;
 }
 
 interface IMostChampionsType {
-  mostThreeChampions: {
-    championUi: string;
-    gamePlayed: string;
-    winRate: string;
-  }[];
+  championUi: string;
+  gamePlayed: string;
+  winRate: string;
 }
 
 interface IPositionsType {
@@ -44,7 +44,9 @@ interface IRecordsType {
 }
 export interface IResultType {
   info: IUserType | undefined;
-  most: IMostChampionsType | undefined;
+  most: {
+    mostThreeChampion: IMostChampionsType[] | undefined;
+  };
   line: IPositionsType | undefined;
   gameRecord: IRecordsType | undefined;
 }
@@ -73,6 +75,7 @@ function Search() {
   };
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsParsed(false);
     setload(true);
     const contents = text.split('\n');
     let req: string[] = [];
@@ -88,29 +91,21 @@ function Search() {
         return;
       }
     }
-    setIsParsed(true);
     const getUsersData = async () => {
       const reqLen = req.length;
       if (reqLen === 1) {
-        setload(true);
         const { personalData } = await delayFetcher(req[0]);
         setsearchData([personalData]);
-        setload(false);
       } else if (reqLen === 2) {
-        setload(true);
         const { personalData } = await delayFetcher(req[0]);
         const { personalData: personalData2 } = await delayFetcher(req[1]);
         setsearchData([personalData, personalData2]);
-        setload(false);
       } else if (reqLen === 3) {
-        setload(true);
         const { personalData } = await delayFetcher(req[0]);
         const { personalData: personalData2 } = await delayFetcher(req[1]);
         const { personalData: personalData3 } = await delayFetcher(req[2]);
         setsearchData([personalData, personalData2, personalData3]);
-        setload(false);
       } else if (reqLen === 4) {
-        setload(true);
         const { personalData } = await delayFetcher(req[0]);
         const { personalData: personalData2 } = await delayFetcher(req[1]);
         const { personalData: personalData3 } = await delayFetcher(req[2]);
@@ -121,9 +116,7 @@ function Search() {
           personalData3,
           personalData4,
         ]);
-        setload(false);
       } else if (reqLen === 5) {
-        setload(true);
         const { personalData } = await delayFetcher(req[0]);
         const { personalData: personalData2 } = await delayFetcher(req[1]);
         const { personalData: personalData3 } = await delayFetcher(req[2]);
@@ -136,10 +129,12 @@ function Search() {
           personalData4,
           personalData5,
         ]);
-        setload(false);
       }
     };
+    setload(true);
     await getUsersData();
+    setload(false);
+    setIsParsed(true);
   };
   useEffect(() => {
     if (text === '') {
@@ -150,7 +145,7 @@ function Search() {
   }, [text]);
   return (
     <>
-      <SearchBox onSubmit={onSubmit} focused={focused}>
+      <SearchBox onSubmit={onSubmit} focused={focused} load={load}>
         <div className="placeholder">
           고양이님이 로비에 참가하셨습니다.
           <br />
@@ -171,7 +166,7 @@ function Search() {
         />
         <div className="search__submit">
           <button type="submit" className="search__btn">
-            멀티서치
+            {load ? <Loader /> : '멀티서치'}
           </button>
         </div>
       </SearchBox>

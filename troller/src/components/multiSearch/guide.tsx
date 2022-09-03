@@ -7,7 +7,7 @@ function Guide() {
       {guideSet.map(data => (
         <div className="imgBox" key={data.id}>
           <div className="img">
-            <img src={data.step2} alt="guide" />
+            <img src={data.step} alt="guide" />
           </div>
           <div className="desc">{data.description}</div>
         </div>
