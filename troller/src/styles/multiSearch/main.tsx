@@ -16,7 +16,7 @@ const MultiSearchWrapper = styled('div')`
   align-items: center;
 `;
 
-const SearchBox = styled('form')<{ focused: boolean }>`
+const SearchBox = styled('form')<{ focused: boolean; load: boolean }>`
   ${BOX_SHADOW}
   width: 450px;
   height: 200px;
@@ -64,10 +64,14 @@ const SearchBox = styled('form')<{ focused: boolean }>`
     .search__btn {
       width: 45%;
       height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       border-radius: ${`${BORDER_RADIUS - 5}px`};
       border: none;
       color: ${props => props.theme.bgColor.dark};
-      background-color: ${props => props.theme.bgColor.light};
+      background-color: ${props =>
+        props.load ? 'transparent' : props.theme.bgColor.light};
       cursor: pointer;
       ${TRANSITION}
       &:hover {
@@ -107,7 +111,8 @@ const GuideBox = styled('div')`
     .desc {
       width: 100%;
       height: 30%;
-      background-color: rgba(0, 0, 0, 0.3);
+      background-color: white;
+      padding: 10px;
     }
   }
 `;
