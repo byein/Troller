@@ -1,325 +1,401 @@
+import { ResultProps } from "../../pages/fullSearch/fullSearch";
 import {
-  FlexDiv,
-  RecordItemAction,
-  RecordItemGame,
-  RecordItemInfo,
-  RecordItemInfoWrapper,
-  RecordItemLi,
-  RecordItemParticipants,
-  RecordItemUl,
-  RecordItemWrapper,
-  RecordsWrapper,
-} from '../../styles/fullSearch/recordList';
+	FlexDiv,
+	RecordItemAction,
+	RecordItemGame,
+	RecordItemInfo,
+	RecordItemInfoWrapper,
+	RecordItemLi,
+	RecordItemParticipants,
+	RecordItemUl,
+	RecordItemWrapper,
+	RecordsWrapper,
+} from "../../styles/fullSearch/recordList";
 
-interface ResultProps {
-  result: string;
+interface RecordProps {
+	result: string;
+	death: string;
+	csPerMinutes: string;
+	playtime: string;
+	semiRuneImg: string;
+	primaryRune: string;
+	spell2img: string;
+	championUI: string;
+	win: boolean;
+	spell2: string;
+	spell1: string;
+	averageTier: string;
+	semiRune: string;
+	visionWard: string;
+	kda: string;
+	kill: string;
+	killRate: string;
+	cs: string;
+	championName: string;
+	spell1img: string;
+	lastPlayTime: string;
+	assist: string;
+	primaryRuneImg: string;
+	gameMode: string;
+	itemArray: {
+		item: string;
+		itemImg: string;
+	}[];
+	players: {
+		championImg: string;
+		lolName: string;
+		championName: string;
+		Position: string;
+		team: string;
+	}[];
 }
 
-function RecordItem({ result }: ResultProps) {
-  // let result = "LOSE";
-  return (
-    <RecordItemLi>
-      <RecordItemWrapper result={result}>
-        <RecordItemGame result={result}>
-          <div className="type">솔랭</div>
-          <div className="time-stamp">
-            <div>한 달 전</div>
-          </div>
-          <div className="bar" />
-          <div className="result">패배</div>
-          <div className="length">31분 40초</div>
-        </RecordItemGame>
-        <RecordItemInfo>
-          <FlexDiv result={result}>
-            <RecordItemInfoWrapper>
-              <FlexDiv result={result}>
-                <div className="champion">
-                  <div className="icon">
-                    <img
-                      src="https://opgg-static.akamaized.net/images/lol/champion/Akali.png?image=c_crop,h_103,w_103,x_9,y_9/q_auto,f_webp,w_96&amp;v=1657538065501"
-                      width="48"
-                      alt="아칼리"
-                      height="48"
-                    />
-                    <span className="champion-level">15</span>
-                  </div>
-                </div>
-                <div className="spells">
-                  <div className="spell">
-                    <img
-                      src="https://opgg-static.akamaized.net/images/lol/spell/SummonerDot.png?image=q_auto,f_webp,w_44&amp;v=1657538065501"
-                      width="22"
-                      alt="점화"
-                    />
-                  </div>
-                  <div className="spell">
-                    <img
-                      src="https://opgg-static.akamaized.net/images/lol/spell/SummonerFlash.png?image=q_auto,f_webp,w_44&amp;v=1657538065501"
-                      width="22"
-                      alt="점멸"
-                    />
-                  </div>
-                </div>
-                <div className="runes">
-                  <div className="rune">
-                    <img
-                      src="https://opgg-static.akamaized.net/images/lol/perk/8010.png?image=q_auto,f_webp,w_44&amp;v=1657538065501"
-                      width="22"
-                      alt="정복자"
-                    />
-                  </div>
-                  <div className="rune">
-                    <img
-                      src="https://opgg-static.akamaized.net/images/lol/perkStyle/8400.png?image=q_auto,f_webp,w_44&amp;v=1657538065501"
-                      width="22"
-                      alt="결의"
-                    />
-                  </div>
-                </div>
-              </FlexDiv>
-            </RecordItemInfoWrapper>
-            <div className="kda">
-              <div className="k-d-a">
-                <span>7</span> / <span className="d">7</span> / <span>6</span>
-              </div>
-              <div className="ratio">
-                <span>1.86:1 </span>
-                평점
-              </div>
-            </div>
+function RecordItem({
+	assist,
+	averageTier,
+	championName,
+	championUI,
+	cs,
+	csPerMinutes,
+	death,
+	gameMode,
+	itemArray,
+	kda,
+	kill,
+	killRate,
+	lastPlayTime,
+	players,
+	playtime,
+	primaryRune,
+	primaryRuneImg,
+	result,
+	semiRune,
+	semiRuneImg,
+	spell1,
+	spell1img,
+	spell2,
+	spell2img,
+	visionWard,
+	win,
+}: RecordProps) {
+	return (
+		<RecordItemLi>
+			<RecordItemWrapper result={result}>
+				<RecordItemGame result={result}>
+					<div className="result">
+						{result === WINLOSE.WIN ? "승리" : "패배"}
+					</div>
+					<div className="time-stamp">
+						<div>{lastPlayTime}</div>
+					</div>
+					<div className="bar" />
+					<div className="type">{gameMode}</div>
+					<div className="length">{playtime}</div>
+				</RecordItemGame>
+				<RecordItemInfo>
+					<FlexDiv result={result}>
+						<RecordItemInfoWrapper>
+							<FlexDiv result={result}>
+								<div className="champion">
+									<div className="icon">
+										<img
+											src={championUI}
+											width={"48"}
+											alt={championName}
+											height="48"
+										/>
+										<span className="champion-level">00</span>
+									</div>
+								</div>
+								<div className="spells">
+									<div className="spell">
+										{spell1img !== undefined ? (
+											<img src={spell1img} width="22" alt={spell1} />
+										) : (
+											<div
+												style={{
+													width: 22,
+													height: 22,
+													borderRadius: 6,
+													backgroundColor: "#ffffff",
+												}}
+											/>
+										)}
+									</div>
+									<div className="spell">
+										{spell2img !== undefined ? (
+											<img src={spell2img} width="22" alt={spell2} />
+										) : (
+											<div
+												style={{
+													width: 22,
+													height: 22,
+													borderRadius: 6,
+													backgroundColor: "#ffffff",
+												}}
+											/>
+										)}
+									</div>
+								</div>
+								<div className="runes">
+									<div className="rune">
+										{primaryRuneImg !== undefined ? (
+											<img src={primaryRuneImg} width="22" alt={primaryRune} />
+										) : (
+											<div
+												style={{
+													width: 22,
+													height: 22,
+													borderRadius: 6,
+													backgroundColor: "#ffffff",
+												}}
+											/>
+										)}
+									</div>
+									<div className="rune">
+										{semiRuneImg !== undefined ? (
+											<img src={semiRuneImg} width="22" alt={semiRune} />
+										) : (
+											<div
+												style={{
+													width: 22,
+													height: 22,
+													borderRadius: 6,
+													backgroundColor: "#ffffff",
+												}}
+											/>
+										)}
+									</div>
+								</div>
+							</FlexDiv>
+						</RecordItemInfoWrapper>
+						<div className="kda">
+							<div className="k-d-a">
+								<span>{kill}</span> / <span className="d">{death}</span> /{" "}
+								<span>{assist}</span>
+							</div>
+							<div className="ratio">
+								<span>{kda}:1 </span>
+								평점
+							</div>
+						</div>
 
-            <div className="stats">
-              <div className="p-kill">
-                <div>킬관여 39%</div>
-              </div>
-              <div className="ward">제어와드 3</div>
-              <div className="cs">CS 197 (6.2)</div>
-              <div className="average-tier">gold 2</div>
-            </div>
-          </FlexDiv>
-          <FlexDiv result={result}>
-            <div className="items">
-              <ul>
-                <li>
-                  <img
-                    src="https://opgg-static.akamaized.net/images/lol/item/3152.png?image=q_auto,f_webp,w_44&amp;v=1657538065312"
-                    width="22"
-                    alt="마법공학 로켓 벨트"
-                  />
-                </li>
-                <li>
-                  <img
-                    src="https://opgg-static.akamaized.net/images/lol/item/3152.png?image=q_auto,f_webp,w_44&amp;v=1657538065312"
-                    width="22"
-                    alt="마법공학 로켓 벨트"
-                  />
-                </li>
-                <li>
-                  <img
-                    src="https://opgg-static.akamaized.net/images/lol/item/3152.png?image=q_auto,f_webp,w_44&amp;v=1657538065312"
-                    width="22"
-                    alt="마법공학 로켓 벨트"
-                  />
-                </li>
-                <li>
-                  <img
-                    src="https://opgg-static.akamaized.net/images/lol/item/3152.png?image=q_auto,f_webp,w_44&amp;v=1657538065312"
-                    width="22"
-                    alt="마법공학 로켓 벨트"
-                  />
-                </li>
-                <li>
-                  <img
-                    src="https://opgg-static.akamaized.net/images/lol/item/3152.png?image=q_auto,f_webp,w_44&amp;v=1657538065312"
-                    width="22"
-                    alt="마법공학 로켓 벨트"
-                  />
-                </li>
-                <li>
-                  <img
-                    src="https://opgg-static.akamaized.net/images/lol/item/3152.png?image=q_auto,f_webp,w_44&amp;v=1657538065312"
-                    width="22"
-                    alt="마법공학 로켓 벨트"
-                  />
-                </li>
-              </ul>
-              <div className="ward">
-                <img
-                  src="https://opgg-static.akamaized.net/images/lol/item/3364.png?image=q_auto,f_webp,w_44&amp;v=1657538065312"
-                  width="22"
-                  alt="예언자의 렌즈"
-                />
-              </div>
-            </div>
-          </FlexDiv>
-        </RecordItemInfo>
-        <RecordItemParticipants>
-          <ul>
-            <li>
-              <div className="icon">
-                <img
-                  src="https://opgg-static.akamaized.net/images/lol/champion/Malphite.png?image=c_crop,h_103,w_103,x_9,y_9/q_auto,f_webp,w_32&amp;v=1657620388852"
-                  width="16"
-                  alt="말파이트"
-                />
-              </div>
-              <div className="name">내가 안 키웠을걸</div>
-            </li>
-            <li>
-              <div className="icon">
-                <img
-                  src="https://opgg-static.akamaized.net/images/lol/champion/LeeSin.png?image=c_crop,h_103,w_103,x_9,y_9/q_auto,f_webp,w_32&amp;v=1657620388852"
-                  width="16"
-                  alt="리 신"
-                />
-              </div>
-              <div className="name">2023년12월19일</div>
-            </li>
-            <li>
-              <div className="icon">
-                <img
-                  src="https://opgg-static.akamaized.net/images/lol/champion/Vex.png?image=c_crop,h_103,w_103,x_9,y_9/q_auto,f_webp,w_32&amp;v=1657620388852"
-                  width="16"
-                  alt="벡스"
-                />
-              </div>
-              <div className="name">채 희 솔</div>
-            </li>
-            <li>
-              <div className="icon">
-                <img
-                  src="https://opgg-static.akamaized.net/images/lol/champion/Kaisa.png?image=c_crop,h_103,w_103,x_9,y_9/q_auto,f_webp,w_32&amp;v=1657620388852"
-                  width="16"
-                  alt="카이사"
-                />
-              </div>
-              <div className="name">몇시영</div>
-            </li>
-            <li>
-              <div className="icon">
-                <img
-                  src="https://opgg-static.akamaized.net/images/lol/champion/Ashe.png?image=c_crop,h_103,w_103,x_9,y_9/q_auto,f_webp,w_32&amp;v=1657620388852"
-                  width="16"
-                  alt="애쉬"
-                />
-              </div>
-              <div className="name">me me she</div>
-            </li>
-          </ul>
-          <ul>
-            <li>
-              <div className="icon">
-                <img
-                  src="https://opgg-static.akamaized.net/images/lol/champion/Maokai.png?image=c_crop,h_103,w_103,x_9,y_9/q_auto,f_webp,w_32&amp;v=1657620388852"
-                  width="16"
-                  alt="마오카이"
-                />
-              </div>
-              <div className="name">상대갱먼저옴안함</div>
-            </li>
-            <li>
-              <div className="icon">
-                <img
-                  src="https://opgg-static.akamaized.net/images/lol/champion/Belveth.png?image=c_crop,h_103,w_103,x_9,y_9/q_auto,f_webp,w_32&amp;v=1657620388852"
-                  width="16"
-                  alt="벨베스"
-                />
-              </div>
-              <div className="name">In the Roon</div>
-            </li>
-            <li>
-              <div className="icon">
-                <img
-                  src="https://opgg-static.akamaized.net/images/lol/champion/Akali.png?image=c_crop,h_103,w_103,x_9,y_9/q_auto,f_webp,w_32&amp;v=1657620388852"
-                  width="16"
-                  alt="아칼리"
-                />
-              </div>
-              <div className="name">asdf</div>
-            </li>
-            <li>
-              <div className="icon">
-                <img
-                  src="https://opgg-static.akamaized.net/images/lol/champion/Senna.png?image=c_crop,h_103,w_103,x_9,y_9/q_auto,f_webp,w_32&amp;v=1657620388852"
-                  width="16"
-                  alt="세나"
-                />
-              </div>
-              <div className="name">강형욱이파양한개</div>
-            </li>
-            <li>
-              <div className="icon">
-                <img
-                  src="https://opgg-static.akamaized.net/images/lol/champion/Pantheon.png?image=c_crop,h_103,w_103,x_9,y_9/q_auto,f_webp,w_32&amp;v=1657620388852"
-                  width="16"
-                  alt="판테온"
-                />
-              </div>
-              <div className="name">눈 속에 돌 있다</div>
-            </li>
-          </ul>
-        </RecordItemParticipants>
-        <RecordItemAction result={result}>
-          <button type="button" className="detail">
-            {result === 'LOSE' ? (
-              <img
-                src="https://s-lol-web.op.gg/images/icon/icon-arrow-down-red.svg?v=1657538065312"
-                width="24"
-                alt="More"
-                height="24"
-              />
-            ) : (
-              <img
-                src="https://s-lol-web.op.gg/images/icon/icon-arrow-down-blue.svg?v=1657538065312"
-                width="24"
-                alt="More"
-                height="24"
-              />
-            )}
-          </button>
-        </RecordItemAction>
-      </RecordItemWrapper>
-    </RecordItemLi>
-  );
+						<div className="stats">
+							<div className="p-kill">
+								<div>킬관여 {killRate}</div>
+							</div>
+							<div className="ward">제어와드 {visionWard}</div>
+							<div className="cs">
+								CS {cs} ({csPerMinutes})
+							</div>
+							<div className="average-tier">{averageTier}</div>
+						</div>
+					</FlexDiv>
+					<FlexDiv result={result}>
+						<div className="items">
+							<ul>
+								{itemArray.map((i, index) => {
+									if (index === 6) {
+										return <></>;
+									}
+									return i.item !== "None" ? (
+										<li>
+											<img src={i.itemImg} width="22" alt={i.item} />
+										</li>
+									) : (
+										<li></li>
+									);
+								})}
+							</ul>
+							<div className="ward">
+								{itemArray[6].item !== "None" ? (
+									<img
+										src={itemArray[6].itemImg}
+										width="22"
+										alt={itemArray[6].item}
+									/>
+								) : (
+									<></>
+								)}
+							</div>
+						</div>
+					</FlexDiv>
+				</RecordItemInfo>
+				<RecordItemParticipants>
+					<ul>
+						<li>
+							<div className="icon">
+								<img
+									src={players[0].championImg}
+									width="16"
+									alt={players[0].championName}
+								/>
+							</div>
+							<div className="name">{players[0].lolName}</div>
+						</li>
+						<li>
+							<div className="icon">
+								<img
+									src={players[1].championImg}
+									width="16"
+									alt={players[1].championName}
+								/>
+							</div>
+							<div className="name">{players[1].lolName}</div>
+						</li>
+						<li>
+							<div className="icon">
+								<img
+									src={players[2].championImg}
+									width="16"
+									alt={players[2].championName}
+								/>
+							</div>
+							<div className="name">{players[2].lolName}</div>
+						</li>
+						<li>
+							<div className="icon">
+								<img
+									src={players[3].championImg}
+									width="16"
+									alt={players[3].championName}
+								/>
+							</div>
+							<div className="name">{players[3].lolName}</div>
+						</li>
+						<li>
+							<div className="icon">
+								<img
+									src={players[4].championImg}
+									width="16"
+									alt={players[4].championName}
+								/>
+							</div>
+							<div className="name">{players[4].lolName}</div>
+						</li>
+					</ul>
+					<ul>
+						<li>
+							<div className="icon">
+								<img
+									src={players[5].championImg}
+									width="16"
+									alt={players[5].championName}
+								/>
+							</div>
+							<div className="name">{players[5].lolName}</div>
+						</li>
+						<li>
+							<div className="icon">
+								<img
+									src={players[6].championImg}
+									width="16"
+									alt={players[6].championName}
+								/>
+							</div>
+							<div className="name">{players[6].lolName}</div>
+						</li>
+						<li>
+							<div className="icon">
+								<img
+									src={players[7].championImg}
+									width="16"
+									alt={players[7].championName}
+								/>
+							</div>
+							<div className="name">{players[7].lolName}</div>
+						</li>
+						<li>
+							<div className="icon">
+								<img
+									src={players[8].championImg}
+									width="16"
+									alt={players[8].championName}
+								/>
+							</div>
+							<div className="name">{players[8].lolName}</div>
+						</li>
+						<li>
+							<div className="icon">
+								<img
+									src={players[9].championImg}
+									width="16"
+									alt={players[9].championName}
+								/>
+							</div>
+							<div className="name">{players[9].lolName}</div>
+						</li>
+					</ul>
+				</RecordItemParticipants>
+				<RecordItemAction result={result}>
+					<button type="button" className="detail">
+						{result === "LOSE" ? (
+							<img
+								src="https://s-lol-web.op.gg/images/icon/icon-arrow-down-red.svg?v=1657538065312"
+								width="24"
+								alt="More"
+								height="24"
+							/>
+						) : (
+							<img
+								src="https://s-lol-web.op.gg/images/icon/icon-arrow-down-blue.svg?v=1657538065312"
+								width="24"
+								alt="More"
+								height="24"
+							/>
+						)}
+					</button>
+				</RecordItemAction>
+			</RecordItemWrapper>
+		</RecordItemLi>
+	);
 }
 
 enum WINLOSE {
-  WIN = 'WIN',
-  LOSE = 'LOSE',
+	WIN = "WIN",
+	LOSE = "LOSE",
 }
 
-function RecordList() {
-  const arr: WINLOSE[] = [
-    WINLOSE.WIN,
-    WINLOSE.LOSE,
-    WINLOSE.WIN,
-    WINLOSE.WIN,
-    WINLOSE.WIN,
-    WINLOSE.WIN,
-    WINLOSE.LOSE,
-    WINLOSE.LOSE,
-    WINLOSE.LOSE,
-    WINLOSE.LOSE,
-    WINLOSE.WIN,
-    WINLOSE.LOSE,
-    WINLOSE.WIN,
-    WINLOSE.WIN,
-    WINLOSE.WIN,
-    WINLOSE.WIN,
-    WINLOSE.LOSE,
-    WINLOSE.LOSE,
-    WINLOSE.LOSE,
-    WINLOSE.LOSE,
-  ];
-
-  return (
-    <RecordsWrapper>
-      <RecordItemUl>
-        {arr.map(item => (
-          <RecordItem result={item} />
-        ))}
-      </RecordItemUl>
-    </RecordsWrapper>
-  );
+function RecordList({ resultData }: { resultData: ResultProps | undefined }) {
+	return (
+		<RecordsWrapper>
+			<RecordItemUl>
+				{resultData !== undefined ? (
+					resultData.gameRecord?.gameRecord.map((item) => (
+						<RecordItem
+							result={item.win === true ? WINLOSE.WIN : WINLOSE.LOSE}
+							death={item.death}
+							csPerMinutes={item.csPerMinutes}
+							playtime={item.playtime}
+							semiRuneImg={item.semiRuneImg}
+							primaryRune={item.primaryRune}
+							spell2img={item.spell2img}
+							championUI={item.championUI}
+							win={item.win}
+							spell2={item.spell2}
+							spell1={item.spell1}
+							averageTier={item.averageTier}
+							semiRune={item.semiRune}
+							visionWard={item.visionWard}
+							kda={item.kda}
+							kill={item.kill}
+							killRate={item.killRate}
+							cs={item.cs}
+							championName={item.championName}
+							spell1img={item.spell1img}
+							lastPlayTime={item.lastPlayTime}
+							assist={item.assist}
+							primaryRuneImg={item.primaryRuneImg}
+							gameMode={item.gameMode}
+							itemArray={item.itemArray}
+							players={item.players}
+						/>
+					))
+				) : (
+					<></>
+				)}
+			</RecordItemUl>
+		</RecordsWrapper>
+	);
 }
 export default RecordList;
