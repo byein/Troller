@@ -1,19 +1,19 @@
 /* eslint-disable no-nested-ternary */
 import { Record, StatWrapper, UserStat } from '../../styles/multiSearch/stats';
 // eslint-disable-next-line import/no-cycle
-import { IResultType } from './searchBox';
-import top from '../../static/img/common/positions/top_focused.png';
-import jungle from '../../static/img/common/positions/jungle_focused.png';
-import mid from '../../static/img/common/positions/mid_focused.png';
-import bottom from '../../static/img/common/positions/bottom_focused.png';
-import util from '../../static/img/common/positions/utility_focused.png';
+import { IResultType } from "./searchBox";
+import top from "../../static/img/common/positions/top_focused.png";
+import jungle from "../../static/img/common/positions/jungle_focused.png";
+import mid from "../../static/img/common/positions/mid_focused.png";
+import bottom from "../../static/img/common/positions/bottom_focused.png";
+import util from "../../static/img/common/positions/utility_focused.png";
 
 function Stats({
-  searchData,
-  load,
+	searchData,
+	load,
 }: {
-  searchData: IResultType[] | undefined;
-  load: boolean;
+	searchData: IResultType[] | undefined;
+	load: boolean;
 }) {
   return (
     <StatWrapper>
