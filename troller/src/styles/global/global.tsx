@@ -89,16 +89,6 @@ const GlobalHeader = styled('header')<{ pathname: string }>`
       justify-content: center;
       align-items: center;
       position: relative;
-      .alert {
-        display: block;
-        position: absolute;
-        top: 27px;
-        right: 0;
-        width: 5px;
-        height: 5px;
-        border-radius: 50%;
-        background-color: ${props => props.theme.validation.resolve};
-      }
       .block {
         height: 50px;
         padding: 0;
@@ -129,16 +119,6 @@ const GlobalHeader = styled('header')<{ pathname: string }>`
               border: none;
               border-bottom: 1px solid ${props => props.theme.txtColor.primary};
               position: relative;
-              .alert {
-                position: absolute;
-                top: 12.5px;
-                right: 8px;
-                display: block;
-                width: 5px;
-                height: 5px;
-                border-radius: 50%;
-                background-color: ${props => props.theme.validation.resolve};
-              }
               ${TRANSITION}
               &:hover {
                 color: ${props => props.theme.txtColor.selected};

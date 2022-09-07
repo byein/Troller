@@ -34,7 +34,6 @@ function MyPageHeader() {
               }}
             >
               live chat
-              <span className="alert" />
             </button>
           </div>
           <div className="menues">
@@ -76,7 +75,6 @@ function Header({ pathname }: { pathname: string }) {
           ) : (
             <Link to="sign_in">로그인</Link>
           )}
-          <span className="alert" />
         </span>
       </div>
     </GlobalHeader>
