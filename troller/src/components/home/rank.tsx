@@ -53,10 +53,7 @@ function RankTableRender() {
         console.error(error);
       });
   }, []);
-  // const getValues = Object.values(rankData).map((entrie, idx) => {
-  //   return console.log(entrie, idx);
-  // });
-  // console.log(rankData[0][name]);
+
   const rendering = () => {
     const result: JSX.Element[] = [];
     let idx = 0;
@@ -99,22 +96,6 @@ function RankTableRender() {
         idx += 1;
       });
     });
-    // for (let i = 0; i < 10; i += 1) {
-    //   if (i === 9) {
-    //     result.push(
-    //       <div>
-    //         <RankItem key={i} rank={i + 1} name="닉네임" leaguePoints="12345" />
-    //       </div>
-    //     );
-    //   } else {
-    //     result.push(
-    //       <RankItemStyle>
-    //         <RankItem key={i} rank={i + 1} name="닉네임" leaguePoints="1234" />
-    //         <RankTableTRBar />{' '}
-    //       </RankItemStyle>
-    //     );
-    //   }
-    // }
     return result;
   };
   return <TableBody>{rendering()}</TableBody>;
