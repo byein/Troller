@@ -2,7 +2,7 @@
 FROM    node:16
 
 # 2. 패키지 우선 복사
-COPY    ./troller/package* /usr/src/app/
+COPY    ./troller/package.json /usr/src/app/
 WORKDIR /usr/src/app
 RUN     npm install -g npm@8.19.2
 
