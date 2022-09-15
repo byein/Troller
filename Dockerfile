@@ -1,16 +1,17 @@
 # 1. node 이미지 사용
 FROM    node:16
 
-# 2. 패키지 우선 복사
-COPY    ./troller/package.json /usr/src/app/
-WORKDIR /usr/src/app
-
+# 빌드된 산출물을 실행시키기 위해 필요한 serve 모듈
 RUN npm install -g serve
 
-# 3. 소스 복사
-COPY ./troller /usr/src/app
+# 작업 공간
+RUN mkdir /app
+WORKDIR /app
 
-# 4. WEB 서버 실행 (Listen 포트 정의)
-EXPOSE 3000
-CMD    npm start
+# 빌드된 산출물 도커 이미지로 복사
+RUN mkdir ./build
+COPY ./build ./build
+
+# 실행 명령어
+ENTRYPOINT ["serve", "-s", "build"]
 
