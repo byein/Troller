@@ -4,7 +4,8 @@ FROM    node:16
 # 2. 패키지 우선 복사
 COPY    ./troller/package.json /usr/src/app/
 WORKDIR /usr/src/app
-RUN     npm install react-scripts@3.0.1 -g
+
+RUN npm install -g serve
 
 # 3. 소스 복사
 COPY ./troller /usr/src/app
