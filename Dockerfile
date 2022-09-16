@@ -5,9 +5,9 @@ FROM    node:16
 COPY    ./troller/package* /usr/src/app/
 WORKDIR /usr/src/app
 
+RUN npm install
 RUN npm install -g npm@8.19.2
 RUN npm install react@latest -g
-RUN npm install react-scripts
 
 
 # 3. 소스 복사
