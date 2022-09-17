@@ -102,8 +102,9 @@ export interface ResultProps {
 
 function FullSearch() {
 	const { pathname } = useLocation();
-
-	const [userLoLName, setUserLoLName] = useState("hideonpush");
+	const decodeUri = decodeURI(pathname);
+	const user = decodeUri.split("/")[1];
+	const [userLoLName, setUserLoLName] = useState(user);
 	const [resultData, setResultData] = useState<ResultProps>();
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -117,7 +118,7 @@ function FullSearch() {
 		(async () => {
 			await getUsersData();
 		})();
-	}, [getUsersData, resultData]);
+	}, [getUsersData]);
 	return (
 		<FullSearchGlobalWrapper>
 			<UserSection>
