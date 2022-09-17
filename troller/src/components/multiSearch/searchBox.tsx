@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useApi } from '../../hooks/axiosHooks';
 import delayFetcher from '../../hooks/search/delayFetcher';
 import { SearchBox } from '../../styles/multiSearch/main';
 import { Loader } from '../../styles/multiSearch/stats';

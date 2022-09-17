@@ -88,7 +88,7 @@ function Stats({
               <div className="inner">
                 {userData.most?.mostThreeChampion?.map(champ => {
                   return (
-                    <div className="champs">
+                    <div className="champs" key={champ.gamePlayed}>
                       <div className="imgBox">
                         <img
                           src={champ.championUi}
