@@ -95,35 +95,34 @@ const UserInfo: React.FC<KDAProps> = ({
     </div>
   );
 };
-function MyResponsivePie({ data /* see data tab */ }: { data: any }) {
-  return (
-    <Pie
-      data={data}
-      margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
-      innerRadius={0.6}
-      padAngle={1}
-      cornerRadius={5}
-      activeOuterRadiusOffset={5}
-      colors={{ scheme: 'category10' }}
-      borderColor={{
-        from: 'color',
-        modifiers: [['darker', 0.2]],
-      }}
-      arcLinkLabelsSkipAngle={15}
-      arcLinkLabelsTextColor="#ffffff"
-      arcLinkLabelsOffset={5}
-      arcLinkLabelsDiagonalLength={15}
-      arcLinkLabelsStraightLength={15}
-      arcLinkLabelsThickness={2}
-      arcLinkLabelsColor={{ from: 'color', modifiers: [] }}
-      arcLabelsSkipAngle={15}
-      arcLabelsTextColor="#ffffff"
-      legends={[]}
-      height={88}
-      width={88}
-    />
-  );
-}
+
+const MyResponsivePie = ({ data /* see data tab */ }: { data: any }) => (
+  <Pie
+    data={data}
+    margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
+    innerRadius={0.6}
+    padAngle={1}
+    cornerRadius={5}
+    activeOuterRadiusOffset={5}
+    colors={{ scheme: 'category10' }}
+    borderColor={{
+      from: 'color',
+      modifiers: [['darker', 0.2]],
+    }}
+    arcLinkLabelsSkipAngle={15}
+    arcLinkLabelsTextColor="#ffffff"
+    arcLinkLabelsOffset={5}
+    arcLinkLabelsDiagonalLength={15}
+    arcLinkLabelsStraightLength={15}
+    arcLinkLabelsThickness={2}
+    arcLinkLabelsColor={{ from: 'color', modifiers: [] }}
+    arcLabelsSkipAngle={15}
+    arcLabelsTextColor="#ffffff"
+    legends={[]}
+    height={88}
+    width={88}
+  />
+);
 
 function WinLoseChart({ winRate }: { winRate: string | undefined }) {
   const winRateModified = winRate?.split('%')[0];
@@ -209,13 +208,7 @@ const ChampionInfo: React.FC<ChampionProps> = ({
   );
 };
 
-function Champion({
-  userLoLName,
-  resultData,
-}: {
-  userLoLName: string;
-  resultData: ResultProps | undefined;
-}) {
+const Champion = ({ resultData }: { resultData: ResultProps | undefined }) => {
   return (
     <ChampionWrapper>
       <SumRecordTitleWrapper>
@@ -249,7 +242,7 @@ function Champion({
       </div>
     </ChampionWrapper>
   );
-}
+};
 
 const PositionInfo: React.FC<PositionProps> = ({
   linePlayed,
@@ -280,13 +273,7 @@ const PositionInfo: React.FC<PositionProps> = ({
   );
 };
 
-function Position({
-  userLoLName,
-  resultData,
-}: {
-  userLoLName: string;
-  resultData: ResultProps | undefined;
-}) {
+const Position = ({ resultData }: { resultData: ResultProps | undefined }) => {
   return (
     <PositionWrapper>
       <SumRecordTitleWrapper>선호 포지션 (랭크)</SumRecordTitleWrapper>
@@ -302,10 +289,10 @@ function Position({
       </div>
     </PositionWrapper>
   );
-}
+};
 
 function SumRecord({ resultData }: { resultData: ResultProps | undefined }) {
-  const [userLoLName, setUserLoLName] = useState('hideonpush');
+  // const [userLoLName, setUserLoLName] = useState("규 턴");
   return (
     <SumRecordsWrapper>
       <Stats
@@ -319,9 +306,9 @@ function SumRecord({ resultData }: { resultData: ResultProps | undefined }) {
         lose={resultData?.gameRecord?.latestTwentyRecords.lose}
       />
       <Bar />
-      <Champion userLoLName={userLoLName} resultData={resultData} />
+      <Champion resultData={resultData} />
       <Bar />
-      <Position userLoLName={userLoLName} resultData={resultData} />
+      <Position resultData={resultData} />
     </SumRecordsWrapper>
   );
 }

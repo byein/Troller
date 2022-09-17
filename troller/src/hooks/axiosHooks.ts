@@ -50,7 +50,7 @@ useAccessApi.interceptors.response.use(
       if (status === 200) {
         localStorage.setItem('access_token', accessToken);
         originalRequest.headers = { 'JWT-accessToken': `${ACCESS_TOKEN}` };
-        return axios(originalRequest);
+        return useAccessApi(originalRequest);
       }
       if (status === 403) {
         localStorage.clear();

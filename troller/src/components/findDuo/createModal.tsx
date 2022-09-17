@@ -66,6 +66,7 @@ function CreateModal() {
         mike,
         positionData,
       };
+      console.log(request); // test
       if (positionData === '') {
         e.preventDefault();
         alert('듀오찾기: 포지션을 선택 해 주세요');
@@ -74,10 +75,11 @@ function CreateModal() {
           '/api/findDuo/create',
           request
         );
-        if (status === 200) {
-          console.log(data);
-          // setResponseData(data);
-        }
+        console.log(status, data);
+        // if (status === 201) {
+        //   console.log(data);
+        //   // setResponseData(data);
+        // }
       }
     })();
   };

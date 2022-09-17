@@ -253,7 +253,6 @@ const RecordItemAction = styled('div')<{ result: string }>`
     height: 96px;
     background-color: ${props =>
       props.result === 'LOSE' ? '#FFD8D9' : '#D5E3FF'};
-
     img {
       position: absolute;
       bottom: 8px;
