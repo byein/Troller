@@ -114,7 +114,11 @@ function FullSearch() {
     setResultData(personalData);
     return personalData;
   };
+
   useEffect(() => {
+    /**
+     * @description info, most, line, gameRecord 사이클 무한요청됨.
+     */
     (async () => {
       await getUsersData();
     })();
