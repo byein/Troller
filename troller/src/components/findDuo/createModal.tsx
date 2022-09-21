@@ -66,18 +66,20 @@ function CreateModal() {
         mike,
         positionData,
       };
+      console.log(request); // test
       if (positionData === '') {
         e.preventDefault();
         alert('듀오찾기: 포지션을 선택 해 주세요');
       } else {
         const { status, data } = await useAccessApi.post<IHeadDataType[]>(
-          '/api/findDuo/exampleEndPoint/create',
+          '/api/findDuo/create',
           request
-        ); // 500 error
-        if (status === 200) {
-          console.log(data);
-          // setResponseData(data);
-        }
+        );
+        console.log(status, data);
+        // if (status === 201) {
+        //   console.log(data);
+        //   // setResponseData(data);
+        // }
       }
     })();
   };

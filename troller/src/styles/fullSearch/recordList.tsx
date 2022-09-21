@@ -237,31 +237,30 @@ const RecordItemParticipants = styled('div')`
   }
 `;
 const RecordItemAction = styled('div')<{ result: string }>`
-	position: absolute;
-	right:0px;
-	width: 40px;
-	height: 96px;
-	border-top-right-radius: 4px;
-	border-bottom-right-radius: 4px;
-	overflow: hidden;
-	.detail{
-		border: 0;
+  position: absolute;
+  right: 0px;
+  width: 40px;
+  height: 96px;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  overflow: hidden;
+  .detail {
+    border: 0;
     padding: 0;
     background: transparent;
     cursor: pointer;
-		width: 40px;
+    width: 40px;
     height: 96px;
-	background-color: ${props => (props.result === 'LOSE' ? '#FFD8D9' : '#D5E3FF')};
-
-		img{
-			position: absolute;
-			bottom: 8px;
-			left: 8px;
-			width: 24px;
-			height: 24px;
-		}
-	}
-}
+    background-color: ${props =>
+      props.result === 'LOSE' ? '#FFD8D9' : '#D5E3FF'};
+    img {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      width: 24px;
+      height: 24px;
+    }
+  }
 `;
 
 export {
