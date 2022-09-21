@@ -1,8 +1,9 @@
-/* eslint-disable import/no-cycle */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/function-component-definition */
-import React from 'react';
+/* eslint-disable import/no-cycle */
+import React, { useState } from 'react';
 import { Pie } from '@nivo/pie';
+import { ResultProps } from '../../pages/fullSearch/fullSearch';
 import {
   AverageKDA,
   Bar,
@@ -31,7 +32,6 @@ import jungle from '../../static/img/common/positions/jungle_focused.png';
 import mid from '../../static/img/common/positions/mid_focused.png';
 import bottom from '../../static/img/common/positions/bottom_focused.png';
 import util from '../../static/img/common/positions/utility_focused.png';
-import { ResultProps } from '../../pages/fullSearch/fullSearch';
 
 interface WinLoseProps {
   lose: string | undefined;
@@ -95,6 +95,7 @@ const UserInfo: React.FC<KDAProps> = ({
     </div>
   );
 };
+
 const MyResponsivePie = ({ data /* see data tab */ }: { data: any }) => (
   <Pie
     data={data}

@@ -1,25 +1,35 @@
+/* eslint-disable import/no-cycle */
 import SendIcon from '@mui/icons-material/Send';
 import React, { useEffect, useRef, useState } from 'react';
 import * as StompJs from '@stomp/stompjs';
 import { useParams } from 'react-router-dom';
-import { Form, TextArea } from '../../styles/liveChat/liveChat';
+import Form from '../../styles/liveChat/liveChat';
+import { useAccessApi } from '../../hooks/axiosHooks';
+import TalkBox from './talkBox';
+
+export interface IChatHistoryType {
+  sender: string;
+  content: string;
+  createDate: string;
+  messageId: number;
+}
 
 function LiveChat() {
+  const [chatHistory, setChatHistory] = useState<IChatHistoryType[]>();
   const [content, setContent] = useState('');
   const accessToken = localStorage.getItem('access_token');
   const { chatRoomId } = useParams();
   const socketUrl = 'ws://3.37.22.89:8080';
   const client = useRef<StompJs.Client>();
-
   const subscribe = () => {
     client.current?.subscribe(
-      `${socketUrl}/topic/chat_room/${chatRoomId}`,
+      `/topic/chat_room/${chatRoomId}`,
       (message: any) => {
-        console.log(message);
+        const data = JSON.parse(message.body);
+        setChatHistory((prev: any) => [...prev, data]);
       }
     );
   };
-
   const connect = () => {
     client.current = new StompJs.Client({
       brokerURL: `${socketUrl}/ws-chat`,
@@ -50,6 +60,17 @@ function LiveChat() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chatRoomId]);
 
+  useEffect(() => {
+    (async () => {
+      const { data, status } = await useAccessApi.get(
+        `/api/chat/rooms/messages/${chatRoomId}`
+      );
+      if (status === 200) {
+        setChatHistory(data);
+      }
+    })();
+  }, [chatRoomId]);
+
   const publish = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const msg = {
@@ -58,7 +79,7 @@ function LiveChat() {
       accessToken,
     };
     client.current?.publish({
-      destination: `${socketUrl}/app/chat/message`,
+      destination: `/app/chat/message`,
       body: JSON.stringify(msg),
     }); // It Works!
     setContent('');
@@ -71,14 +92,14 @@ function LiveChat() {
       accessToken,
     };
     client.current?.publish({
-      destination: `${socketUrl}/app/chat/message`,
+      destination: `/app/chat/message`,
       body: JSON.stringify(msg),
     }); // It Works!
     setContent('');
   };
   return (
     <>
-      <TextArea />
+      <TalkBox chatHistory={chatHistory} />
       <Form onSubmit={publish}>
         <input
           className="input"
