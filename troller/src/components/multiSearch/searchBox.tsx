@@ -73,9 +73,7 @@ function Search() {
       e.preventDefault();
     }
   };
-  useEffect(() => {
-    console.log('searchData', searchData);
-  }, [searchData]);
+
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setsearchData([]);
