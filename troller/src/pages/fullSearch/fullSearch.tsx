@@ -1,5 +1,5 @@
 /* eslint-disable import/no-cycle */
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import {
   FullSearchGlobalWrapper,
@@ -102,27 +102,26 @@ export interface ResultProps {
 }
 
 function FullSearch() {
-  const { pathname } = useLocation();
-  const decodeUri = decodeURI(pathname);
-  const user = decodeUri.split('/')[1];
-  const [userLoLName, setUserLoLName] = useState(user);
+  /**
+   * @description useParams를 통해 라우터에 등록된 :userId를 깨지지 않은 채로 가져올 수 있어서 사용
+   * @description useLocation은 props로 넘겨줄 컴포넌트에 함수로 바로 넘겨줌
+   */
+  const { userId } = useParams();
   const [resultData, setResultData] = useState<ResultProps>();
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const getUsersData = async () => {
-    const { personalData } = await delayFetcher(userLoLName);
-    setResultData(personalData);
-    return personalData;
-  };
-
   useEffect(() => {
-    /**
-     * @description info, most, line, gameRecord 사이클 무한요청됨.
-     */
     (async () => {
-      await getUsersData();
+      if (userId) {
+        /**
+         * @description 기존에 userId를 저장하던 state의 setter를 사용하지 않는 것 같아 삭제하고 useParams값을 그대로 사용
+         * @description dependency에 userId를 넣어주지 않아 무한 렌더링이 발생한 것 같음
+         */
+        const { personalData } = await delayFetcher(userId);
+        setResultData(personalData);
+      }
     })();
-  }, [getUsersData]);
+  }, [userId]);
+
   return (
     <FullSearchGlobalWrapper>
       <UserSection>
@@ -139,8 +138,8 @@ function FullSearch() {
             point={resultData?.info?.point}
             rank={resultData?.info?.rank}
           />
-          <GraphTab pathname={pathname} />
-          <FullSearchContainer pathname={pathname}>
+          <GraphTab pathname={useLocation().pathname} />
+          <FullSearchContainer pathname={useLocation().pathname}>
             <Outlet />
           </FullSearchContainer>
         </FullSearchWrapper>
