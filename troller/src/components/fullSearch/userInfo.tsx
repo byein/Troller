@@ -3,6 +3,7 @@ import {
   ProfileImageWrapper,
   ProfileInfoWrapper,
   Records,
+  ReNewFullSearchBtnWrapper,
   Tier,
   TierImageWrapper,
   TierNickname,
@@ -19,6 +20,7 @@ import Diamond from '../../static/img/ranked-emblems/Emblem_Diamond.png';
 import Master from '../../static/img/ranked-emblems/Emblem_Master.png';
 import GrandMaster from '../../static/img/ranked-emblems/Emblem_Grandmaster.png';
 import Challenger from '../../static/img/ranked-emblems/Emblem_Challenger.png';
+import { ChatBtn } from '../../styles/findDuo/contents';
 
 export interface UserInfoProps {
   name: string | undefined;
@@ -33,7 +35,7 @@ export interface UserInfoProps {
   rank: string | undefined;
 }
 
-export enum TierData {
+enum TierData {
   UNRANKED = 'UNRANKED',
   IRON = 'IRON',
   BRONZE = 'BRONZE',
@@ -120,6 +122,7 @@ function ProfileInfo({
         <TierImage tier={tier} />
         <UserNickName>{name}</UserNickName>
       </TierNickname>
+
       <Tier>
         {tier} {rank}
       </Tier>
@@ -164,6 +167,15 @@ function UserInfo({
         point={point}
         rank={rank}
       />
+      <ReNewFullSearchBtnWrapper>
+        <ChatBtn
+          onClick={() => {
+            window.location.reload();
+          }}
+        >
+          전적갱신
+        </ChatBtn>
+      </ReNewFullSearchBtnWrapper>
     </UserInfoWrapper>
   );
 }

@@ -1,5 +1,9 @@
 function KDA() {
-  return <div>kda</div>;
+  return (
+    <div>
+      <div>Troll_Possibility: {0}%</div>
+    </div>
+  );
 }
 
 export default KDA;

@@ -5,6 +5,13 @@ import {
   TRANSPARENT_TXTCOLOR,
 } from '../global/global';
 
+const ReNewFullSearchBtnWrapper = styled('div')`
+  width: 100px;
+  height: 30px;
+  right: calc(200px - 40%);
+  position: relative;
+`;
+
 const FullSearchWrapper = styled('div')`
   ${FLOAT_COLOR};
   width: 90%;
@@ -150,6 +157,7 @@ const ProfileTab = styled('li')<{ isActive: boolean }>`
 `;
 
 export {
+  ReNewFullSearchBtnWrapper,
   TierNickname,
   FullSearchWrapper,
   FullSearchContainer,

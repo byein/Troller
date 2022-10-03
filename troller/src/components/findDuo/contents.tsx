@@ -129,7 +129,6 @@ function Contents({
       <ContentFooter>
         <ChatBtnBox>
           <ChatBtn onClick={moveToChatRoom}>채팅하기</ChatBtn>
-          <ChatBtn>AI 듀오매칭</ChatBtn>
         </ChatBtnBox>
       </ContentFooter>
     </Content>
