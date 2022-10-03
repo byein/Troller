@@ -21,6 +21,7 @@ import Master from '../../static/img/ranked-emblems/Emblem_Master.png';
 import GrandMaster from '../../static/img/ranked-emblems/Emblem_Grandmaster.png';
 import Challenger from '../../static/img/ranked-emblems/Emblem_Challenger.png';
 import { ChatBtn } from '../../styles/findDuo/contents';
+import { useApi } from '../../hooks/axiosHooks';
 
 export interface UserInfoProps {
   name: string | undefined;
@@ -152,6 +153,11 @@ function UserInfo({
   point,
   rank,
 }: UserInfoProps) {
+  const url = '';
+  const renewFullSearch = () => {
+    useApi.post('/api/dataflow/record/update');
+  };
+
   return (
     <UserInfoWrapper>
       <ProfileImage profileImg={icon} />
