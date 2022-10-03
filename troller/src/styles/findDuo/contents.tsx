@@ -247,7 +247,7 @@ const ChatBtnBox = styled('div')`
   align-items: center;
 `;
 const ChatBtn = styled('button')`
-  width: 49%;
+  width: 100%;
   height: 100%;
   border: none;
   border-radius: ${`${BORDER_RADIUS - 5}px`};
