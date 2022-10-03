@@ -15,7 +15,7 @@ const ReNewFullSearchBtnWrapper = styled('div')`
 const FullSearchWrapper = styled('div')`
   ${FLOAT_COLOR};
   width: 90%;
-  height: 700px;
+  height: fit-content;
   border-radius: ${`${BORDER_RADIUS}px`};
   // margin: 145px 381px;
 `;

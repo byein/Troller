@@ -41,7 +41,7 @@ const KDAWrapper = styled('div')`
   -webkit-box-align: center;
   align-items: center;
 `;
-const Chart = styled('div')`
+const PieChart = styled('div')`
   position: relative;
   width: 88px;
   height: 88px;
@@ -144,7 +144,7 @@ export {
   KillWrapper,
   KillParticipation,
   AverageKDA,
-  Chart,
+  PieChart,
   ChartText,
   ChampionWrapper,
   PositionWrapper,
