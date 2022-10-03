@@ -44,25 +44,23 @@ function Contents({
     const {
       data: { chatRoomId, opponentLolName },
       status,
-    } = await useAccessApi.post(`/api/chat/room?opponent=규 턴`);
+    } = await useAccessApi.post(`/api/chat/room?opponent=${lolName}`);
     if (status === 200 || status === 201) {
       router(`/sub/chat/room/${opponentLolName}/${chatRoomId}`);
     }
-  }; // fake for the test
-
-  // const moveToChatRoom = async () => {
-  //   const {
-  //     data: { chatRoomId, opponentLolName },
-  //     status,
-  //   } = await useAccessApi.post(`/api/chat/room?opponent=${lolName}`);
-  //   if (status === 200 || status === 201) {
-  //     router(`/sub/chat/room/${opponentLolName}/${chatRoomId}`);
-  //   }
-  // }; // The REAL one
+  }; // The REAL one
 
   const onSubmit = handleSubmit(async () => {
-    // const { status } = await useAccessApi.delete('exampleDeleteAPI',{
-    //   params: {id}});
+    const { status, data } = await useAccessApi.delete<IHeadDataType[]>(
+      '/api/findDuo/delete',
+      {
+        data: {
+          id,
+        },
+      }
+    );
+    console.log('status', status);
+    console.log('data', data);
   }); // delete my content
   return (
     <Content key={id}>
@@ -129,7 +127,6 @@ function Contents({
       <ContentFooter>
         <ChatBtnBox>
           <ChatBtn onClick={moveToChatRoom}>채팅하기</ChatBtn>
-          <ChatBtn>AI 듀오매칭</ChatBtn>
         </ChatBtnBox>
       </ContentFooter>
     </Content>
