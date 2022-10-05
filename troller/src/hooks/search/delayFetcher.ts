@@ -8,8 +8,6 @@ const delay = (lolName: string, api: string) => {
           params: { lolName },
         });
         if (status === 200) {
-          // console.log(lolName, api, '=>delay fetch applied!');
-          // console.log(data);
           resolve(data);
         }
       } catch (e) {

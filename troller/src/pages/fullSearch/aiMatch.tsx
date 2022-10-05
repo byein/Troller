@@ -1,5 +1,8 @@
-// eslint-disable-next-line import/no-cycle
+/* eslint-disable import/no-cycle */
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Stat from '../../components/fullSearch/stats';
+import { useApi } from '../../hooks/axiosHooks';
 import { Container, Header, List } from '../../styles/fullSearch/aiMatch';
 
 export interface AiMatchType {
@@ -11,50 +14,22 @@ export interface AiMatchType {
   winRate: string;
 }
 
-const dummyData = [
-  {
-    id: 1,
-    lolName: '오정민',
-    trollPossibility: '123412',
-    tier: 'DIAMOND',
-    ranking: 'II',
-    winRate: '54%',
-  },
-  {
-    id: 2,
-    lolName: '김예빈',
-    trollPossibility: '123412',
-    tier: 'DIAMOND',
-    ranking: 'II',
-    winRate: '54%',
-  },
-  {
-    id: 3,
-    lolName: '김규민',
-    trollPossibility: '123412',
-    tier: 'DIAMOND',
-    ranking: 'II',
-    winRate: '54%',
-  },
-  {
-    id: 4,
-    lolName: '박인재',
-    trollPossibility: '123412',
-    tier: 'DIAMOND',
-    ranking: 'II',
-    winRate: '54%',
-  },
-  {
-    id: 5,
-    lolName: '남송휘',
-    trollPossibility: '123412',
-    tier: 'DIAMOND',
-    ranking: 'II',
-    winRate: '54%',
-  },
-];
-
 function AiMatch() {
+  const { userId } = useParams();
+  const [aiMatchData, setAiMatchData] = useState<AiMatchType[]>();
+  const a = 1;
+  useEffect(() => {
+    (async () => {
+      const { status, data } = await useApi.get('/api/search/user/cluster', {
+        params: {
+          lolName: userId,
+        },
+      });
+      if (status === 200) {
+        setAiMatchData(data);
+      }
+    })();
+  }, [a, userId]);
   return (
     <Container>
       <Header>
@@ -78,7 +53,7 @@ function AiMatch() {
             <span className="text">승률</span>
           </div>
         </div>
-        {dummyData.map(data => (
+        {aiMatchData?.map((data, index) => (
           <Stat key={data.id} data={data} />
         ))}
       </List>
