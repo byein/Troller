@@ -1,3 +1,4 @@
+import axios from 'axios';
 /* eslint-disable import/no-cycle */
 import { Outlet, useLocation, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -15,9 +16,10 @@ import {
 } from '../../styles/fullSearch/userInfo';
 import RecordList from '../../components/fullSearch/recordList';
 import delayFetcher from '../../hooks/search/delayFetcher';
+import { useApi } from '../../hooks/axiosHooks';
 
 interface UserInfoProps {
-  name: string;
+  lolName: string;
   icon: string;
   tier: string;
   winRate: string;
@@ -38,8 +40,10 @@ interface GameRecordProps {
     winRate: string;
     averageKill: string;
     win: string;
+    averageKillRate: string;
   };
   gameRecord: {
+    championLevel: string;
     averageTier: string;
     championName: string;
     championUI: string;
@@ -109,6 +113,8 @@ function FullSearch() {
   const { userId } = useParams();
   const [resultData, setResultData] = useState<ResultProps>();
 
+  const url = '';
+
   useEffect(() => {
     (async () => {
       if (userId) {
@@ -127,14 +133,14 @@ function FullSearch() {
       <UserSection>
         <FullSearchWrapper>
           <UserInfo
-            name={resultData?.info?.name}
+            name={resultData?.info?.lolName}
             icon={resultData?.info?.icon}
             tier={resultData?.info?.tier}
             winRate={resultData?.info?.winRate}
             win={resultData?.info?.win}
             lose={resultData?.info?.lose}
             level={resultData?.info?.level}
-            trollPossibility={resultData?.info?.trollPossibility}
+            // trollPossibility={resultData?.info?.trollPossibility}
             point={resultData?.info?.point}
             rank={resultData?.info?.rank}
           />

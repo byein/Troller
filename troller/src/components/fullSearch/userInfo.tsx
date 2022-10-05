@@ -3,6 +3,7 @@ import {
   ProfileImageWrapper,
   ProfileInfoWrapper,
   Records,
+  ReNewFullSearchBtnWrapper,
   Tier,
   TierImageWrapper,
   TierNickname,
@@ -19,6 +20,8 @@ import Diamond from '../../static/img/ranked-emblems/Emblem_Diamond.png';
 import Master from '../../static/img/ranked-emblems/Emblem_Master.png';
 import GrandMaster from '../../static/img/ranked-emblems/Emblem_Grandmaster.png';
 import Challenger from '../../static/img/ranked-emblems/Emblem_Challenger.png';
+import { ChatBtn } from '../../styles/findDuo/contents';
+import { useApi } from '../../hooks/axiosHooks';
 
 export interface UserInfoProps {
   name: string | undefined;
@@ -28,12 +31,12 @@ export interface UserInfoProps {
   win: string | undefined;
   lose: string | undefined;
   level: string | undefined;
-  trollPossibility: string | undefined;
+  // trollPossibility: string | undefined;
   point: string | undefined;
   rank: string | undefined;
 }
 
-export enum TierData {
+enum TierData {
   UNRANKED = 'UNRANKED',
   IRON = 'IRON',
   BRONZE = 'BRONZE',
@@ -110,7 +113,7 @@ function ProfileInfo({
   win,
   lose,
   level,
-  trollPossibility,
+  // trollPossibility,
   point,
   rank,
 }: UserInfoProps) {
@@ -120,6 +123,7 @@ function ProfileInfo({
         <TierImage tier={tier} />
         <UserNickName>{name}</UserNickName>
       </TierNickname>
+
       <Tier>
         {tier} {rank}
       </Tier>
@@ -127,7 +131,7 @@ function ProfileInfo({
         <div>
           <UserInfoDiv>Lv. {level}</UserInfoDiv>
           <UserInfoDiv>Win_Rate: {winRate}</UserInfoDiv>
-          <UserInfoDiv>Troll_possibility: {trollPossibility}</UserInfoDiv>
+          {/* <UserInfoDiv>Troll_possibility: {trollPossibility}</UserInfoDiv> */}
         </div>
         <div>
           <Record winRecord={win} loseRecord={lose} />
@@ -145,10 +149,17 @@ function UserInfo({
   win,
   lose,
   level,
-  trollPossibility,
+  // trollPossibility,
   point,
   rank,
 }: UserInfoProps) {
+  const renewFullSearch = async () => {
+    const data = await useApi.get('/api/search/user/update', {
+      params: { lolName: name },
+    });
+    console.log('전적갱신', data);
+  };
+
   return (
     <UserInfoWrapper>
       <ProfileImage profileImg={icon} />
@@ -160,10 +171,20 @@ function UserInfo({
         win={win}
         lose={lose}
         level={level}
-        trollPossibility={trollPossibility}
+        // trollPossibility={trollPossibility}
         point={point}
         rank={rank}
       />
+      <ReNewFullSearchBtnWrapper>
+        <ChatBtn
+          onClick={() => {
+            renewFullSearch();
+            window.location.reload();
+          }}
+        >
+          전적갱신
+        </ChatBtn>
+      </ReNewFullSearchBtnWrapper>
     </UserInfoWrapper>
   );
 }

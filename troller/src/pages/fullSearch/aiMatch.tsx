@@ -1,7 +1,6 @@
 // eslint-disable-next-line import/no-cycle
 import Stat from '../../components/fullSearch/stats';
 import { Container, Header, List } from '../../styles/fullSearch/aiMatch';
-import { StatWrapper } from '../../styles/multiSearch/stats';
 
 export interface AiMatchType {
   id: number;
