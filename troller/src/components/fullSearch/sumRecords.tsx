@@ -44,6 +44,7 @@ interface KDAProps {
   kda: string | undefined;
   winRate: string | undefined;
   kill: string | undefined;
+  averageKillRate: string | undefined;
 }
 interface WinLoseKDAProps {
   kill: string | undefined;
@@ -54,6 +55,7 @@ interface WinLoseKDAProps {
   win: string | undefined;
   assist: string | undefined;
   death: string | undefined;
+  averageKillRate: string | undefined;
 }
 
 interface ChampionProps {
@@ -84,6 +86,7 @@ const UserInfo: React.FC<KDAProps> = ({
   assist,
   winRate,
   kda,
+  averageKillRate,
 }) => {
   return (
     <div>
@@ -91,7 +94,7 @@ const UserInfo: React.FC<KDAProps> = ({
         {kill}/{death}/{assist}
       </div>
       <AverageKDA>{kda}</AverageKDA>
-      <KillParticipation>킬 관여 00%</KillParticipation>
+      <KillParticipation>킬 관여 {averageKillRate}%</KillParticipation>
     </div>
   );
 };
@@ -148,7 +151,14 @@ function WinLoseChart({ winRate }: { winRate: string | undefined }) {
   );
 }
 
-const KDAPart: React.FC<KDAProps> = ({ winRate, death, assist, kda, kill }) => {
+const KDAPart: React.FC<KDAProps> = ({
+  winRate,
+  death,
+  assist,
+  kda,
+  kill,
+  averageKillRate,
+}) => {
   return (
     <KDAWrapper>
       <WinLoseChart winRate={winRate} />
@@ -158,6 +168,7 @@ const KDAPart: React.FC<KDAProps> = ({ winRate, death, assist, kda, kill }) => {
         kda={kda}
         winRate={winRate}
         kill={kill}
+        averageKillRate={averageKillRate}
       />
     </KDAWrapper>
   );
@@ -172,6 +183,7 @@ const Stats: React.FC<WinLoseKDAProps> = ({
   kill,
   kda,
   winRate,
+  averageKillRate,
 }) => {
   return (
     <StatsWrapper>
@@ -182,6 +194,7 @@ const Stats: React.FC<WinLoseKDAProps> = ({
         kda={kda}
         winRate={winRate}
         kill={kill}
+        averageKillRate={averageKillRate}
       />
     </StatsWrapper>
   );
@@ -266,7 +279,7 @@ const PositionInfo: React.FC<PositionProps> = ({
       <PositionInfoWrapper>
         <PositionName>{linePreference}</PositionName>
         <PositionProb>
-          {linePlayed}회<PositionWinProb>승률 00%</PositionWinProb>
+          {linePlayed}회{/* <PositionWinProb>승률 00%</PositionWinProb> */}
         </PositionProb>
       </PositionInfoWrapper>
     </PositionItemWrapper>
@@ -304,6 +317,9 @@ function SumRecord({ resultData }: { resultData: ResultProps | undefined }) {
         assist={resultData?.gameRecord?.latestTwentyRecords.averageAssist}
         death={resultData?.gameRecord?.latestTwentyRecords.averageDeath}
         lose={resultData?.gameRecord?.latestTwentyRecords.lose}
+        averageKillRate={
+          resultData?.gameRecord?.latestTwentyRecords.averageKillRate
+        }
       />
       <Bar />
       <Champion resultData={resultData} />
