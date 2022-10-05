@@ -31,7 +31,7 @@ export interface UserInfoProps {
   win: string | undefined;
   lose: string | undefined;
   level: string | undefined;
-  trollPossibility: string | undefined;
+  // trollPossibility: string | undefined;
   point: string | undefined;
   rank: string | undefined;
 }
@@ -113,7 +113,7 @@ function ProfileInfo({
   win,
   lose,
   level,
-  trollPossibility,
+  // trollPossibility,
   point,
   rank,
 }: UserInfoProps) {
@@ -131,7 +131,7 @@ function ProfileInfo({
         <div>
           <UserInfoDiv>Lv. {level}</UserInfoDiv>
           <UserInfoDiv>Win_Rate: {winRate}</UserInfoDiv>
-          <UserInfoDiv>Troll_possibility: {trollPossibility}</UserInfoDiv>
+          {/* <UserInfoDiv>Troll_possibility: {trollPossibility}</UserInfoDiv> */}
         </div>
         <div>
           <Record winRecord={win} loseRecord={lose} />
@@ -149,13 +149,15 @@ function UserInfo({
   win,
   lose,
   level,
-  trollPossibility,
+  // trollPossibility,
   point,
   rank,
 }: UserInfoProps) {
-  const url = '';
-  const renewFullSearch = () => {
-    useApi.post('/api/dataflow/record/update');
+  const renewFullSearch = async () => {
+    const data = await useApi.get('/api/search/user/update', {
+      params: { lolName: name },
+    });
+    console.log('전적갱신', data);
   };
 
   return (
@@ -169,13 +171,14 @@ function UserInfo({
         win={win}
         lose={lose}
         level={level}
-        trollPossibility={trollPossibility}
+        // trollPossibility={trollPossibility}
         point={point}
         rank={rank}
       />
       <ReNewFullSearchBtnWrapper>
         <ChatBtn
           onClick={() => {
+            renewFullSearch();
             window.location.reload();
           }}
         >
