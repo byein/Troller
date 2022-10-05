@@ -19,6 +19,7 @@ enum WINLOSE {
 }
 
 interface RecordProps {
+  championLevel: string;
   result: string;
   death: string;
   csPerMinutes: string;
@@ -57,6 +58,7 @@ interface RecordProps {
 }
 
 function RecordItem({
+  championLevel,
   assist,
   averageTier,
   championName,
@@ -110,7 +112,7 @@ function RecordItem({
                       alt={championName}
                       height="48"
                     />
-                    <span className="champion-level">00</span>
+                    <span className="champion-level">{championLevel}</span>
                   </div>
                 </div>
                 <div className="spells">
@@ -361,6 +363,7 @@ function RecordList({ resultData }: { resultData: ResultProps | undefined }) {
         {resultData !== undefined
           ? resultData.gameRecord?.gameRecord.map(item => (
               <RecordItem
+                championLevel={item.championLevel}
                 result={item.win === true ? WINLOSE.WIN : WINLOSE.LOSE}
                 death={item.death}
                 csPerMinutes={item.csPerMinutes}

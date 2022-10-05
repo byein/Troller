@@ -40,8 +40,10 @@ interface GameRecordProps {
     winRate: string;
     averageKill: string;
     win: string;
+    averageKillRate: string;
   };
   gameRecord: {
+    championLevel: string;
     averageTier: string;
     championName: string;
     championUI: string;
@@ -138,7 +140,7 @@ function FullSearch() {
             win={resultData?.info?.win}
             lose={resultData?.info?.lose}
             level={resultData?.info?.level}
-            trollPossibility={resultData?.info?.trollPossibility}
+            // trollPossibility={resultData?.info?.trollPossibility}
             point={resultData?.info?.point}
             rank={resultData?.info?.rank}
           />
