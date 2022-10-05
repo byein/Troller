@@ -6,11 +6,11 @@ function GraphTab({ pathname }: { pathname: string }) {
     <GraphTabWrapper pathname={pathname}>
       <div>
         <ul>
-          <ProfileTab isActive={pathname.includes('/kda')}>
-            <Link to="kda">KDA</Link>
+          <ProfileTab isActive={pathname.includes('/troll_possibility')}>
+            <Link to="troll_possibility">나의 트롤확률</Link>
           </ProfileTab>
-          <ProfileTab isActive={pathname.includes('/tier_ability')}>
-            <Link to="tier_ability">Tier-Ability</Link>
+          <ProfileTab isActive={pathname.includes('/ai_match')}>
+            <Link to="ai_match">AI 듀오매칭</Link>
           </ProfileTab>
         </ul>
       </div>

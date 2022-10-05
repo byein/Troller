@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/function-component-definition */
 /* eslint-disable import/no-cycle */
-import React, { useState } from 'react';
+import React from 'react';
 import { Pie } from '@nivo/pie';
 import { ResultProps } from '../../pages/fullSearch/fullSearch';
 import {

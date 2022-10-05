@@ -1,5 +1,4 @@
-import axios from 'axios';
-import React, { Component, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
 import { useParams } from 'react-router-dom';
 import { useApi } from '../../hooks/axiosHooks';
@@ -11,7 +10,6 @@ import { ResultProps } from './fullSearch';
 function KDA() {
   const { userId } = useParams();
   const [resultData, setResultData] = useState<ResultProps>();
-
   useEffect(() => {
     (async () => {
       if (userId) {
@@ -37,7 +35,6 @@ function KDA() {
     grandMasterAvgTroll: '',
     challengerAvgTroll: '',
   });
-
   const trollAvgData = {
     options: {
       chart: {
