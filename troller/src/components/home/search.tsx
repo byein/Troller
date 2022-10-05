@@ -21,7 +21,7 @@ function Search() {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     const newQuery = Object.freeze({ text: query.text });
     const encodeUri = encodeURI(newQuery.text);
-    const uri = `/${encodeUri}/kda`;
+    const uri = `/${encodeUri}/troll_possibility`;
     nav(uri);
   };
   return (

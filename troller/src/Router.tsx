@@ -10,11 +10,11 @@ import Login from './pages/sign/signin';
 import Signup from './pages/sign/signup';
 import NormalRank from './pages/rank/normalRank';
 import TrollRank from './pages/rank/trollRank';
-import TierAbility from './pages/fullSearch/tierAbility';
 import MyPage from './pages/mypage/mypage';
 import { Auth } from './components/sign/anotherLogin';
 import ChatBox from './pages/liveChat/chatBox';
 import LiveChat from './components/liveChat/liveChat';
+import AiMatch from './pages/fullSearch/aiMatch';
 
 export default function Router() {
   return (
@@ -33,8 +33,8 @@ export default function Router() {
           <Route path="sign_up" element={<Signup />} />
           <Route path="forgot_pw" element={<ForgotPw />} />
           <Route path=":userId" element={<FullSearch />}>
-            <Route path="kda" element={<KDA />} />
-            <Route path="tier_ability" element={<TierAbility />} />
+            <Route path="troll_possibility" element={<KDA />} />
+            <Route path="ai_match" element={<AiMatch />} />
           </Route>
           <Route path="sub/chat/room" element={<ChatBox />}>
             <Route path=":opponentLolName/:chatRoomId" element={<LiveChat />} />
