@@ -95,51 +95,102 @@ const StatWrapper = styled('div')`
   border: 1px solid white;
   color: white;
   .rank {
-    aspect-ratio: 1 / 1;
+    width: 16%;
     height: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+    margin: 0 0 0 10px;
   }
   .name {
-    width: auto;
+    width: 16%;
     height: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    .text {
-      padding: 0 20px;
-    }
   }
   .tier {
-    width: auto;
+    width: 16%;
     height: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    .text {
-      padding: 0 20px;
-    }
   }
   .ranking {
-    width: auto;
+    width: 16%;
     height: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    .text {
-      padding: 0 20px;
-    }
   }
-  .winrate {
-    width: auto;
+  .winRate {
+    width: 16%;
     height: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    .text {
-      padding: 0 20px;
-    }
+  }
+  .trollPossibility {
+    width: 16%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
   }
 `;
-export { Container, Header, List, StatWrapper };
+
+const StatHeader = styled('div')`
+  width: 80%;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 10px 0;
+  border-radius: 10px;
+  border: 1px solid white;
+  color: white;
+  .rank {
+    width: 16%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0 0 0 10px;
+  }
+  .name {
+    width: 16%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .tier {
+    width: 16%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .ranking {
+    width: 16%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .winRate {
+    width: 16%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .trollPossibility {
+    width: 16%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+`;
+export { Container, Header, List, StatWrapper, StatHeader };

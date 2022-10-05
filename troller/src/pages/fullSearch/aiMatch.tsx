@@ -3,15 +3,19 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Stat from '../../components/fullSearch/stats';
 import { useApi } from '../../hooks/axiosHooks';
-import { Container, Header, List } from '../../styles/fullSearch/aiMatch';
+import {
+  Container,
+  Header,
+  List,
+  StatHeader,
+} from '../../styles/fullSearch/aiMatch';
 
 export interface AiMatchType {
-  id: number;
   lolName: string;
   trollPossibility: string;
   tier: string;
-  ranking: string;
   winRate: string;
+  ranking: string;
 }
 
 function AiMatch() {
@@ -36,7 +40,7 @@ function AiMatch() {
         <span className="title">AI 듀오매칭 TOP 5</span>
       </Header>
       <List>
-        <div className="header">
+        <StatHeader>
           <div className="rank">
             <span>순위</span>
           </div>
@@ -49,12 +53,15 @@ function AiMatch() {
           <div className="ranking">
             <span className="text">랭크</span>
           </div>
-          <div className="winrate">
+          <div className="winRate">
             <span className="text">승률</span>
           </div>
-        </div>
+          <div className="trollPossibility">
+            <span className="text">트롤확률</span>
+          </div>
+        </StatHeader>
         {aiMatchData?.map((data, index) => (
-          <Stat key={data.id} data={data} />
+          <Stat key={data.winRate} data={data} index={index} />
         ))}
       </List>
     </Container>

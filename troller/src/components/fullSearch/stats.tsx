@@ -3,26 +3,31 @@ import { AiMatchType } from '../../pages/fullSearch/aiMatch';
 import { StatWrapper } from '../../styles/fullSearch/aiMatch';
 
 function Stat({
-  data: { id, lolName, trollPossibility, tier, ranking, winRate },
+  data: { lolName, trollPossibility, tier, winRate, ranking },
+  index,
 }: {
   data: AiMatchType;
+  index: number;
 }) {
   return (
     <StatWrapper>
       <div className="rank">
-        <span>{id}</span>
+        <span>{index}</span>
       </div>
       <div className="name">
-        <span className="text">{lolName}</span>
+        <span>{lolName}</span>
       </div>
       <div className="tier">
-        <span className="text">{tier}</span>
+        <span>{tier}</span>
       </div>
       <div className="ranking">
-        <span className="text">{ranking}</span>
+        <span>{ranking}</span>
       </div>
-      <div className="winrate">
-        <span className="text">{winRate}</span>
+      <div className="winRate">
+        <span>{winRate}</span>
+      </div>
+      <div className="trollPossibility">
+        <span>{parseFloat(trollPossibility).toFixed(3)}%</span>
       </div>
     </StatWrapper>
   );
