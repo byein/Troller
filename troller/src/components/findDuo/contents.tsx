@@ -44,7 +44,7 @@ function Contents({
     const {
       data: { chatRoomId, opponentLolName },
       status,
-    } = await useAccessApi.post(`/api/chat/room?opponent=${lolName}`);
+    } = await useAccessApi.post(`/api/chat/room?opponent=규 턴`);
     if (status === 200 || status === 201) {
       router(`/sub/chat/room/${opponentLolName}/${chatRoomId}`);
     }
