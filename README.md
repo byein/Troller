@@ -1,4 +1,4 @@
-# Troller
+# Hoxy... Troll?
 
 ### 팀 곽투룹
 4인 팀으로 BE 2, FE 2로 구성
